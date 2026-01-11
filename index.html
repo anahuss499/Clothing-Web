@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Believers - Modern Islamic Clothing & Streetwear</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <h1>THE BELIEVERS</h1>
+                    <p class="tagline">Faith & Street Culture</p>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#men">Men</a></li>
+                    <li><a href="#women">Women</a></li>
+                    <li><a href="#kids">Kids</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+                <div class="nav-icons">
+                    <button class="icon-btn" id="searchBtn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button class="icon-btn" id="savedBtn">
+                        <i class="fas fa-heart"></i>
+                        <span class="badge" id="savedCount">0</span>
+                    </button>
+                    <button class="icon-btn" id="cartBtn">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="badge" id="cartCount">0</span>
+                    </button>
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h2 class="hero-title">Modest Fashion, Bold Design</h2>
+            <p class="hero-subtitle">Where faith meets street culture</p>
+            <button class="cta-btn">Shop Now</button>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories">
+        <div class="container">
+            <h2 class="section-title">Shop By Category</h2>
+            <div class="category-grid">
+                <div class="category-card" data-category="men">
+                    <div class="category-image">
+                        <i class="fas fa-male"></i>
+                    </div>
+                    <h3>Men's Collection</h3>
+                    <p>Modern Islamic wear for men</p>
+                    <button class="btn-secondary" onclick="showCategory('men')">Explore</button>
+                </div>
+                <div class="category-card" data-category="women">
+                    <div class="category-image">
+                        <i class="fas fa-female"></i>
+                    </div>
+                    <h3>Women's Collection</h3>
+                    <p>Modest and elegant designs</p>
+                    <button class="btn-secondary" onclick="showCategory('women')">Explore</button>
+                </div>
+                <div class="category-card" data-category="kids">
+                    <div class="category-image">
+                        <i class="fas fa-child"></i>
+                    </div>
+                    <h3>Kids Collection</h3>
+                    <p>Stylish wear for children</p>
+                    <button class="btn-secondary" onclick="showCategory('kids')">Explore</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="products">
+        <div class="container">
+            <div class="products-header">
+                <h2 class="section-title">Featured Products</h2>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="men">Men</button>
+                    <button class="filter-btn" data-filter="women">Women</button>
+                    <button class="filter-btn" data-filter="kids">Kids</button>
+                </div>
+            </div>
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title">About The Believers</h2>
+            <div class="about-content">
+                <p>The Believers is a modern Islamic clothing and streetwear brand that celebrates faith and street culture. We blend modest fashion with bold, contemporary designs to create unique pieces for men, women, and children.</p>
+                <p>Our mission is to provide high-quality, stylish clothing that reflects both Islamic values and modern aesthetics.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>THE BELIEVERS</h3>
+                    <p>Modern Islamic clothing and streetwear</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Shop</h4>
+                    <ul>
+                        <li><a href="#men">Men</a></li>
+                        <li><a href="#women">Women</a></li>
+                        <li><a href="#kids">Kids</a></li>
+                        <li><a href="#new">New Arrivals</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Help</h4>
+                    <ul>
+                        <li><a href="#contact">Contact Us</a></li>
+                        <li><a href="#shipping">Shipping Info</a></li>
+                        <li><a href="#returns">Returns</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe for updates and exclusive offers</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="currentYear"></span> The Believers. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button class="close-btn" id="closeCartBtn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be dynamically loaded here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">$0.00</span>
+            </div>
+            <button class="checkout-btn" onclick="goToCheckout()">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Saved Items Sidebar -->
+    <div class="saved-sidebar" id="savedSidebar">
+        <div class="saved-header">
+            <h3>Saved Items</h3>
+            <button class="close-btn" id="closeSavedBtn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="saved-items" id="savedItems">
+            <!-- Saved items will be dynamically loaded here -->
+        </div>
+    </div>
+
+    <!-- Product Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <button class="close-btn" id="closeModalBtn">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-body" id="modalBody">
+                <!-- Product details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Modal -->
+    <div class="modal" id="searchModal">
+        <div class="modal-content search-modal-content">
+            <button class="close-btn" id="closeSearchBtn">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search products..." class="search-input">
+                <div class="search-results" id="searchResults"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
