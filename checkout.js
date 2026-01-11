@@ -11,6 +11,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     renderOrderSummary();
     initializeEventListeners();
+    
+    // Set current year in footer
+    const yearElement = document.getElementById('currentYear');
+    if (yearElement) {
+        yearElement.textContent = new Date().getFullYear();
+    }
 });
 
 // Event listeners
@@ -259,8 +265,7 @@ function showSuccessModal(orderNumber) {
 
 // Send confirmation email (simulated)
 function sendConfirmationEmail(orderNumber) {
-    console.log(`Confirmation email sent for order ${orderNumber}`);
-    // In a real application, this would trigger a backend API call
+    // In a real application, this would trigger a backend API call to send email
 }
 
 // Show notification

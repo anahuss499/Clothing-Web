@@ -133,6 +133,9 @@ document.addEventListener('DOMContentLoaded', function() {
     updateCartCount();
     updateSavedCount();
     initializeEventListeners();
+    
+    // Set current year in footer
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
 });
 
 // Event listeners
