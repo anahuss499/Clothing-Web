@@ -13,19 +13,19 @@
         <div class="container">
             <nav class="navbar">
                 <div class="logo">
-                    <h1>THE BELIEVERS</h1>
+                    <img class="site-logo" src="images/real-removebg-preview (1).png" alt="The Believers Logo">
                     <p class="tagline">Faith & Street Culture</p>
                 </div>
                 <ul class="nav-links">
                     <li><a href="#home" class="active">Home</a></li>
-                    <li><a href="#men">Men</a></li>
-                    <li><a href="#women">Women</a></li>
-                    <li><a href="#kids">Kids</a></li>
+                    <li><a href="#men" onclick="showCategory('men')">Men</a></li>
+                    <li><a href="#women" onclick="showCategory('women')">Women</a></li>
+                    <li><a href="#kids" onclick="showCategory('kids')">Kids</a></li>
                     <li><a href="#about">About</a></li>
                 </ul>
                 <div class="nav-icons">
-                    <button class="icon-btn" id="searchBtn">
-                        <i class="fas fa-search"></i>
+                    <button class="icon-btn" id="loginBtn" onclick="window.location.href='login.html'" title="Login">
+                        <i class="fas fa-user"></i>
                     </button>
                     <button class="icon-btn" id="savedBtn">
                         <i class="fas fa-heart"></i>
@@ -43,12 +43,30 @@
         </div>
     </header>
 
+    <!-- Side Navbar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <img class="site-logo" src="images/real-removebg-preview (1).png" alt="The Believers Logo">
+            <button class="close-btn" id="closeSidebarBtn" aria-label="Close Navigation">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#home" class="sidebar-link"><i class="fas fa-home"></i><span>Home</span></a>
+            <a href="#men" class="sidebar-link" onclick="showCategory('men')"><i class="fas fa-male"></i><span>Men</span></a>
+            <a href="#women" class="sidebar-link" onclick="showCategory('women')"><i class="fas fa-female"></i><span>Women</span></a>
+            <a href="#kids" class="sidebar-link" onclick="showCategory('kids')"><i class="fas fa-child"></i><span>Kids</span></a>
+            <a href="#about" class="sidebar-link"><i class="fas fa-info-circle"></i><span>About</span></a>
+            <a href="checkout.html" class="sidebar-link"><i class="fas fa-credit-card"></i><span>Checkout</span></a>
+        </nav>
+    </aside>
+
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-content">
             <h2 class="hero-title">Modest Fashion, Bold Design</h2>
             <p class="hero-subtitle">Where faith meets street culture</p>
-            <button class="cta-btn">Shop Now</button>
+            <button class="cta-btn" onclick="document.getElementById('products').scrollIntoView({ behavior: 'smooth' })">Shop Now</button>
         </div>
     </section>
 
@@ -85,6 +103,36 @@
         </div>
     </section>
 
+    <!-- Category Section (Men/Women/Kids Dedicated Page) -->
+    <section class="category-section hidden" id="categorySection">
+        <!-- Category Logo/Hero Section -->
+        <div class="category-logo-section" id="categoryLogoSection">
+            <div class="category-logo-content">
+                <button class="back-btn" onclick="backToHome()">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+                <div class="category-logo-main">
+                    <div class="category-icon" id="categoryIcon">
+                        <img class="category-logo-image" src="images/real-removebg-preview (1).png" alt="The Believers Logo">
+                    </div>
+                    <div class="category-logo-text">
+                        <h1 class="category-logo-title" id="categoryLogoTitle">Men's Collection</h1>
+                        <p class="category-logo-subtitle" id="categoryLogoSubtitle">Modern Islamic wear for men</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="category-section-header">
+                <h2 class="section-title" id="categorySectionTitle">Men's Collection</h2>
+            </div>
+
+            <!-- Dynamic subsections will be loaded here -->
+            <div id="categorySubsections"></div>
+        </div>
+    </section>
+
     <!-- Products Section -->
     <section class="products" id="products">
         <div class="container">
@@ -99,6 +147,38 @@
             </div>
             <div class="products-grid" id="productsGrid">
                 <!-- Products will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Streetwear Collection Section -->
+    <section class="streetwear-section" id="streetwearSection">
+        <div class="container">
+            <h2 class="section-title">Streetwear Collection</h2>
+            <p class="section-subtitle">Bold designs that blend faith and street culture</p>
+
+            <!-- Men's Streetwear -->
+            <div class="subsection">
+                <div class="subsection-header">
+                    <h3 class="subsection-title">
+                        <i class="fas fa-male"></i> Men's Streetwear
+                    </h3>
+                </div>
+                <div class="products-grid" id="menStreetGrid">
+                    <!-- Men's streetwear products will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Women's Streetwear -->
+            <div class="subsection">
+                <div class="subsection-header">
+                    <h3 class="subsection-title">
+                        <i class="fas fa-female"></i> Women's Streetwear
+                    </h3>
+                </div>
+                <div class="products-grid" id="womenStreetGrid">
+                    <!-- Women's streetwear products will be loaded here -->
+                </div>
             </div>
         </div>
     </section>
@@ -119,44 +199,46 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
-                    <h3>THE BELIEVERS</h3>
-                    <p>Modern Islamic clothing and streetwear</p>
+                    <h3>The Believers</h3>
+                    <p>Modern Islamic clothing and streetwear blending faith with contemporary style.</p>
                     <div class="social-links">
                         <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
                         <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
                         <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
                     </div>
                 </div>
                 <div class="footer-col">
                     <h4>Shop</h4>
                     <ul>
-                        <li><a href="#men">Men</a></li>
-                        <li><a href="#women">Women</a></li>
-                        <li><a href="#kids">Kids</a></li>
-                        <li><a href="#new">New Arrivals</a></li>
+                        <li><a href="#" onclick="showCategory('men'); return false;">Men's Collection</a></li>
+                        <li><a href="#" onclick="showCategory('women'); return false;">Women's Collection</a></li>
+                        <li><a href="#" onclick="showCategory('kids'); return false;">Kids Collection</a></li>
+                        <li><a href="#products">New Arrivals</a></li>
+                        <li><a href="#about">About Us</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <h4>Help</h4>
+                    <h4>Support</h4>
                     <ul>
-                        <li><a href="#contact">Contact Us</a></li>
-                        <li><a href="#shipping">Shipping Info</a></li>
-                        <li><a href="#returns">Returns</a></li>
-                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Shipping Info</a></li>
+                        <li><a href="#">Returns & Exchanges</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">FAQ</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h4>Newsletter</h4>
-                    <p>Subscribe for updates and exclusive offers</p>
-                    <form class="newsletter-form">
-                        <input type="email" placeholder="Your email" required>
+                    <p>Subscribe to get special offers and updates delivered to your inbox.</p>
+                    <form class="newsletter-form" onsubmit="return false;">
+                        <input type="email" placeholder="Enter your email" required>
                         <button type="submit">Subscribe</button>
                     </form>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; <span id="currentYear"></span> The Believers. All rights reserved.</p>
+                <p>&copy; <span id="currentYear"></span> The Believers. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
             </div>
         </div>
     </footer>
@@ -202,19 +284,6 @@
             </button>
             <div class="modal-body" id="modalBody">
                 <!-- Product details will be loaded here -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Search Modal -->
-    <div class="modal" id="searchModal">
-        <div class="modal-content search-modal-content">
-            <button class="close-btn" id="closeSearchBtn">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Search products..." class="search-input">
-                <div class="search-results" id="searchResults"></div>
             </div>
         </div>
     </div>

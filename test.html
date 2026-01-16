@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head><title>Test</title></head>
+<body>
+<h1>Testing products array</h1>
+<div id="output"></div>
+<script>
+// Copy products array here for testing
+fetch('script.js')
+  .then(r => r.text())
+  .then(code => {
+    eval(code);
+    document.getElementById('output').innerHTML = 
+      `<p>Total products: ${products.length}</p>
+       <p>Men products: ${products.filter(p => p.category === 'men').length}</p>
+       <p>Women products: ${products.filter(p => p.category === 'women').length}</p>
+       <p>Kids products: ${products.filter(p => p.category === 'kids').length}</p>
+       <hr>
+       <p>Men thobes: ${products.filter(p => p.category === 'men' && p.subtype === 'thobe').length}</p>
+       <p>Women abayas: ${products.filter(p => p.category === 'women' && p.subtype === 'abaya').length}</p>
+       <p>Women hijabs: ${products.filter(p => p.category === 'women' && p.subtype === 'hijab').length}</p>`;
+  });
+</script>
+</body>
+</html>

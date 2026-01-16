@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Verify Functions</title>
+    <script src="script.js"></script>
+</head>
+<body>
+    <h1>Testing JavaScript Functions</h1>
+    <button onclick="alert('Products count: ' + products.length)">Test Products Array</button>
+    <button onclick="alert('showCategory is: ' + typeof showCategory)">Test showCategory Function</button>
+    <div id="output"></div>
+    <script>
+        document.getElementById('output').innerHTML = 
+            '<p>Products loaded: ' + (typeof products !== 'undefined' ? products.length : 'NOT LOADED') + '</p>' +
+            '<p>showCategory function: ' + (typeof showCategory !== 'undefined' ? 'EXISTS' : 'NOT FOUND') + '</p>';
+    </script>
+</body>
+</html>

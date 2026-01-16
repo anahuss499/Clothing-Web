@@ -1,9 +1,27 @@
+// User Authentication Management
+function checkUserLogin() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    const loginBtn = document.getElementById('loginBtn');
+    
+    if (isLoggedIn === 'true') {
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user && loginBtn) {
+            // Change icon to indicate logged-in state
+            loginBtn.innerHTML = '<i class="fas fa-user-circle"></i>';
+            loginBtn.title = `Logged in as ${user.name}`;
+            loginBtn.style.color = 'var(--primary-gold)';
+        }
+    }
+}
+
 // Sample product data
 const products = [
     {
         id: 1,
         name: 'Classic Thobe',
         category: 'men',
+        type: 'islamic',
+        subtype: 'thobe',
         price: 79.99,
         rating: 4.5,
         reviews: 28,
@@ -12,8 +30,34 @@ const products = [
     },
     {
         id: 2,
+        name: 'White Emirati Thobe',
+        category: 'men',
+        type: 'islamic',
+        subtype: 'thobe',
+        price: 89.99,
+        rating: 4.7,
+        reviews: 35,
+        description: 'Traditional Emirati-style thobe in pristine white. Elegant and comfortable.',
+        icon: '🕌'
+    },
+    {
+        id: 3,
+        name: 'Black Saudi Thobe',
+        category: 'men',
+        type: 'islamic',
+        subtype: 'thobe',
+        price: 85.99,
+        rating: 4.6,
+        reviews: 42,
+        description: 'Classic Saudi-style thobe in sophisticated black. Perfect for any occasion.',
+        icon: '🕌'
+    },
+    {
+        id: 4,
         name: 'Street Hoodie',
         category: 'men',
+        type: 'streetwear',
+        subtype: 'hoodie',
         price: 59.99,
         rating: 4.8,
         reviews: 42,
@@ -21,9 +65,23 @@ const products = [
         icon: '👕'
     },
     {
-        id: 3,
+        id: 5,
+        name: 'Urban Faith Jacket',
+        category: 'men',
+        type: 'streetwear',
+        subtype: 'jacket',
+        price: 79.99,
+        rating: 4.9,
+        reviews: 38,
+        description: 'Modern streetwear jacket with subtle Islamic design elements.',
+        icon: '🧥'
+    },
+    {
+        id: 6,
         name: 'Modest Abaya',
         category: 'women',
+        type: 'islamic',
+        subtype: 'abaya',
         price: 89.99,
         rating: 4.7,
         reviews: 35,
@@ -31,9 +89,35 @@ const products = [
         icon: '👗'
     },
     {
-        id: 4,
-        name: 'Hijab Collection',
+        id: 7,
+        name: 'Classic Black Abaya',
         category: 'women',
+        type: 'islamic',
+        subtype: 'abaya',
+        price: 79.99,
+        rating: 4.8,
+        reviews: 51,
+        description: 'Timeless black abaya with elegant draping. Perfect for daily wear.',
+        icon: '👗'
+    },
+    {
+        id: 8,
+        name: 'Designer Embroidered Abaya',
+        category: 'women',
+        type: 'islamic',
+        subtype: 'abaya',
+        price: 129.99,
+        rating: 4.9,
+        reviews: 29,
+        description: 'Luxurious abaya with intricate embroidery. Makes a statement.',
+        icon: '👗'
+    },
+    {
+        id: 9,
+        name: 'Hijab Collection Set',
+        category: 'women',
+        type: 'islamic',
+        subtype: 'hijab',
         price: 24.99,
         rating: 4.6,
         reviews: 56,
@@ -41,9 +125,59 @@ const products = [
         icon: '🧕'
     },
     {
-        id: 5,
+        id: 10,
+        name: 'Chiffon Hijab Pack',
+        category: 'women',
+        type: 'islamic',
+        subtype: 'hijab',
+        price: 34.99,
+        rating: 4.7,
+        reviews: 48,
+        description: 'Set of 5 chiffon hijabs in versatile colors. Lightweight and elegant.',
+        icon: '🧕'
+    },
+    {
+        id: 11,
+        name: 'Jersey Hijab Collection',
+        category: 'women',
+        type: 'islamic',
+        subtype: 'hijab',
+        price: 29.99,
+        rating: 4.8,
+        reviews: 62,
+        description: 'Comfortable jersey hijabs that stay in place. Perfect for everyday wear.',
+        icon: '🧕'
+    },
+    {
+        id: 12,
+        name: 'Women\'s Streetwear Hoodie',
+        category: 'women',
+        type: 'streetwear',
+        subtype: 'hoodie',
+        price: 54.99,
+        rating: 4.7,
+        reviews: 33,
+        description: 'Modest streetwear hoodie with faith-inspired graphics. Stylish and comfortable.',
+        icon: '👕'
+    },
+    {
+        id: 13,
+        name: 'Urban Modest Set',
+        category: 'women',
+        type: 'streetwear',
+        subtype: 'set',
+        price: 69.99,
+        rating: 4.8,
+        reviews: 27,
+        description: 'Coordinated streetwear set combining modesty with urban style.',
+        icon: '👖'
+    },
+    {
+        id: 14,
         name: 'Kids Kurta Set',
         category: 'kids',
+        type: 'islamic',
+        subtype: 'other',
         price: 39.99,
         rating: 4.9,
         reviews: 31,
@@ -51,9 +185,35 @@ const products = [
         icon: '👶'
     },
     {
-        id: 6,
+        id: 15,
+        name: 'Boys Mini Thobe',
+        category: 'kids',
+        type: 'islamic',
+        subtype: 'thobe',
+        price: 45.99,
+        rating: 4.8,
+        reviews: 44,
+        description: 'Adorable mini thobe for young boys. Comfortable and stylish.',
+        icon: '🕌'
+    },
+    {
+        id: 16,
+        name: 'Kids White Thobe',
+        category: 'kids',
+        type: 'islamic',
+        subtype: 'thobe',
+        price: 42.99,
+        rating: 4.7,
+        reviews: 38,
+        description: 'Classic white thobe for children. Perfect for special occasions.',
+        icon: '🕌'
+    },
+    {
+        id: 17,
         name: 'Kids Streetwear Tee',
         category: 'kids',
+        type: 'streetwear',
+        subtype: 'tshirt',
         price: 19.99,
         rating: 4.5,
         reviews: 24,
@@ -61,9 +221,11 @@ const products = [
         icon: '👕'
     },
     {
-        id: 7,
+        id: 18,
         name: 'Prayer Mat Set',
         category: 'men',
+        type: 'islamic',
+        subtype: 'accessories',
         price: 34.99,
         rating: 4.8,
         reviews: 67,
@@ -71,9 +233,11 @@ const products = [
         icon: '🕋'
     },
     {
-        id: 8,
+        id: 19,
         name: 'Designer Jilbab',
         category: 'women',
+        type: 'islamic',
+        subtype: 'abaya',
         price: 99.99,
         rating: 4.9,
         reviews: 43,
@@ -81,9 +245,11 @@ const products = [
         icon: '👗'
     },
     {
-        id: 9,
+        id: 20,
         name: 'Athletic Tracksuit',
         category: 'men',
+        type: 'streetwear',
+        subtype: 'tracksuit',
         price: 69.99,
         rating: 4.6,
         reviews: 38,
@@ -91,9 +257,11 @@ const products = [
         icon: '👔'
     },
     {
-        id: 10,
+        id: 21,
         name: 'Girls Dress Set',
         category: 'kids',
+        type: 'islamic',
+        subtype: 'dress',
         price: 44.99,
         rating: 4.7,
         reviews: 29,
@@ -101,9 +269,11 @@ const products = [
         icon: '👗'
     },
     {
-        id: 11,
+        id: 22,
         name: 'Sports Hijab',
         category: 'women',
+        type: 'islamic',
+        subtype: 'hijab',
         price: 29.99,
         rating: 4.8,
         reviews: 52,
@@ -111,9 +281,11 @@ const products = [
         icon: '🧕'
     },
     {
-        id: 12,
+        id: 23,
         name: 'Jubba Jacket',
         category: 'men',
+        type: 'islamic',
+        subtype: 'thobe',
         price: 89.99,
         rating: 4.7,
         reviews: 33,
@@ -129,7 +301,9 @@ let currentFilter = 'all';
 
 // Initialize
 document.addEventListener('DOMContentLoaded', function() {
+    checkUserLogin(); // Check if user is logged in
     renderProducts();
+    renderStreetWearSection();
     updateCartCount();
     updateSavedCount();
     initializeEventListeners();
@@ -148,13 +322,6 @@ function initializeEventListeners() {
     document.getElementById('savedBtn').addEventListener('click', toggleSaved);
     document.getElementById('closeSavedBtn').addEventListener('click', toggleSaved);
 
-    // Search button
-    document.getElementById('searchBtn').addEventListener('click', toggleSearch);
-    document.getElementById('closeSearchBtn').addEventListener('click', toggleSearch);
-
-    // Search input
-    document.getElementById('searchInput').addEventListener('input', handleSearch);
-
     // Modal close
     document.getElementById('closeModalBtn').addEventListener('click', closeModal);
     document.getElementById('overlay').addEventListener('click', closeAllSidebars);
@@ -169,8 +336,11 @@ function initializeEventListeners() {
         });
     });
 
-    // Mobile menu
-    document.getElementById('mobileMenuBtn').addEventListener('click', toggleMobileMenu);
+    // Sidebar toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', () => toggleSidebar());
+    const closeSidebarBtn = document.getElementById('closeSidebarBtn');
+    if (closeSidebarBtn) closeSidebarBtn.addEventListener('click', () => toggleSidebar(false));
 
     // Newsletter form
     document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
@@ -229,6 +399,85 @@ function renderProducts() {
     `).join('');
 }
 
+// Render streetwear section
+function renderStreetWearSection() {
+    // Get streetwear products separated by gender
+    const menStreetWear = products.filter(p => p.category === 'men' && p.type === 'streetwear');
+    const womenStreetWear = products.filter(p => p.category === 'women' && p.type === 'streetwear');
+    
+    // Render men's streetwear
+    const menStreetGrid = document.getElementById('menStreetGrid');
+    if (menStreetWear.length > 0) {
+        menStreetGrid.innerHTML = menStreetWear.map(product => `
+            <div class="product-card" data-id="${product.id}">
+                <div class="product-image">
+                    ${product.icon}
+                    <div class="product-actions">
+                        <button class="action-btn save-btn ${isSaved(product.id) ? 'saved' : ''}" 
+                                onclick="toggleSaveItem(${product.id}); event.stopPropagation();">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                        <button class="action-btn quick-view-btn" 
+                                onclick="showProductDetail(${product.id}); event.stopPropagation();">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">${product.category}</div>
+                    <h3 class="product-name">${product.name}</h3>
+                    <div class="product-rating">
+                        ${'★'.repeat(Math.floor(product.rating))}${'☆'.repeat(5 - Math.floor(product.rating))}
+                        (${product.reviews})
+                    </div>
+                    <div class="product-price">$${product.price.toFixed(2)}</div>
+                    <button class="add-to-cart-btn" onclick="addToCart(${product.id}); event.stopPropagation();">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+        `).join('');
+    } else {
+        menStreetGrid.innerHTML = '<p class="empty-message">No men\'s streetwear available</p>';
+    }
+    
+    // Render women's streetwear
+    const womenStreetGrid = document.getElementById('womenStreetGrid');
+    if (womenStreetWear.length > 0) {
+        womenStreetGrid.innerHTML = womenStreetWear.map(product => `
+            <div class="product-card" data-id="${product.id}">
+                <div class="product-image">
+                    ${product.icon}
+                    <div class="product-actions">
+                        <button class="action-btn save-btn ${isSaved(product.id) ? 'saved' : ''}" 
+                                onclick="toggleSaveItem(${product.id}); event.stopPropagation();">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                        <button class="action-btn quick-view-btn" 
+                                onclick="showProductDetail(${product.id}); event.stopPropagation();">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">${product.category}</div>
+                    <h3 class="product-name">${product.name}</h3>
+                    <div class="product-rating">
+                        ${'★'.repeat(Math.floor(product.rating))}${'☆'.repeat(5 - Math.floor(product.rating))}
+                        (${product.reviews})
+                    </div>
+                    <div class="product-price">$${product.price.toFixed(2)}</div>
+                    <button class="add-to-cart-btn" onclick="addToCart(${product.id}); event.stopPropagation();">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+        `).join('');
+    } else {
+        womenStreetGrid.innerHTML = '<p class="empty-message">No women\'s streetwear available</p>';
+    }
+}
+
 // Show product detail
 function showProductDetail(productId) {
     const product = products.find(p => p.id === productId);
@@ -283,9 +532,8 @@ function showProductDetail(productId) {
 // Generate reviews
 function generateReviews(product) {
     const reviewsData = [
-        { author: 'Ahmed K.', rating: 5, text: 'Excellent quality and great fit! Highly recommend.' },
-        { author: 'Fatima M.', rating: 4, text: 'Beautiful design and comfortable to wear all day.' },
-        { author: 'Omar S.', rating: 5, text: 'Perfect blend of modesty and style. Love it!' }
+        { author: 'Omar S.', rating: 5, text: 'Perfect blend of modesty and style. Love it!' },
+        { author: 'Aisha R.', rating: 4, text: 'Comfortable and elegant. Highly recommend.' }
     ];
 
     return reviewsData.map(review => `
@@ -317,12 +565,33 @@ function addToCart(productId) {
         cart.push({ ...product, quantity: 1 });
     }
 
+    // Close sidebar if open
+    const sidebarEl = document.getElementById('sidebar');
+    if (sidebarEl) sidebarEl.classList.remove('open');
+    document.body.classList.remove('sidebar-open');
+
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCartCount();
     renderCart();
-    
-    // Show notification
     showNotification('Added to cart!');
+}
+
+// Toggle sidebar
+function toggleSidebar(force) {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    const body = document.body;
+
+    let open;
+    if (typeof force === 'boolean') {
+        open = force;
+    } else {
+        open = !sidebar.classList.contains('open');
+    }
+
+    sidebar.classList.toggle('open', open);
+    overlay.classList.toggle('active', open);
+    body.classList.toggle('sidebar-open', open);
 }
 
 // Remove from cart
@@ -514,14 +783,131 @@ function handleSearch(e) {
     `).join('');
 }
 
-// Show category
+// Show category with dedicated section
 function showCategory(category) {
-    currentFilter = category;
+    // Hide main sections
+    document.getElementById('products').classList.add('hidden');
+    document.getElementById('about').classList.add('hidden');
+    document.getElementById('categorySection').classList.remove('hidden');
+    
+    // Set category information
+    const categoryInfo = {
+        'men': {
+            title: "Men's Collection",
+            subtitle: "Modern Islamic wear for men",
+            icon: 'fa-male',
+            subsections: [
+                { name: 'Thobes', icon: 'fa-mosque', subtype: 'thobe' },
+                { name: 'Streetwear', icon: 'fa-hat-cowboy', type: 'streetwear' }
+            ]
+        },
+        'women': {
+            title: "Women's Collection",
+            subtitle: "Modest and elegant designs",
+            icon: 'fa-female',
+            subsections: [
+                { name: 'Abayas', icon: 'fa-female', subtype: 'abaya' },
+                { name: 'Hijabs', icon: 'fa-head-side-mask', subtype: 'hijab' },
+                { name: 'Streetwear', icon: 'fa-hat-cowboy', type: 'streetwear' }
+            ]
+        },
+        'kids': {
+            title: "Kids Collection",
+            subtitle: "Stylish wear for children",
+            icon: 'fa-child',
+            subsections: [
+                { name: 'Thobes', icon: 'fa-mosque', subtype: 'thobe' },
+                { name: 'Islamic Wear', icon: 'fa-star-and-crescent', type: 'islamic', excludeSubtype: 'thobe' }
+            ]
+        }
+    };
+    
+    const info = categoryInfo[category];
+    
+    // Update logo section (use brand logo image)
+    document.getElementById('categorySectionTitle').textContent = info.title;
+    document.getElementById('categoryLogoTitle').textContent = info.title;
+    document.getElementById('categoryLogoSubtitle').textContent = info.subtitle;
+    document.getElementById('categoryIcon').innerHTML = `<img class="category-logo-image" src="images/real-removebg-preview (1).png" alt="The Believers Logo">`;
+    
+    // Render subsections dynamically
+    const subsectionsContainer = document.getElementById('categorySubsections');
+    subsectionsContainer.innerHTML = '';
+    
+    info.subsections.forEach(subsection => {
+        let filteredProducts;
+        
+        if (subsection.subtype) {
+            // Filter by subtype
+            filteredProducts = products.filter(p => 
+                p.category === category && p.subtype === subsection.subtype
+            );
+        } else if (subsection.type) {
+            // Filter by type
+            if (subsection.excludeSubtype) {
+                filteredProducts = products.filter(p => 
+                    p.category === category && 
+                    p.type === subsection.type && 
+                    p.subtype !== subsection.excludeSubtype
+                );
+            } else {
+                filteredProducts = products.filter(p => 
+                    p.category === category && p.type === subsection.type
+                );
+            }
+        }
+        
+        if (filteredProducts && filteredProducts.length > 0) {
+            const subsectionHTML = `
+                <div class="subsection">
+                    <div class="subsection-header">
+                        <h3 class="subsection-title">
+                            <i class="fas ${subsection.icon}"></i> ${subsection.name}
+                        </h3>
+                    </div>
+                    <div class="products-grid">
+                        ${filteredProducts.map(product => `
+                            <div class="product-card" onclick="showProductDetail(${product.id})">
+                                <div class="product-image">${product.icon}</div>
+                                <div class="product-info">
+                                    <h3>${product.name}</h3>
+                                    <div class="rating">
+                                        <span class="stars">${'⭐'.repeat(Math.round(product.rating))}</span>
+                                        <span class="rating-value">${product.rating}</span>
+                                    </div>
+                                    <p class="reviews">${product.reviews} reviews</p>
+                                    <p class="price">$${product.price.toFixed(2)}</p>
+                                    <button class="btn-secondary" onclick="event.stopPropagation(); addToCart(${product.id})">Add to Cart</button>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            subsectionsContainer.innerHTML += subsectionHTML;
+        }
+    });
+    
+    // Scroll to category section
+    document.getElementById('categorySection').scrollIntoView({ behavior: 'smooth' });
+}
+
+// Back to home from category section
+function backToHome() {
+    // Show products section and about
+    document.getElementById('products').classList.remove('hidden');
+    document.getElementById('about').classList.remove('hidden');
+    document.getElementById('categorySection').classList.add('hidden');
+    
+    // Reset filter to all
+    currentFilter = 'all';
     document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.filter === category);
+        btn.classList.toggle('active', btn.dataset.filter === 'all');
     });
     renderProducts();
-    document.querySelector('#products').scrollIntoView({ behavior: 'smooth' });
+    
+    // Scroll to products
+    document.querySelector('.categories').scrollIntoView({ behavior: 'smooth' });
 }
 
 // Close modal
@@ -537,6 +923,9 @@ function closeAllSidebars() {
     document.getElementById('productModal').classList.remove('open');
     document.getElementById('searchModal').classList.remove('open');
     document.getElementById('overlay').classList.remove('active');
+    const sidebar = document.getElementById('sidebar');
+    if (sidebar) sidebar.classList.remove('open');
+    document.body.classList.remove('sidebar-open');
 }
 
 // Toggle mobile menu
