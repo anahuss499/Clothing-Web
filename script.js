@@ -613,6 +613,100 @@ function initializeEventListeners() {
         });
     });
 
+    // Initialize Dropdown Menu Handlers
+    const navDropdowns = document.querySelectorAll('.nav-dropdown');
+    let mobileDropdownOpen = null;
+    
+    function positionDropdown(dropdown) {
+        const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+        const mainLink = dropdown.querySelector('a:first-child');
+        
+        if (mainLink && dropdownMenu) {
+            const rect = mainLink.getBoundingClientRect();
+            dropdownMenu.style.top = (rect.bottom + 5) + 'px';
+            dropdownMenu.style.left = rect.left + 'px';
+        }
+    }
+    
+    navDropdowns.forEach(dropdown => {
+        const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+        const mainLink = dropdown.querySelector('a:first-child');
+        
+        if (mainLink && dropdownMenu) {
+            // Position dropdown on initial load and on window resize
+            positionDropdown(dropdown);
+            
+            // Show dropdown on hover (desktop)
+            dropdown.addEventListener('mouseenter', function() {
+                positionDropdown(dropdown);
+                dropdownMenu.style.opacity = '1';
+                dropdownMenu.style.visibility = 'visible';
+                dropdownMenu.style.transform = 'translateY(0)';
+            });
+            
+            // Hide dropdown on mouse leave (desktop)
+            dropdown.addEventListener('mouseleave', function() {
+                dropdownMenu.style.opacity = '0';
+                dropdownMenu.style.visibility = 'hidden';
+                dropdownMenu.style.transform = 'translateY(-10px)';
+            });
+            
+            // Handle click on main link to toggle dropdown (mobile)
+            mainLink.addEventListener('click', function(e) {
+                const isVisible = dropdownMenu.style.visibility === 'visible';
+                
+                // On mobile/touch, toggle dropdown instead of navigating
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    positionDropdown(dropdown);
+                    
+                    // Close any other open dropdown
+                    if (mobileDropdownOpen && mobileDropdownOpen !== dropdown) {
+                        const otherMenu = mobileDropdownOpen.querySelector('.dropdown-menu');
+                        otherMenu.style.opacity = '0';
+                        otherMenu.style.visibility = 'hidden';
+                        otherMenu.style.transform = 'translateY(-10px)';
+                    }
+                    
+                    // Toggle current dropdown
+                    if (!isVisible) {
+                        dropdownMenu.style.opacity = '1';
+                        dropdownMenu.style.visibility = 'visible';
+                        dropdownMenu.style.transform = 'translateY(0)';
+                        mobileDropdownOpen = dropdown;
+                    } else {
+                        dropdownMenu.style.opacity = '0';
+                        dropdownMenu.style.visibility = 'hidden';
+                        dropdownMenu.style.transform = 'translateY(-10px)';
+                        mobileDropdownOpen = null;
+                    }
+                }
+            });
+        }
+    });
+    
+    // Reposition dropdowns on window resize
+    window.addEventListener('resize', function() {
+        navDropdowns.forEach(dropdown => {
+            positionDropdown(dropdown);
+        });
+    });
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.nav-dropdown')) {
+            navDropdowns.forEach(dropdown => {
+                const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+                if (dropdownMenu) {
+                    dropdownMenu.style.opacity = '0';
+                    dropdownMenu.style.visibility = 'hidden';
+                    dropdownMenu.style.transform = 'translateY(-10px)';
+                }
+            });
+            mobileDropdownOpen = null;
+        }
+    });
+
     // Sidebar toggle
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', () => toggleSidebar());

@@ -18,8 +18,26 @@
                 </div>
                 <ul class="nav-links">
                     <li><a href="#home" class="active">Home</a></li>
-                    <li><a href="#men" onclick="showCategory('men')">Men</a></li>
-                    <li><a href="#women" onclick="showCategory('women')">Women</a></li>
+                    <li class="nav-dropdown">
+                        <a href="#men" onclick="showCategory('men')">Men</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" onclick="filterByMenType('thobe'); showCategory('men'); return false;">Thobes</a></li>
+                            <li><a href="#" onclick="filterByMenType('moroccan'); showCategory('men'); return false;">Moroccan Jubbah</a></li>
+                            <li><a href="#" onclick="filterByMenType('arab'); showCategory('men'); return false;">Arab Jubbah</a></li>
+                            <li><a href="#" onclick="filterByMenType('turkish'); showCategory('men'); return false;">Turkish Jubbah</a></li>
+                            <li><a href="#" onclick="filterByMenType('pakistani'); showCategory('men'); return false;">Pakistani Jubbah</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-dropdown">
+                        <a href="#women" onclick="showCategory('women')">Women</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" onclick="filterByAbayaStyle('classic'); showCategory('women'); return false;">Classic Abaya</a></li>
+                            <li><a href="#" onclick="filterByAbayaStyle('dubai'); showCategory('women'); return false;">Dubai Style</a></li>
+                            <li><a href="#" onclick="filterByAbayaStyle('modern'); showCategory('women'); return false;">Modern Abaya</a></li>
+                            <li><a href="#" onclick="filterByAbayaStyle('embroidered'); showCategory('women'); return false;">Embroidered Abaya</a></li>
+                            <li><a href="#" onclick="filterByAbayaStyle('simple'); showCategory('women'); return false;">Simple Abaya</a></li>
+                        </ul>
+                    </li>
                     <li><a href="#kids" onclick="showCategory('kids')">Kids</a></li>
                     <li><a href="#perfume">Perfume</a></li>
                     <li><a href="#about">About</a></li>
