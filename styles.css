@@ -61,7 +61,14 @@ body {
     transition: transform 0.3s ease;
 }
 
-.logo:hover .site-logo {
+.site-logo-full {
+    height: 60px;
+    width: auto;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover .site-logo,
+.logo:hover .site-logo-full {
     transform: scale(1.05);
 }
 
@@ -231,7 +238,9 @@ body {
 
 /* ==================== HERO SECTION ==================== */
 .hero {
-    background: linear-gradient(135deg, var(--primary-black) 0%, var(--dark-gray) 100%);
+    background: linear-gradient(135deg, rgba(26, 26, 26, 0.6) 0%, rgba(50, 50, 50, 0.6) 100%), 
+                url('images/hero-clothes.jpg') center/cover no-repeat;
+    background-attachment: fixed;
     color: var(--primary-white);
     padding: 120px 20px;
     text-align: center;
@@ -443,6 +452,7 @@ body {
     font-size: 80px;
     overflow: hidden;
     transition: transform 0.3s ease;
+    position: relative;
 }
 
 .product-card:hover .product-image {
@@ -651,6 +661,147 @@ body {
     line-height: 1.8;
 }
 
+/* ==================== PERFUME SECTION ==================== */
+.perfume-section {
+    padding: 100px 20px;
+    background: linear-gradient(135deg, var(--light-gray) 0%, rgba(212, 165, 116, 0.08) 100%);
+    text-align: center;
+    position: relative;
+}
+
+.perfume-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 60px 40px;
+    background-color: var(--primary-white);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.perfume-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 30px;
+    background: linear-gradient(135deg, var(--primary-gold) 0%, var(--accent-brown) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 20px rgba(212, 165, 116, 0.3);
+}
+
+.perfume-icon i {
+    font-size: 36px;
+    color: var(--primary-white);
+}
+
+.perfume-title {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--primary-black);
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+}
+
+.perfume-subtitle {
+    font-size: 18px;
+    color: var(--text-light);
+    margin-bottom: 50px;
+    font-style: italic;
+    line-height: 1.6;
+    font-weight: 400;
+    letter-spacing: 0.3px;
+}
+
+.coming-soon-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 18px 40px;
+    background-color: var(--primary-gold);
+    color: var(--primary-white);
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 40px;
+    animation: pulse 2.5s ease-in-out infinite;
+    box-shadow: 0 6px 20px rgba(212, 165, 116, 0.4);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border: 2px solid var(--primary-gold);
+    transition: all 0.3s ease;
+}
+
+.coming-soon-badge:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(212, 165, 116, 0.5);
+}
+
+.coming-soon-badge i {
+    font-size: 18px;
+    animation: rotate 3s linear infinite;
+}
+
+.perfume-description {
+    font-size: 17px;
+    color: var(--text-dark);
+    line-height: 1.9;
+    margin-bottom: 50px;
+    letter-spacing: 0.3px;
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.perfume-features {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+    padding-top: 40px;
+    border-top: 2px solid var(--border-gray);
+}
+
+.perfume-feature {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.perfume-feature i {
+    font-size: 20px;
+    color: var(--primary-gold);
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.85;
+        transform: scale(1.02);
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 .about-features {
     display: grid;
     grid-template-columns: 1fr;
@@ -707,6 +858,15 @@ body {
     color: var(--primary-gold);
 }
 
+.footer-logo {
+    height: 200px;
+    width: auto;
+    margin-bottom: 15px;
+    display: block;
+    margin-left: 0;
+    margin-right: 0;
+}
+
 .footer-col h4 {
     font-size: 14px;
     text-transform: uppercase;
@@ -721,6 +881,7 @@ body {
     font-size: 13px;
     line-height: 1.8;
     margin-bottom: 15px;
+    text-align: left;
 }
 
 .footer-col ul {
@@ -1213,6 +1374,200 @@ body {
     border-color: var(--primary-gold);
 }
 
+/* ==================== PRODUCT ACTIONS BUTTONS ==================== */
+.product-actions {
+    display: flex;
+    gap: 10px;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.product-card:hover .product-actions {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.action-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    background-color: var(--primary-white);
+    color: var(--text-dark);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.action-btn:hover {
+    background-color: var(--primary-gold);
+    color: var(--primary-white);
+    border-color: var(--primary-gold);
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(212, 165, 116, 0.3);
+}
+
+.save-btn {
+    background-color: var(--primary-white);
+    color: var(--text-dark);
+}
+
+.save-btn:hover {
+    background-color: #ff6b6b;
+    color: var(--primary-white);
+    border-color: #ff6b6b;
+}
+
+.save-btn.saved {
+    background-color: #ff6b6b;
+    color: var(--primary-white);
+    border-color: #ff6b6b;
+}
+
+.quick-view-btn {
+    background-color: var(--primary-white);
+    color: var(--text-dark);
+}
+
+.quick-view-btn:hover {
+    background-color: var(--primary-gold);
+    color: var(--primary-white);
+    border-color: var(--primary-gold);
+}
+
+.product-image {
+    position: relative;
+}
+
+/* ==================== ADD TO CART BUTTON ==================== */
+.add-to-cart-btn {
+    width: 100%;
+    padding: 12px 20px;
+    background-color: var(--primary-gold);
+    color: var(--primary-white);
+    border: 2px solid var(--primary-gold);
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.add-to-cart-btn:hover {
+    background-color: var(--accent-brown);
+    border-color: var(--accent-brown);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(212, 165, 116, 0.3);
+}
+
+.add-to-cart-btn:active {
+    transform: translateY(0);
+}
+
+.add-to-cart-btn i {
+    font-size: 14px;
+}
+
+/* ==================== BUY NOW BUTTON ==================== */
+.buy-now-btn {
+    width: 100%;
+    padding: 12px 20px;
+    background-color: var(--primary-black);
+    color: var(--primary-white);
+    border: 2px solid var(--primary-black);
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.buy-now-btn:hover {
+    background-color: var(--text-dark);
+    border-color: var(--text-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.buy-now-btn:active {
+    transform: translateY(0);
+}
+
+.buy-now-btn i {
+    font-size: 14px;
+}
+
+/* Button container for product cards */
+.product-buttons {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+.product-buttons .add-to-cart-btn,
+.product-buttons .buy-now-btn {
+    flex: 1;
+    width: auto;
+}
+
+/* ==================== PRODUCT CATEGORY BADGE ==================== */
+.product-category {
+    display: inline-block;
+    background-color: var(--primary-gold);
+    color: var(--primary-white);
+    padding: 4px 12px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+}
+
+.product-rating {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.product-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.product-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--primary-black);
+    margin-bottom: 15px;
+}
+
 /* ==================== UTILITIES ==================== */
 .hidden {
     display: none !important;
@@ -1284,6 +1639,18 @@ body {
     .about {
         padding: 50px 20px;
     }
+
+    .perfume-section {
+        padding: 60px 20px;
+    }
+
+    .perfume-content {
+        padding: 40px 30px;
+    }
+
+    .perfume-title {
+        font-size: 36px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1292,6 +1659,48 @@ body {
     }
 
     .hero-subtitle {
+        font-size: 14px;
+    }
+
+    .perfume-section {
+        padding: 40px 15px;
+    }
+
+    .perfume-content {
+        padding: 30px 20px;
+    }
+
+    .perfume-icon {
+        width: 60px;
+        height: 60px;
+    }
+
+    .perfume-icon i {
+        font-size: 28px;
+    }
+
+    .perfume-title {
+        font-size: 28px;
+    }
+
+    .perfume-subtitle {
+        font-size: 16px;
+        margin-bottom: 30px;
+    }
+
+    .perfume-description {
+        font-size: 15px;
+    }
+
+    .perfume-features {
+        gap: 20px;
+        flex-direction: column;
+        align-items: flex-start;
+        padding-left: 20px;
+    }
+
+    .coming-soon-badge {
+        padding: 14px 28px;
         font-size: 14px;
     }
 
@@ -1332,5 +1741,140 @@ body {
 
     .product-info {
         padding: 15px;
+    }
+}
+
+/* Payment Section */
+.payment-section {
+    background: linear-gradient(135deg, var(--light-gray) 0%, rgba(212, 165, 116, 0.08) 100%);
+    padding: 80px 20px;
+    margin: 60px 0;
+    width: 100%;
+    clear: both;
+    position: relative;
+    z-index: 1;
+}
+
+.payment-section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.payment-title {
+    text-align: center;
+    font-size: 36px;
+    color: var(--primary-black);
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.payment-subtitle {
+    text-align: center;
+    color: var(--text-light);
+    font-size: 16px;
+    margin-bottom: 50px;
+}
+
+.payment-methods-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    margin-bottom: 60px;
+}
+
+.payment-method {
+    background: var(--primary-white);
+    padding: 30px 20px;
+    border-radius: 8px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.payment-method:hover {
+    border-color: var(--primary-gold);
+    box-shadow: 0 8px 24px rgba(212, 165, 116, 0.15);
+    transform: translateY(-5px);
+}
+
+.payment-icon {
+    font-size: 48px;
+    color: var(--primary-gold);
+    margin-bottom: 15px;
+}
+
+.payment-method h3 {
+    font-size: 18px;
+    color: var(--primary-black);
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.payment-method p {
+    color: var(--text-light);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.payment-info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.info-box {
+    background: var(--primary-white);
+    padding: 25px;
+    border-radius: 8px;
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.info-box i {
+    font-size: 28px;
+    color: var(--primary-gold);
+    margin-top: 5px;
+    min-width: 30px;
+}
+
+.info-box h4 {
+    font-size: 16px;
+    color: var(--primary-black);
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.info-box p {
+    color: var(--text-light);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .payment-methods-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .payment-info {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .payment-methods-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .payment-title {
+        font-size: 28px;
+    }
+
+    .payment-icon {
+        font-size: 36px;
     }
 }

@@ -2,6 +2,33 @@
 // Replace with your actual Google Client ID
 const GOOGLE_CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com';
 
+// Simple local persistence for demo (use a real backend for production)
+const STORAGE_KEYS = {
+    accounts: 'accounts',
+    user: 'user',
+    isLoggedIn: 'isLoggedIn',
+    rememberMe: 'rememberMe'
+};
+
+const loadAccounts = () => JSON.parse(localStorage.getItem(STORAGE_KEYS.accounts)) || {};
+const saveAccounts = (accounts) => localStorage.setItem(STORAGE_KEYS.accounts, JSON.stringify(accounts));
+const encodePassword = (password) => btoa(password); // Demo-only; do not use in production
+
+function setSession(user, remember) {
+    const payload = {
+        ...user,
+        lastLogin: new Date().toISOString()
+    };
+    localStorage.setItem(STORAGE_KEYS.user, JSON.stringify(payload));
+    localStorage.setItem(STORAGE_KEYS.isLoggedIn, 'true');
+
+    if (remember) {
+        localStorage.setItem(STORAGE_KEYS.rememberMe, 'true');
+    } else {
+        localStorage.removeItem(STORAGE_KEYS.rememberMe);
+    }
+}
+
 // Initialize Google Sign-In
 function initGoogleSignIn() {
     if (typeof google !== 'undefined') {
@@ -25,9 +52,7 @@ function handleGoogleSignIn(response) {
         loginMethod: 'google'
     };
     
-    // Save to localStorage
-    localStorage.setItem('user', JSON.stringify(user));
-    localStorage.setItem('isLoggedIn', 'true');
+    setSession(user, true);
     
     // Show success modal
     showSuccessModal(`Welcome, ${user.name}!`);
@@ -83,42 +108,44 @@ toggleLink.addEventListener('click', (e) => {
 loginForm.addEventListener('submit', (e) => {
     e.preventDefault();
     
-    const email = document.getElementById('loginEmail').value;
+    const email = document.getElementById('loginEmail').value.trim().toLowerCase();
     const password = document.getElementById('loginPassword').value;
     const rememberMe = document.getElementById('rememberMe').checked;
-    
-    // Simple validation
+
     if (!email || !password) {
         alert('Please fill in all fields');
         return;
     }
-    
-    // In a real application, you would send this to a backend API
-    // For now, we'll simulate a successful login
+
+    const accounts = loadAccounts();
+    const account = accounts[email];
+
+    if (!account) {
+        alert('Account not found. Please sign up first.');
+        return;
+    }
+
+    if (account.password !== encodePassword(password)) {
+        alert('Incorrect password. Please try again.');
+        return;
+    }
+
     const user = {
-        email: email,
-        name: email.split('@')[0], // Use email prefix as name
+        email,
+        name: account.name,
         loginMethod: 'email'
     };
-    
-    // Save to localStorage
-    localStorage.setItem('user', JSON.stringify(user));
-    localStorage.setItem('isLoggedIn', 'true');
-    
-    if (rememberMe) {
-        localStorage.setItem('rememberMe', 'true');
-    }
-    
-    // Show success modal
-    showSuccessModal('You have successfully signed in!');
+
+    setSession(user, rememberMe);
+    showSuccessModal(`Welcome back, ${account.name}!`);
 });
 
 // Signup Form Submission
 signupForm.addEventListener('submit', (e) => {
     e.preventDefault();
     
-    const name = document.getElementById('signupName').value;
-    const email = document.getElementById('signupEmail').value;
+    const name = document.getElementById('signupName').value.trim();
+    const email = document.getElementById('signupEmail').value.trim().toLowerCase();
     const password = document.getElementById('signupPassword').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
     const agreeTerms = document.getElementById('agreeTerms').checked;
@@ -144,19 +171,27 @@ signupForm.addEventListener('submit', (e) => {
         return;
     }
     
-    // In a real application, you would send this to a backend API
-    // For now, we'll simulate a successful signup
+    const accounts = loadAccounts();
+
+    if (accounts[email]) {
+        alert('An account with this email already exists. Please sign in instead.');
+        return;
+    }
+
+    accounts[email] = {
+        name,
+        password: encodePassword(password)
+    };
+
+    saveAccounts(accounts);
+
     const user = {
-        name: name,
-        email: email,
+        name,
+        email,
         loginMethod: 'email'
     };
-    
-    // Save to localStorage
-    localStorage.setItem('user', JSON.stringify(user));
-    localStorage.setItem('isLoggedIn', 'true');
-    
-    // Show success modal
+
+    setSession(user, true);
     showSuccessModal(`Welcome to The Believers, ${name}!`);
 });
 

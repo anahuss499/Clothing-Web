@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newsletter Admin Panel - The Believers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+            font-family: inherit;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        button {
+            flex: 1;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .alert {
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+
+        .preview {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .preview h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .help-text {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .toggle-html {
+            margin-top: 10px;
+        }
+
+        .html-editor {
+            display: none;
+        }
+
+        .html-editor.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .alert.show {
+            animation: fadeIn 0.3s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>
+            <i class="fas fa-envelope"></i>
+            Newsletter Admin Panel
+        </h1>
+        <p class="subtitle">Send newsletters to all subscribers</p>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="subscriberCount">--</div>
+                <div class="stat-label">Total Subscribers</div>
+            </div>
+        </div>
+
+        <div id="alertBox" class="alert"></div>
+
+        <form id="newsletterForm">
+            <div class="form-group">
+                <label for="adminKey">
+                    <i class="fas fa-key"></i> Admin Key
+                </label>
+                <input type="password" id="adminKey" placeholder="Enter admin key" required>
+                <div class="help-text">This is your ADMIN_KEY from the .env file</div>
+            </div>
+
+            <div class="form-group">
+                <label for="subject">
+                    <i class="fas fa-heading"></i> Email Subject
+                </label>
+                <input type="text" id="subject" placeholder="e.g., New Arrivals - 20% Off!" required>
+            </div>
+
+            <div class="form-group">
+                <label for="message">
+                    <i class="fas fa-align-left"></i> Message (Plain Text)
+                </label>
+                <textarea id="message" placeholder="Enter your newsletter message..." required></textarea>
+                <div class="help-text">This will be sent as plain text for email clients that don't support HTML</div>
+            </div>
+
+            <div class="toggle-html">
+                <label>
+                    <input type="checkbox" id="useHtml"> Use HTML Content
+                </label>
+            </div>
+
+            <div class="form-group html-editor" id="htmlEditor">
+                <label for="htmlContent">
+                    <i class="fas fa-code"></i> HTML Content
+                </label>
+                <textarea id="htmlContent" placeholder="<h1>Your HTML content here...</h1>"></textarea>
+                <div class="help-text">Optional: Add formatted HTML for a better looking email</div>
+            </div>
+
+            <div class="button-group">
+                <button type="button" class="btn-secondary" onclick="previewEmail()">
+                    <i class="fas fa-eye"></i> Preview
+                </button>
+                <button type="submit" class="btn-primary" id="sendBtn">
+                    <i class="fas fa-paper-plane"></i> Send Newsletter
+                </button>
+            </div>
+        </form>
+
+        <div id="preview" class="preview" style="display: none;">
+            <h3><i class="fas fa-eye"></i> Email Preview</h3>
+            <div id="previewContent"></div>
+        </div>
+    </div>
+
+    <script>
+        // API Configuration
+        const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'http://localhost:3000/api'
+            : '/api';
+
+        // Load subscriber count
+        async function loadSubscriberCount() {
+            try {
+                const response = await fetch(`${API_URL}/subscriber-count`);
+                const data = await response.json();
+                document.getElementById('subscriberCount').textContent = data.count;
+            } catch (error) {
+                console.error('Error loading subscriber count:', error);
+                document.getElementById('subscriberCount').textContent = '?';
+            }
+        }
+
+        // Toggle HTML editor
+        document.getElementById('useHtml').addEventListener('change', function(e) {
+            document.getElementById('htmlEditor').classList.toggle('active', e.target.checked);
+        });
+
+        // Show alert
+        function showAlert(message, isSuccess) {
+            const alertBox = document.getElementById('alertBox');
+            alertBox.className = `alert ${isSuccess ? 'alert-success' : 'alert-error'} show`;
+            alertBox.innerHTML = `<i class="fas fa-${isSuccess ? 'check-circle' : 'exclamation-circle'}"></i> ${message}`;
+            
+            setTimeout(() => {
+                alertBox.classList.remove('show');
+            }, 5000);
+        }
+
+        // Preview email
+        function previewEmail() {
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            const useHtml = document.getElementById('useHtml').checked;
+            const htmlContent = document.getElementById('htmlContent').value;
+
+            const previewDiv = document.getElementById('preview');
+            const previewContent = document.getElementById('previewContent');
+
+            let content = `
+                <strong>Subject:</strong> ${subject || '(No subject)'}<br><br>
+                <strong>Content:</strong><br>
+            `;
+
+            if (useHtml && htmlContent) {
+                content += `<div style="border: 1px solid #ddd; padding: 15px; margin-top: 10px; background: white;">${htmlContent}</div>`;
+            } else {
+                content += `<div style="white-space: pre-wrap; border: 1px solid #ddd; padding: 15px; margin-top: 10px; background: white;">${message || '(No message)'}</div>`;
+            }
+
+            previewContent.innerHTML = content;
+            previewDiv.style.display = 'block';
+            previewDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Send newsletter
+        document.getElementById('newsletterForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const adminKey = document.getElementById('adminKey').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            const useHtml = document.getElementById('useHtml').checked;
+            const htmlContent = document.getElementById('htmlContent').value;
+
+            const sendBtn = document.getElementById('sendBtn');
+            sendBtn.disabled = true;
+            sendBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+
+            try {
+                const response = await fetch(`${API_URL}/send-newsletter`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        adminKey,
+                        subject,
+                        message,
+                        htmlContent: useHtml ? htmlContent : null
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showAlert(data.message, true);
+                    // Clear form
+                    document.getElementById('subject').value = '';
+                    document.getElementById('message').value = '';
+                    document.getElementById('htmlContent').value = '';
+                    document.getElementById('useHtml').checked = false;
+                    document.getElementById('htmlEditor').classList.remove('active');
+                } else {
+                    showAlert(data.message, false);
+                }
+
+            } catch (error) {
+                console.error('Error:', error);
+                showAlert('Network error. Please check if the server is running.', false);
+            } finally {
+                sendBtn.disabled = false;
+                sendBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Newsletter';
+            }
+        });
+
+        // Load data on page load
+        loadSubscriberCount();
+        
+        // Refresh count every 30 seconds
+        setInterval(loadSubscriberCount, 30000);
+    </script>
+</body>
+</html>

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="images/real-removebg-preview (1).png">
     <title>The Believers - Modern Islamic Clothing & Streetwear</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -14,13 +15,13 @@
             <nav class="navbar">
                 <div class="logo">
                     <img class="site-logo" src="images/real-removebg-preview (1).png" alt="The Believers Logo">
-                    <p class="tagline">Faith & Street Culture</p>
                 </div>
                 <ul class="nav-links">
                     <li><a href="#home" class="active">Home</a></li>
                     <li><a href="#men" onclick="showCategory('men')">Men</a></li>
                     <li><a href="#women" onclick="showCategory('women')">Women</a></li>
                     <li><a href="#kids" onclick="showCategory('kids')">Kids</a></li>
+                    <li><a href="#perfume">Perfume</a></li>
                     <li><a href="#about">About</a></li>
                 </ul>
                 <div class="nav-icons">
@@ -64,8 +65,8 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-content">
-            <h2 class="hero-title">Modest Fashion, Bold Design</h2>
-            <p class="hero-subtitle">Where faith meets street culture</p>
+            <h2 class="hero-title">Modest Islamic Wear & More</h2>
+            <p class="hero-subtitle">Where faith meets comfort</p>
             <button class="cta-btn" onclick="document.getElementById('products').scrollIntoView({ behavior: 'smooth' })">Shop Now</button>
         </div>
     </section>
@@ -113,7 +114,7 @@
                 </button>
                 <div class="category-logo-main">
                     <div class="category-icon" id="categoryIcon">
-                        <img class="category-logo-image" src="images/real-removebg-preview (1).png" alt="The Believers Logo">
+                        <img class="category-logo-image" src="images/logoandtext.png" alt="The Believers Logo">
                     </div>
                     <div class="category-logo-text">
                         <h1 class="category-logo-title" id="categoryLogoTitle">Men's Collection</h1>
@@ -155,7 +156,7 @@
     <section class="streetwear-section" id="streetwearSection">
         <div class="container">
             <h2 class="section-title">Streetwear Collection</h2>
-            <p class="section-subtitle">Bold designs that blend faith and street culture</p>
+            <p class="section-subtitle">Bold designs that blend faith and comfort</p>
 
             <!-- Men's Streetwear -->
             <div class="subsection">
@@ -183,13 +184,118 @@
         </div>
     </section>
 
+    <!-- Payment Methods Section -->
+    <section class="payment-section">
+        <div class="container">
+            <h2 class="payment-title">Payment Methods</h2>
+            <p class="payment-subtitle">We accept multiple secure payment options</p>
+            
+            <div class="payment-methods-grid">
+                <div class="payment-method">
+                    <div class="payment-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <h3>Credit Card</h3>
+                    <p>Visa, Mastercard, American Express</p>
+                </div>
+
+                <div class="payment-method">
+                    <div class="payment-icon">
+                        <i class="fab fa-paypal"></i>
+                    </div>
+                    <h3>PayPal</h3>
+                    <p>Fast and secure payment</p>
+                </div>
+
+                <div class="payment-method">
+                    <div class="payment-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Apple Pay</h3>
+                    <p>Quick checkout on Apple devices</p>
+                </div>
+
+                <div class="payment-method">
+                    <div class="payment-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Secure Payment</h3>
+                    <p>SSL encrypted transactions</p>
+                </div>
+            </div>
+
+            <div class="payment-info">
+                <div class="info-box">
+                    <i class="fas fa-shield-alt"></i>
+                    <div>
+                        <h4>100% Secure</h4>
+                        <p>Your payment information is encrypted and secure</p>
+                    </div>
+                </div>
+                <div class="info-box">
+                    <i class="fas fa-undo"></i>
+                    <div>
+                        <h4>Easy Returns</h4>
+                        <p>30-day money back guarantee on all purchases</p>
+                    </div>
+                </div>
+                <div class="info-box">
+                    <i class="fas fa-headset"></i>
+                    <div>
+                        <h4>24/7 Support</h4>
+                        <p>Our team is here to help with any questions</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- About Section -->
     <section class="about" id="about">
         <div class="container">
             <h2 class="section-title">About The Believers</h2>
             <div class="about-content">
-                <p>The Believers is a modern Islamic clothing and streetwear brand that celebrates faith and street culture. We blend modest fashion with bold, contemporary designs to create unique pieces for men, women, and children.</p>
+                <p>The Believers is a modern Islamic clothing and comfort brand that celebrates faith and comfort We blend modest fashion with bold, contemporary designs to create unique pieces for men, women, and children.</p>
                 <p>Our mission is to provide high-quality, stylish clothing that reflects both Islamic values and modern aesthetics.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Perfume Section -->
+    <section class="perfume-section" id="perfume">
+        <div class="container">
+            <div class="perfume-content">
+                <div class="perfume-icon">
+                    <i class="fas fa-flask"></i>
+                </div>
+                <h2 class="perfume-title">The Believers Fragrances</h2>
+                <p class="perfume-subtitle">Signature scents that celebrate faith and modern elegance</p>
+                
+                <div class="coming-soon-badge">
+                    <i class="fas fa-hourglass-half"></i>
+                    <span>Coming Soon</span>
+                </div>
+                
+                <p class="perfume-description">
+                    We're carefully crafting exclusive fragrances that embody The Believers' spirit. 
+                    Each scent tells a story of tradition, style, and authenticity. 
+                    Be the first to experience our signature collection.
+                </p>
+                
+                <div class="perfume-features">
+                    <div class="perfume-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Premium Ingredients</span>
+                    </div>
+                    <div class="perfume-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Long-lasting Scents</span>
+                    </div>
+                    <div class="perfume-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Halal Certified</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -199,8 +305,8 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
-                    <h3>The Believers</h3>
-                    <p>Modern Islamic clothing and streetwear blending faith with contemporary style.</p>
+                    <img class="footer-logo" src="images/logoandtext.png" alt="The Believers Logo">
+                    <p>Modern Islamic clothing and comfort blending faith with contemporary style.</p>
                     <div class="social-links">
                         <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
                         <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
@@ -221,24 +327,24 @@
                 <div class="footer-col">
                     <h4>Support</h4>
                     <ul>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Shipping Info</a></li>
-                        <li><a href="#">Returns & Exchanges</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="shipping-info.html">Shipping Info</a></li>
+                        <li><a href="terms-of-service.html">Returns & Exchanges</a></li>
                         <li><a href="#">Size Guide</a></li>
-                        <li><a href="#">FAQ</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h4>Newsletter</h4>
                     <p>Subscribe to get special offers and updates delivered to your inbox.</p>
-                    <form class="newsletter-form" onsubmit="return false;">
+                    <form class="newsletter-form">
                         <input type="email" placeholder="Enter your email" required>
                         <button type="submit">Subscribe</button>
                     </form>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; <span id="currentYear"></span> The Believers. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+                <p>&copy; <span id="currentYear"></span> The Believers. All rights reserved. | <a href="privacy-policy.html">Privacy Policy</a> | <a href="terms-of-service.html">Terms of Service</a></p>
             </div>
         </div>
     </footer>
@@ -291,5 +397,6 @@
     <div class="overlay" id="overlay"></div>
 
     <script src="script.js"></script>
+    <script src="newsletter.js"></script>
 </body>
 </html>

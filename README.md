@@ -33,6 +33,7 @@ A modern e-commerce website for Islamic clothing and streetwear that blends mode
 - **Customer Reviews**: View product ratings and reviews
 - **Social Integration**: Social media links (Facebook, Instagram, Twitter, YouTube)
 - **Newsletter**: Email subscription for updates and offers
+- **📧 Email Newsletter Service**: Professional email delivery with SendGrid (See [EMAIL_SETUP.md](EMAIL_SETUP.md))
 
 ## Technologies Used
 
@@ -41,21 +42,31 @@ A modern e-commerce website for Islamic clothing and streetwear that blends mode
 - **JavaScript**: Vanilla JS for interactivity
 - **Font Awesome**: Icon library
 - **LocalStorage**: Client-side data persistence
+- **Node.js + Express**: Backend server for email service
+- **SendGrid**: Professional email delivery service
 
 ## File Structure
 
 ```
 Clothing-Web/
-├── index.html          # Main homepage
-├── checkout.html       # Checkout page
-├── styles.css          # Main stylesheet
-├── checkout.css        # Checkout-specific styles
-├── script.js           # Main JavaScript functionality
-├── checkout.js         # Checkout JavaScript
-└── README.md           # Project documentation
+├── index.html              # Main homepage
+├── checkout.html           # Checkout page
+├── admin-newsletter.html   # Newsletter admin panel
+├── styles.css              # Main stylesheet
+├── checkout.css            # Checkout-specific styles
+├── script.js               # Main JavaScript functionality
+├── checkout.js             # Checkout JavaScript
+├── newsletter.js           # Newsletter subscription logic
+├── server.js               # Backend API server
+├── package.json            # Node.js dependencies
+├── .env.example            # Environment variables template
+├── EMAIL_SETUP.md          # Email service setup guide
+└── README.md               # Project documentation
 ```
 
 ## Getting Started
+
+### Frontend Only (No Email Service)
 
 1. Clone the repository:
    ```bash
@@ -65,6 +76,36 @@ Clothing-Web/
 2. Open `index.html` in your web browser
 
 3. Browse products, add items to cart, and proceed to checkout
+
+### Full Setup (With Email Newsletter Service)
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/anahuss499/Clothing-Web.git
+   cd Clothing-Web
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Set up email service (see [EMAIL_SETUP.md](EMAIL_SETUP.md) for detailed instructions):
+   ```bash
+   cp .env.example .env
+   # Edit .env with your SendGrid credentials
+   ```
+
+4. Start the backend server:
+   ```bash
+   npm start
+   # or use the quick start script:
+   ./start-newsletter.sh
+   ```
+
+5. Open `index.html` in your browser to test the newsletter subscription
+
+6. Access admin panel at `admin-newsletter.html` to send newsletters
 
 ## Features in Detail
 
@@ -108,6 +149,27 @@ Clothing-Web/
 - Advanced filtering (price, size, color)
 - Live chat support
 - Multi-language support
+- Database integration for newsletter subscribers (MongoDB ready)
+
+## Newsletter Service
+
+The Believers now includes a professional email newsletter service that sends emails directly to subscribers' inboxes **without being flagged as spam**. 
+
+### Features:
+- ✅ **SendGrid Integration** - Industry-leading email delivery
+- ✅ **Anti-Spam Protection** - Proper authentication (SPF, DKIM, DMARC)
+- ✅ **Rate Limiting** - Prevents abuse
+- ✅ **Professional HTML Emails** - Beautiful, responsive design
+- ✅ **Admin Panel** - Easy newsletter broadcasting
+- ✅ **Welcome Emails** - Automatic subscriber confirmation
+
+### Quick Setup:
+1. Get a free SendGrid account at [sendgrid.com](https://sendgrid.com/)
+2. Copy `.env.example` to `.env` and add your credentials
+3. Run `npm install && npm start`
+4. Test the newsletter form on your website
+
+**Full documentation:** See [EMAIL_SETUP.md](EMAIL_SETUP.md) for complete setup instructions.
 
 ## About The Believers
 

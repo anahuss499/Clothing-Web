@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="images/real-removebg-preview (1).png">
+    <title>FAQ - The Believers</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* FAQ Page Specific Styles */
+        .faq-section {
+            padding: 60px 0;
+            background-color: var(--light-gray);
+            min-height: calc(100vh - 300px);
+        }
+
+        .faq-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .faq-header h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+            letter-spacing: 1px;
+        }
+
+        .faq-header p {
+            font-size: 16px;
+            color: var(--text-light);
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-category {
+            margin-bottom: 50px;
+        }
+
+        .faq-category-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--primary-gold);
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border-gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .faq-item {
+            background-color: var(--primary-white);
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .faq-question {
+            padding: 20px;
+            background-color: var(--primary-white);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .faq-question:hover {
+            background-color: var(--light-gray);
+            padding-left: 25px;
+        }
+
+        .faq-question-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin: 0;
+            flex: 1;
+        }
+
+        .faq-toggle-icon {
+            width: 30px;
+            height: 30px;
+            background-color: var(--primary-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-white);
+            font-size: 16px;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            margin-left: 20px;
+        }
+
+        .faq-item.active .faq-toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 20px;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 1000px;
+            padding: 0 20px 20px 20px;
+        }
+
+        .faq-answer-text {
+            color: var(--text-light);
+            font-size: 14px;
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        .faq-answer-list {
+            color: var(--text-light);
+            font-size: 14px;
+            line-height: 1.8;
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .faq-answer-list li {
+            margin-bottom: 8px;
+        }
+
+        .faq-cta {
+            background-color: var(--primary-white);
+            padding: 40px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 50px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .faq-cta h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+
+        .faq-cta p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .faq-cta-btn {
+            background-color: var(--primary-gold);
+            color: var(--primary-white);
+            border: none;
+            padding: 14px 40px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .faq-cta-btn:hover {
+            background-color: #c99563;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212, 165, 116, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .faq-header h1 {
+                font-size: 36px;
+            }
+
+            .faq-container {
+                padding: 0 15px;
+            }
+
+            .faq-question {
+                padding: 15px;
+            }
+
+            .faq-question-text {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <img class="site-logo" src="images/real-removebg-preview (1).png" alt="The Believers Logo">
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="index.html#men" onclick="showCategory('men')">Men</a></li>
+                    <li><a href="index.html#women" onclick="showCategory('women')">Women</a></li>
+                    <li><a href="index.html#kids" onclick="showCategory('kids')">Kids</a></li>
+                    <li><a href="index.html#perfume">Perfume</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                </ul>
+                <div class="nav-icons">
+                    <button class="icon-btn" id="loginBtn" onclick="window.location.href='login.html'" title="Login">
+                        <i class="fas fa-user"></i>
+                    </button>
+                    <button class="icon-btn" id="savedBtn">
+                        <i class="fas fa-heart"></i>
+                        <span class="badge" id="savedCount">0</span>
+                    </button>
+                    <button class="icon-btn" id="cartBtn">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="badge" id="cartCount">0</span>
+                    </button>
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Side Navbar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <img class="site-logo" src="images/real-removebg-preview (1).png" alt="The Believers Logo">
+            <button class="close-btn" id="closeSidebarBtn" aria-label="Close Navigation">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="index.html#home" class="sidebar-link"><i class="fas fa-home"></i><span>Home</span></a>
+            <a href="index.html#men" class="sidebar-link" onclick="showCategory('men')"><i class="fas fa-male"></i><span>Men</span></a>
+            <a href="index.html#women" class="sidebar-link" onclick="showCategory('women')"><i class="fas fa-female"></i><span>Women</span></a>
+            <a href="index.html#kids" class="sidebar-link" onclick="showCategory('kids')"><i class="fas fa-child"></i><span>Kids</span></a>
+            <a href="index.html#about" class="sidebar-link"><i class="fas fa-info-circle"></i><span>About</span></a>
+            <a href="contact.html" class="sidebar-link"><i class="fas fa-envelope"></i><span>Contact</span></a>
+        </nav>
+    </aside>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="faq-header">
+                <h1>Frequently Asked Questions</h1>
+                <p>Find answers to common questions about our clothing, sizing, shipping, and more.</p>
+            </div>
+
+            <div class="faq-container">
+                <!-- Size & Fit -->
+                <div class="faq-category">
+                    <h2 class="faq-category-title">Size & Fit</h2>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <p class="faq-question-text">How do I find my correct size?</p>
+                            <div class="faq-toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="faq-answer-text">We provide detailed size charts for all our products. You can find the size guide link on each product page. Our sizing runs true to fit, but we recommend checking the measurements in the size chart as different styles may fit differently. If you're between sizes, consider sizing up for a more comfortable fit.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <p class="faq-question-text">Do your Islamic clothing items fit modestly?</p>
+                            <div class="faq-toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="faq-answer-text">Yes! All our clothing is designed with modesty in mind. Our items feature appropriate lengths, coverage, and fits. We offer abayas, hijabs, modest dresses, and loose-fitting styles specifically designed to meet Islamic dress standards while maintaining a contemporary, stylish appearance.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <p class="faq-question-text">What's your return policy for sizing issues?</p>
+                            <div class="faq-toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="faq-answer-text">We offer a 30-day return policy on all items. If the size doesn't fit as expected, you can return it for a full refund or exchange it for the correct size. Items must be in original condition with tags attached. Return shipping is free for sizing exchanges.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fabric & Care -->
+                <div class="faq-category">
+                    <h2 class="faq-category-title">Fabric & Care</h2>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <p class="faq-question-text">What materials do you use in your clothing?</p>
+                            <div class="faq-toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="faq-answer-text">We use premium materials including cotton, silk blends, polyester, and linen. Each product description details the exact fabric composition. We prioritize comfort and durability, sourcing high-quality materials that are breathable, long-lasting, and suitable for everyday wear.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <p class="faq-question-text">How should I care for my Islamic clothing?</p>
+                            <div class="faq-toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="faq-answer-text">Care instructions are included on each product's care label. Generally, we recommend:</p>
+                            <ul class="faq-answer-list">
+                                <li>Wash in cold water with similar colors</li>
+                                <li>Use gentle detergent for delicate fabrics</li>
+                                <li>Avoid bleach and harsh chemicals</li>
+                                <li>Air dry when possible; tumble dry on low heat if needed</li>
+                                <li>Iron on low to medium heat as directed</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <p class="faq-question-text">Will my clothing shrink?</p>
+                            <div class="faq-toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="faq-answer-text">Most of our items are pre-shrunk and designed to maintain their size with proper care. Some natural fabrics like 100% cotton may shrink slightly (1-2%) if washed in hot water and high heat drying. To minimize shrinkage, wash in cold water and air dry when possible.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Shipping & Delivery -->
+                <div class="faq-category">
+                    <h2 class="faq-category-title">Shipping & Delivery</h2>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <p class="faq-question-text">How long does shipping take?</p>
+                            <div class="faq-toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="faq-answer-text">We offer multiple shipping options:
+                            <ul class="faq-answer-list">
+                                <li><strong>Standard Shipping:</strong> 5-7 business days</li>
+                                <li><strong>Express Shipping:</strong> 2-3 business days</li>
+                                <li><strong>Overnight Shipping:</strong> Next business day</li>
+                            </ul>
+                            Processing time is 1-2 business days. Shipping times are estimates and may vary during peak seasons.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <p class="faq-question-text">Do you ship internationally?</p>
+                            <div class="faq-toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="faq-answer-text">Yes, we ship to over 100 countries worldwide. International shipping rates and delivery times vary by location. Customs and import duties may apply for some countries and are the responsibility of the customer. You can see shipping costs at checkout before placing your order.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <p class="faq-question-text">Can I track my order?</p>
+                            <div class="faq-toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="faq-answer-text">Yes! Once your order ships, you'll receive a tracking number via email. You can use this number to track your package in real-time on the carrier's website. You'll also receive shipping updates on your account page.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payments & Orders -->
+                <div class="faq-category">
+                    <h2 class="faq-category-title">Payments & Orders</h2>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <p class="faq-question-text">What payment methods do you accept?</p>
+                            <div class="faq-toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="faq-answer-text">We accept:</p>
+                            <ul class="faq-answer-list">
+                                <li>Credit cards (Visa, Mastercard, American Express)</li>
+                                <li>PayPal</li>
+                                <li>Apple Pay</li>
+                                <li>Google Pay</li>
+                            </ul>
+                            <p class="faq-answer-text">All payments are processed securely using SSL encryption.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <p class="faq-question-text">Is my payment information secure?</p>
+                            <div class="faq-toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="faq-answer-text">Yes, we use industry-standard SSL encryption to protect your payment information. We never store full credit card numbers on our servers. Your payment is processed securely through trusted payment gateways.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <p class="faq-question-text">Can I cancel or modify my order?</p>
+                            <div class="faq-toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="faq-answer-text">If your order hasn't shipped yet, you can cancel or modify it. Please contact our customer service team immediately with your order number. Once your order has shipped, it cannot be cancelled, but you can return it for a refund or exchange.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Returns & Exchanges -->
+                <div class="faq-category">
+                    <h2 class="faq-category-title">Returns & Exchanges</h2>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <p class="faq-question-text">What is your return policy?</p>
+                            <div class="faq-toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="faq-answer-text">We offer a 30-day return policy on all items. Items must be unworn, unwashed, and in original condition with tags attached. Return shipping is free. Once we receive your return, we'll process your refund within 5-7 business days.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <p class="faq-question-text">How do I initiate a return?</p>
+                            <div class="faq-toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="faq-answer-text">To start a return:
+                            <ul class="faq-answer-list">
+                                <li>Log into your account and go to "My Orders"</li>
+                                <li>Select the item you wish to return</li>
+                                <li>Click "Return Item" and follow the instructions</li>
+                                <li>Print your free return shipping label</li>
+                                <li>Pack your item securely and ship it back</li>
+                            </ul>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <p class="faq-question-text">Can I exchange items?</p>
+                            <div class="faq-toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="faq-answer-text">Yes! You can exchange items for a different size or color. Free return shipping is provided for exchanges. If the new item costs more, you'll pay the difference; if less, we'll refund the difference.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Halal & Certification -->
+                <div class="faq-category">
+                    <h2 class="faq-category-title">Halal & Certification</h2>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <p class="faq-question-text">Are your products Halal certified?</p>
+                            <div class="faq-toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="faq-answer-text">Our clothing items comply with Islamic dress standards. While our apparel itself is not "Halal certified" (as that term applies to food and consumables), we ensure our designs meet Islamic modesty requirements. Our perfumes are crafted to be alcohol-free and suitable for Islamic practice.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <p class="faq-question-text">Are your fabrics ethically sourced?</p>
+                            <div class="faq-toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="faq-answer-text">We are committed to ethical sourcing and fair labor practices. We work with suppliers who meet high environmental and labor standards. We're continuously improving our supply chain transparency and sustainability practices.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CTA Section -->
+                <div class="faq-cta">
+                    <h3>Still Have Questions?</h3>
+                    <p>Can't find the answer you're looking for? Our customer service team is here to help!</p>
+                    <a href="contact.html" class="faq-cta-btn">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <img class="footer-logo" src="images/logoandtext.png" alt="The Believers Logo">
+                    <p>Modern Islamic clothing and comfort blending faith with contemporary style.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Shop</h4>
+                    <ul>
+                        <li><a href="index.html" onclick="showCategory('men'); return false;">Men's Collection</a></li>
+                        <li><a href="index.html" onclick="showCategory('women'); return false;">Women's Collection</a></li>
+                        <li><a href="index.html" onclick="showCategory('kids'); return false;">Kids Collection</a></li>
+                        <li><a href="index.html#products">New Arrivals</a></li>
+                        <li><a href="index.html#about">About Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="shipping-info.html">Shipping Info</a></li>
+                        <li><a href="terms-of-service.html">Returns & Exchanges</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe to get special offers and updates delivered to your inbox.</p>
+                    <form class="newsletter-form" onsubmit="return false;">
+                        <input type="email" placeholder="Enter your email" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="currentYear"></span> The Believers. All rights reserved. | <a href="privacy-policy.html">Privacy Policy</a> | <a href="terms-of-service.html">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button class="close-btn" id="closeCartBtn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be dynamically loaded here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">$0.00</span>
+            </div>
+            <button class="checkout-btn" onclick="goToCheckout()">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Saved Items Sidebar -->
+    <div class="saved-sidebar" id="savedSidebar">
+        <div class="saved-header">
+            <h3>Saved Items</h3>
+            <button class="close-btn" id="closeSavedBtn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="saved-items" id="savedItems">
+            <!-- Saved items will be dynamically loaded here -->
+        </div>
+    </div>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // FAQ Item Toggle
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                item.classList.toggle('active');
+            });
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const closeSidebarBtn = document.getElementById('closeSidebarBtn');
+
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                sidebar.classList.add('active');
+            });
+        }
+
+        if (closeSidebarBtn) {
+            closeSidebarBtn.addEventListener('click', () => {
+                sidebar.classList.remove('active');
+            });
+        }
+
+        // Cart functionality
+        const cartBtn = document.getElementById('cartBtn');
+        const cartSidebar = document.getElementById('cartSidebar');
+        const closeCartBtn = document.getElementById('closeCartBtn');
+
+        if (cartBtn) {
+            cartBtn.addEventListener('click', () => {
+                cartSidebar.classList.add('active');
+            });
+        }
+
+        if (closeCartBtn) {
+            closeCartBtn.addEventListener('click', () => {
+                cartSidebar.classList.remove('active');
+            });
+        }
+
+        // Saved items functionality
+        const savedBtn = document.getElementById('savedBtn');
+        const savedSidebar = document.getElementById('savedSidebar');
+        const closeSavedBtn = document.getElementById('closeSavedBtn');
+
+        if (savedBtn) {
+            savedBtn.addEventListener('click', () => {
+                savedSidebar.classList.add('active');
+            });
+        }
+
+        if (closeSavedBtn) {
+            closeSavedBtn.addEventListener('click', () => {
+                savedSidebar.classList.remove('active');
+            });
+        }
+
+        // Placeholder function for showCategory
+        function showCategory(category) {
+            window.location.href = 'index.html#' + category;
+        }
+
+        // Placeholder function for goToCheckout
+        function goToCheckout() {
+            window.location.href = 'checkout.html';
+        }
+    </script>
+</body>
+</html>

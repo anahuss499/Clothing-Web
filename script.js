@@ -10,11 +10,45 @@ function checkUserLogin() {
             loginBtn.innerHTML = '<i class="fas fa-user-circle"></i>';
             loginBtn.title = `Logged in as ${user.name}`;
             loginBtn.style.color = 'var(--primary-gold)';
+
+            showWelcomeToast(user);
         }
     }
 }
 
-// Sample product data
+// Lightweight welcome toast for returning users
+function showWelcomeToast(user) {
+    if (document.getElementById('welcomeToast')) {
+        return;
+    }
+
+    const toast = document.createElement('div');
+    toast.id = 'welcomeToast';
+    toast.textContent = `Welcome back, ${user.name}!`;
+    toast.style.cssText = [
+        'position: fixed',
+        'top: 20px',
+        'right: 20px',
+        'padding: 12px 18px',
+        'background: #0f172a',
+        'color: #f8fafc',
+        'border-radius: 10px',
+        'box-shadow: 0 8px 24px rgba(0,0,0,0.18)',
+        'z-index: 9999',
+        'font-weight: 600',
+        'letter-spacing: 0.2px'
+    ].join(';');
+
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.3s ease-out';
+        setTimeout(() => toast.remove(), 300);
+    }, 4000);
+}
+
+// Sample product data with enhanced details
 const products = [
     {
         id: 1,
@@ -25,8 +59,21 @@ const products = [
         price: 79.99,
         rating: 4.5,
         reviews: 28,
-        description: 'Premium quality thobe with modern cut and traditional elegance. Perfect for daily wear and special occasions.',
-        icon: '🕌'
+        description: 'Premium quality thobe with modern cut and traditional elegance. Perfect for daily wear and special occasions. Made from 100% cotton blend fabric that ensures comfort throughout the day.',
+        icon: '🕌',
+        sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+        colors: [
+            { name: 'Black', hex: '#1a1a1a' },
+            { name: 'White', hex: '#ffffff' },
+            { name: 'Navy', hex: '#001f3f' },
+            { name: 'Brown', hex: '#8b4513' }
+        ],
+        images: ['🕌', '🕌', '🕌', '🕌'],
+        reviews_data: [
+            { author: 'Omar S.', rating: 5, date: '2 weeks ago', text: 'Perfect blend of modesty and style. The quality is exceptional and it fits perfectly!' },
+            { author: 'Ahmed K.', rating: 4, date: '1 month ago', text: 'Great thobe, very comfortable. Only issue is the delivery took longer than expected.' },
+            { author: 'Hassan M.', rating: 5, date: '1 month ago', text: 'Excellent craftsmanship. Will definitely buy again!' }
+        ]
     },
     {
         id: 2,
@@ -37,8 +84,19 @@ const products = [
         price: 89.99,
         rating: 4.7,
         reviews: 35,
-        description: 'Traditional Emirati-style thobe in pristine white. Elegant and comfortable.',
-        icon: '🕌'
+        description: 'Traditional Emirati-style thobe in pristine white. Elegant and comfortable for formal occasions. Features traditional embroidery details on the chest.',
+        icon: '🕌',
+        sizes: ['M', 'L', 'XL', 'XXL'],
+        colors: [
+            { name: 'White', hex: '#ffffff' },
+            { name: 'Cream', hex: '#fffdd0' },
+            { name: 'Gold Trim', hex: '#ffd700' }
+        ],
+        images: ['🕌', '🕌', '🕌', '🕌'],
+        reviews_data: [
+            { author: 'Fatima B.', rating: 5, date: '3 weeks ago', text: 'My husband looks so handsome in this! Perfect for Eid celebrations.' },
+            { author: 'Mohammed F.', rating: 4, date: '1 month ago', text: 'Good quality, fits well. White color is brighter than expected.' }
+        ]
     },
     {
         id: 3,
@@ -49,8 +107,18 @@ const products = [
         price: 85.99,
         rating: 4.6,
         reviews: 42,
-        description: 'Classic Saudi-style thobe in sophisticated black. Perfect for any occasion.',
-        icon: '🕌'
+        description: 'Classic Saudi-style thobe in sophisticated black. Perfect for any occasion. Premium fabric with traditional styling.',
+        icon: '🕌',
+        sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+        colors: [
+            { name: 'Black', hex: '#1a1a1a' },
+            { name: 'Dark Gray', hex: '#36454f' }
+        ],
+        images: ['🕌', '🕌', '🕌', '🕌'],
+        reviews_data: [
+            { author: 'Sultan A.', rating: 5, date: '2 weeks ago', text: 'Versatile and elegant. Great for both casual and formal settings.' },
+            { author: 'Yusuf M.', rating: 4, date: '2 weeks ago', text: 'Nice quality but fabric is a bit thick in summer.' }
+        ]
     },
     {
         id: 4,
@@ -61,8 +129,19 @@ const products = [
         price: 59.99,
         rating: 4.8,
         reviews: 42,
-        description: 'Bold streetwear hoodie with Islamic calligraphy design. Comfortable and stylish.',
-        icon: '👕'
+        description: 'Bold streetwear hoodie with Islamic calligraphy design. Comfortable and stylish. Features a modern cut with contemporary graphics.',
+        icon: '👕',
+        sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+        colors: [
+            { name: 'Black', hex: '#1a1a1a' },
+            { name: 'Gray', hex: '#808080' },
+            { name: 'Navy', hex: '#001f3f' }
+        ],
+        images: ['👕', '👕', '👕', '👕'],
+        reviews_data: [
+            { author: 'Karim D.', rating: 5, date: '1 week ago', text: 'Love the design! Very comfortable hoodie, perfect for street style.' },
+            { author: 'Ali R.', rating: 5, date: '2 weeks ago', text: 'Great quality and the graphics are amazing.' }
+        ]
     },
     {
         id: 5,
@@ -73,8 +152,19 @@ const products = [
         price: 79.99,
         rating: 4.9,
         reviews: 38,
-        description: 'Modern streetwear jacket with subtle Islamic design elements.',
-        icon: '🧥'
+        description: 'Modern streetwear jacket with subtle Islamic design elements. Perfect for layering.',
+        icon: '🧥',
+        sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+        colors: [
+            { name: 'Black', hex: '#1a1a1a' },
+            { name: 'Charcoal', hex: '#36454f' },
+            { name: 'Olive', hex: '#808000' }
+        ],
+        images: ['🧥', '🧥', '🧥', '🧥'],
+        reviews_data: [
+            { author: 'Jamal S.', rating: 5, date: '2 weeks ago', text: 'Stylish and well-made. Exactly what I was looking for!' },
+            { author: 'Rashid M.', rating: 5, date: '1 month ago', text: 'Amazing quality. The design is subtle but meaningful.' }
+        ]
     },
     {
         id: 6,
@@ -85,8 +175,19 @@ const products = [
         price: 89.99,
         rating: 4.7,
         reviews: 35,
-        description: 'Elegant abaya with contemporary design. Made from premium fabric for all-day comfort.',
-        icon: '👗'
+        description: 'Elegant abaya with contemporary design. Made from premium fabric for all-day comfort. Features modern silhouette with traditional elements.',
+        icon: '👗',
+        sizes: ['S', 'M', 'L', 'XL'],
+        colors: [
+            { name: 'Black', hex: '#1a1a1a' },
+            { name: 'Navy', hex: '#001f3f' },
+            { name: 'Dark Brown', hex: '#654321' }
+        ],
+        images: ['👗', '👗', '👗', '👗'],
+        reviews_data: [
+            { author: 'Aisha N.', rating: 5, date: '3 weeks ago', text: 'Beautiful abaya! Fits perfectly and the material is so soft.' },
+            { author: 'Leila H.', rating: 4, date: '1 month ago', text: 'Very elegant. Only wish it came in more colors.' }
+        ]
     },
     {
         id: 7,
@@ -98,7 +199,17 @@ const products = [
         rating: 4.8,
         reviews: 51,
         description: 'Timeless black abaya with elegant draping. Perfect for daily wear.',
-        icon: '👗'
+        icon: '👗',
+        sizes: ['XS', 'S', 'M', 'L', 'XL'],
+        colors: [
+            { name: 'Black', hex: '#1a1a1a' },
+            { name: 'Deep Black', hex: '#0a0a0a' }
+        ],
+        images: ['👗', '👗', '👗', '👗'],
+        reviews_data: [
+            { author: 'Noor K.', rating: 5, date: '1 week ago', text: 'Perfect abaya! Great quality and very comfortable.' },
+            { author: 'Rania M.', rating: 4, date: '2 weeks ago', text: 'Good value for money. Very happy with my purchase.' }
+        ]
     },
     {
         id: 8,
@@ -109,8 +220,18 @@ const products = [
         price: 129.99,
         rating: 4.9,
         reviews: 29,
-        description: 'Luxurious abaya with intricate embroidery. Makes a statement.',
-        icon: '👗'
+        description: 'Luxurious abaya with intricate embroidery. Makes a statement. Premium quality with detailed handwork.',
+        icon: '👗',
+        sizes: ['S', 'M', 'L', 'XL'],
+        colors: [
+            { name: 'Black with Gold', hex: '#1a1a1a' },
+            { name: 'Black with Pearl', hex: '#1a1a1a' }
+        ],
+        images: ['👗', '👗', '👗', '👗'],
+        reviews_data: [
+            { author: 'Yasmin S.', rating: 5, date: '2 weeks ago', text: 'Absolutely stunning! The embroidery is exquisite.' },
+            { author: 'Dina W.', rating: 5, date: '1 month ago', text: 'Worth every penny. I get compliments every time I wear it.' }
+        ]
     },
     {
         id: 9,
@@ -122,7 +243,16 @@ const products = [
         rating: 4.6,
         reviews: 56,
         description: 'Premium quality hijabs in various colors. Soft, breathable, and easy to style.',
-        icon: '🧕'
+        icon: '🧕',
+        sizes: ['One Size'],
+        colors: [
+            { name: 'Multicolor Set', hex: '#d4a574' }
+        ],
+        images: ['🧕', '🧕', '🧕', '🧕'],
+        reviews_data: [
+            { author: 'Maha T.', rating: 5, date: '1 week ago', text: 'Great set of hijabs! Excellent quality and perfect colors.' },
+            { author: 'Zainab L.', rating: 4, date: '2 weeks ago', text: 'Good quality but wish there were more color options.' }
+        ]
     },
     {
         id: 10,
@@ -134,7 +264,16 @@ const products = [
         rating: 4.7,
         reviews: 48,
         description: 'Set of 5 chiffon hijabs in versatile colors. Lightweight and elegant.',
-        icon: '🧕'
+        icon: '🧕',
+        sizes: ['One Size'],
+        colors: [
+            { name: 'Chiffon Mix', hex: '#d4a574' }
+        ],
+        images: ['🧕', '🧕', '🧕', '🧕'],
+        reviews_data: [
+            { author: 'Hana R.', rating: 5, date: '2 weeks ago', text: 'Perfect chiffon hijabs! Very easy to style.' },
+            { author: 'Sarai M.', rating: 4, date: '1 month ago', text: 'Good quality, but one hijab got damaged during shipping.' }
+        ]
     },
     {
         id: 11,
@@ -146,7 +285,16 @@ const products = [
         rating: 4.8,
         reviews: 62,
         description: 'Comfortable jersey hijabs that stay in place. Perfect for everyday wear.',
-        icon: '🧕'
+        icon: '🧕',
+        sizes: ['One Size'],
+        colors: [
+            { name: 'Jersey Mix', hex: '#d4a574' }
+        ],
+        images: ['🧕', '🧕', '🧕', '🧕'],
+        reviews_data: [
+            { author: 'Rana K.', rating: 5, date: '1 week ago', text: 'These hijabs stay in place all day! Best purchase ever.' },
+            { author: 'Lina S.', rating: 5, date: '2 weeks ago', text: 'Very comfortable and stylish. Highly recommend!' }
+        ]
     },
     {
         id: 12,
@@ -158,7 +306,18 @@ const products = [
         rating: 4.7,
         reviews: 33,
         description: 'Modest streetwear hoodie with faith-inspired graphics. Stylish and comfortable.',
-        icon: '👕'
+        icon: '👕',
+        sizes: ['XS', 'S', 'M', 'L', 'XL'],
+        colors: [
+            { name: 'Black', hex: '#1a1a1a' },
+            { name: 'Burgundy', hex: '#800020' },
+            { name: 'Charcoal', hex: '#36454f' }
+        ],
+        images: ['👕', '👕', '👕', '👕'],
+        reviews_data: [
+            { author: 'Sara J.', rating: 5, date: '2 weeks ago', text: 'Love this hoodie! Perfect for layering and very comfortable.' },
+            { author: 'Noura B.', rating: 4, date: '1 month ago', text: 'Good quality but sizing runs small.' }
+        ]
     },
     {
         id: 13,
@@ -170,7 +329,17 @@ const products = [
         rating: 4.8,
         reviews: 27,
         description: 'Coordinated streetwear set combining modesty with urban style.',
-        icon: '👖'
+        icon: '👖',
+        sizes: ['S', 'M', 'L', 'XL'],
+        colors: [
+            { name: 'Black', hex: '#1a1a1a' },
+            { name: 'Navy', hex: '#001f3f' }
+        ],
+        images: ['👖', '👖', '👖', '👖'],
+        reviews_data: [
+            { author: 'Amira G.', rating: 5, date: '2 weeks ago', text: 'Perfect set! Everything matches and looks amazing together.' },
+            { author: 'Tasneem A.', rating: 5, date: '1 month ago', text: 'Great value as a set. Love the coordinated look!' }
+        ]
     },
     {
         id: 14,
@@ -182,7 +351,18 @@ const products = [
         rating: 4.9,
         reviews: 31,
         description: 'Comfortable kurta set for kids. Perfect for Eid and special occasions.',
-        icon: '👶'
+        icon: '👶',
+        sizes: ['2T', '3T', '4T', '5T', '6T'],
+        colors: [
+            { name: 'Navy', hex: '#001f3f' },
+            { name: 'Maroon', hex: '#800000' },
+            { name: 'Green', hex: '#006400' }
+        ],
+        images: ['👶', '👶', '👶', '👶'],
+        reviews_data: [
+            { author: 'Mama Zara', rating: 5, date: '2 weeks ago', text: 'My kids look so adorable in these kurtas! Perfect for Eid.' },
+            { author: 'Mama Amira', rating: 5, date: '1 month ago', text: 'Great quality and my kids love them!' }
+        ]
     },
     {
         id: 15,
@@ -194,7 +374,18 @@ const products = [
         rating: 4.8,
         reviews: 44,
         description: 'Adorable mini thobe for young boys. Comfortable and stylish.',
-        icon: '🕌'
+        icon: '🕌',
+        sizes: ['1T', '2T', '3T', '4T', '5T'],
+        colors: [
+            { name: 'White', hex: '#ffffff' },
+            { name: 'Cream', hex: '#fffdd0' },
+            { name: 'Navy', hex: '#001f3f' }
+        ],
+        images: ['🕌', '🕌', '🕌', '🕌'],
+        reviews_data: [
+            { author: 'Mama Noor', rating: 5, date: '1 week ago', text: 'My son looks so cute! Perfect thobe for celebrations.' },
+            { author: 'Mama Yasmin', rating: 4, date: '2 weeks ago', text: 'Good quality but sizing is tight.' }
+        ]
     },
     {
         id: 16,
@@ -206,7 +397,17 @@ const products = [
         rating: 4.7,
         reviews: 38,
         description: 'Classic white thobe for children. Perfect for special occasions.',
-        icon: '🕌'
+        icon: '🕌',
+        sizes: ['1T', '2T', '3T', '4T', '5T', '6T'],
+        colors: [
+            { name: 'White', hex: '#ffffff' },
+            { name: 'Cream', hex: '#fffdd0' }
+        ],
+        images: ['🕌', '🕌', '🕌', '🕌'],
+        reviews_data: [
+            { author: 'Mama Layla', rating: 5, date: '2 weeks ago', text: 'Perfect thobe! My children love wearing it.' },
+            { author: 'Mama Hana', rating: 4, date: '1 month ago', text: 'Good quality but white can stain easily.' }
+        ]
     },
     {
         id: 17,
@@ -218,7 +419,17 @@ const products = [
         rating: 4.5,
         reviews: 24,
         description: 'Cool streetwear t-shirt for kids with faith-inspired graphics.',
-        icon: '👕'
+        icon: '👕',
+        sizes: ['2T', '3T', '4T', '5T', '6T'],
+        colors: [
+            { name: 'Black', hex: '#1a1a1a' },
+            { name: 'Navy', hex: '#001f3f' }
+        ],
+        images: ['👕', '👕', '👕', '👕'],
+        reviews_data: [
+            { author: 'Mama Sara', rating: 5, date: '2 weeks ago', text: 'My kids love these tees! Great design and quality.' },
+            { author: 'Mama Dina', rating: 4, date: '1 month ago', text: 'Good price but material is thin.' }
+        ]
     },
     {
         id: 18,
@@ -230,7 +441,18 @@ const products = [
         rating: 4.8,
         reviews: 67,
         description: 'Portable prayer mat with carrying case. Comfortable and durable.',
-        icon: '🕋'
+        icon: '🕋',
+        sizes: ['One Size'],
+        colors: [
+            { name: 'Green', hex: '#006400' },
+            { name: 'Navy', hex: '#001f3f' },
+            { name: 'Black', hex: '#1a1a1a' }
+        ],
+        images: ['🕋', '🕋', '🕋', '🕋'],
+        reviews_data: [
+            { author: 'Abdullah M.', rating: 5, date: '1 week ago', text: 'Perfect prayer mat! Very portable and well-made.' },
+            { author: 'Khalid A.', rating: 5, date: '2 weeks ago', text: 'Excellent quality. I take it everywhere!' }
+        ]
     },
     {
         id: 19,
@@ -242,7 +464,18 @@ const products = [
         rating: 4.9,
         reviews: 43,
         description: 'Modern designer jilbab with elegant draping. Perfect for modest fashion.',
-        icon: '👗'
+        icon: '👗',
+        sizes: ['S', 'M', 'L', 'XL'],
+        colors: [
+            { name: 'Black', hex: '#1a1a1a' },
+            { name: 'Navy', hex: '#001f3f' },
+            { name: 'Charcoal', hex: '#36454f' }
+        ],
+        images: ['👗', '👗', '👗', '👗'],
+        reviews_data: [
+            { author: 'Nadia T.', rating: 5, date: '2 weeks ago', text: 'Stunning jilbab! The design is elegant and modern.' },
+            { author: 'Salma R.', rating: 5, date: '1 month ago', text: 'Worth the investment. High-quality material and beautiful design.' }
+        ]
     },
     {
         id: 20,
@@ -254,7 +487,18 @@ const products = [
         rating: 4.6,
         reviews: 38,
         description: 'Modest athletic wear for men. Comfortable and performance-ready.',
-        icon: '👔'
+        icon: '👔',
+        sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+        colors: [
+            { name: 'Black', hex: '#1a1a1a' },
+            { name: 'Navy', hex: '#001f3f' },
+            { name: 'Gray', hex: '#808080' }
+        ],
+        images: ['👔', '👔', '👔', '👔'],
+        reviews_data: [
+            { author: 'Tarek F.', rating: 5, date: '2 weeks ago', text: 'Great tracksuit! Perfect for gym and casual wear.' },
+            { author: 'Waleed S.', rating: 4, date: '1 month ago', text: 'Good quality but expensive.' }
+        ]
     },
     {
         id: 21,
@@ -266,7 +510,18 @@ const products = [
         rating: 4.7,
         reviews: 29,
         description: 'Beautiful modest dress set for girls. Comfortable and stylish.',
-        icon: '👗'
+        icon: '👗',
+        sizes: ['2T', '3T', '4T', '5T', '6T'],
+        colors: [
+            { name: 'Pink', hex: '#ff69b4' },
+            { name: 'Purple', hex: '#800080' },
+            { name: 'Green', hex: '#006400' }
+        ],
+        images: ['👗', '👗', '👗', '👗'],
+        reviews_data: [
+            { author: 'Mama Mariam', rating: 5, date: '2 weeks ago', text: 'Adorable dress! My daughter loves it.' },
+            { author: 'Mama Rana', rating: 4, date: '1 month ago', text: 'Pretty dress but runs a bit small.' }
+        ]
     },
     {
         id: 22,
@@ -278,7 +533,18 @@ const products = [
         rating: 4.8,
         reviews: 52,
         description: 'Performance sports hijab. Breathable, moisture-wicking, and secure.',
-        icon: '🧕'
+        icon: '🧕',
+        sizes: ['One Size'],
+        colors: [
+            { name: 'Black', hex: '#1a1a1a' },
+            { name: 'Navy', hex: '#001f3f' },
+            { name: 'Charcoal', hex: '#36454f' }
+        ],
+        images: ['🧕', '🧕', '🧕', '🧕'],
+        reviews_data: [
+            { author: 'Mona E.', rating: 5, date: '1 week ago', text: 'Perfect for sports! Stays in place and breathes well.' },
+            { author: 'Alia H.', rating: 5, date: '2 weeks ago', text: 'Best sports hijab I\'ve tried. Highly recommend!' }
+        ]
     },
     {
         id: 23,
@@ -290,7 +556,18 @@ const products = [
         rating: 4.7,
         reviews: 33,
         description: 'Modern jubba-style jacket. Perfect blend of traditional and contemporary.',
-        icon: '🧥'
+        icon: '🧥',
+        sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+        colors: [
+            { name: 'Black', hex: '#1a1a1a' },
+            { name: 'Navy', hex: '#001f3f' },
+            { name: 'Dark Brown', hex: '#654321' }
+        ],
+        images: ['🧥', '🧥', '🧥', '🧥'],
+        reviews_data: [
+            { author: 'Faisal P.', rating: 5, date: '2 weeks ago', text: 'Excellent jacket! Looks very elegant and modern.' },
+            { author: 'Bilal Q.', rating: 4, date: '1 month ago', text: 'Good quality but could use better stitching.' }
+        ]
     }
 ];
 
@@ -369,7 +646,7 @@ function renderProducts() {
         : products.filter(p => p.category === currentFilter);
 
     productsGrid.innerHTML = filteredProducts.map(product => `
-        <div class="product-card" data-id="${product.id}">
+        <div class="product-card" data-id="${product.id}" onclick="if(event.target.closest('button') === null) showProductDetail(${product.id});" style="cursor: pointer;">
             <div class="product-image">
                 ${product.icon}
                 <div class="product-actions">
@@ -391,9 +668,14 @@ function renderProducts() {
                     (${product.reviews})
                 </div>
                 <div class="product-price">$${product.price.toFixed(2)}</div>
-                <button class="add-to-cart-btn" onclick="addToCart(${product.id}); event.stopPropagation();">
-                    Add to Cart
-                </button>
+                <div class="product-buttons">
+                    <button class="add-to-cart-btn" onclick="addToCart(${product.id}); event.stopPropagation();">
+                        Add to Cart
+                    </button>
+                    <button class="buy-now-btn" onclick="buyNow(${product.id}); event.stopPropagation();">
+                        Buy Now
+                    </button>
+                </div>
             </div>
         </div>
     `).join('');
@@ -409,7 +691,7 @@ function renderStreetWearSection() {
     const menStreetGrid = document.getElementById('menStreetGrid');
     if (menStreetWear.length > 0) {
         menStreetGrid.innerHTML = menStreetWear.map(product => `
-            <div class="product-card" data-id="${product.id}">
+            <div class="product-card" data-id="${product.id}" onclick="if(event.target.closest('button') === null) showProductDetail(${product.id});" style="cursor: pointer;">
                 <div class="product-image">
                     ${product.icon}
                     <div class="product-actions">
@@ -431,9 +713,14 @@ function renderStreetWearSection() {
                         (${product.reviews})
                     </div>
                     <div class="product-price">$${product.price.toFixed(2)}</div>
-                    <button class="add-to-cart-btn" onclick="addToCart(${product.id}); event.stopPropagation();">
-                        Add to Cart
-                    </button>
+                    <div class="product-buttons">
+                        <button class="add-to-cart-btn" onclick="addToCart(${product.id}); event.stopPropagation();">
+                            Add to Cart
+                        </button>
+                        <button class="buy-now-btn" onclick="buyNow(${product.id}); event.stopPropagation();">
+                            Buy Now
+                        </button>
+                    </div>
                 </div>
             </div>
         `).join('');
@@ -445,7 +732,7 @@ function renderStreetWearSection() {
     const womenStreetGrid = document.getElementById('womenStreetGrid');
     if (womenStreetWear.length > 0) {
         womenStreetGrid.innerHTML = womenStreetWear.map(product => `
-            <div class="product-card" data-id="${product.id}">
+            <div class="product-card" data-id="${product.id}" onclick="if(event.target.closest('button') === null) showProductDetail(${product.id});" style="cursor: pointer;">
                 <div class="product-image">
                     ${product.icon}
                     <div class="product-actions">
@@ -467,9 +754,14 @@ function renderStreetWearSection() {
                         (${product.reviews})
                     </div>
                     <div class="product-price">$${product.price.toFixed(2)}</div>
-                    <button class="add-to-cart-btn" onclick="addToCart(${product.id}); event.stopPropagation();">
-                        Add to Cart
-                    </button>
+                    <div class="product-buttons">
+                        <button class="add-to-cart-btn" onclick="addToCart(${product.id}); event.stopPropagation();">
+                            Add to Cart
+                        </button>
+                        <button class="buy-now-btn" onclick="buyNow(${product.id}); event.stopPropagation();">
+                            Buy Now
+                        </button>
+                    </div>
                 </div>
             </div>
         `).join('');
@@ -479,54 +771,9 @@ function renderStreetWearSection() {
 }
 
 // Show product detail
+// Navigate to product detail page
 function showProductDetail(productId) {
-    const product = products.find(p => p.id === productId);
-    if (!product) return;
-
-    const modalBody = document.getElementById('modalBody');
-    modalBody.innerHTML = `
-        <div class="product-detail">
-            <div class="product-detail-image">${product.icon}</div>
-            <div class="product-detail-info">
-                <div class="product-category">${product.category.toUpperCase()}</div>
-                <h2>${product.name}</h2>
-                <div class="product-rating">
-                    ${'★'.repeat(Math.floor(product.rating))}${'☆'.repeat(5 - Math.floor(product.rating))}
-                    (${product.reviews} reviews)
-                </div>
-                <div class="product-price">$${product.price.toFixed(2)}</div>
-                <p class="product-description">${product.description}</p>
-                
-                <div class="size-selector">
-                    <h4>Select Size:</h4>
-                    <div class="size-options">
-                        <button class="size-btn" onclick="selectSize(this)">S</button>
-                        <button class="size-btn active" onclick="selectSize(this)">M</button>
-                        <button class="size-btn" onclick="selectSize(this)">L</button>
-                        <button class="size-btn" onclick="selectSize(this)">XL</button>
-                    </div>
-                </div>
-                
-                <div class="product-actions-detail">
-                    <button class="add-to-cart-btn" onclick="addToCart(${product.id}); closeModal();">
-                        Add to Cart
-                    </button>
-                    <button class="action-btn ${isSaved(product.id) ? 'saved' : ''}" 
-                            onclick="toggleSaveItem(${product.id}); this.classList.toggle('saved');">
-                        <i class="fas fa-heart"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        
-        <div class="reviews-section">
-            <h3>Customer Reviews</h3>
-            ${generateReviews(product)}
-        </div>
-    `;
-
-    document.getElementById('productModal').classList.add('open');
-    document.getElementById('overlay').classList.add('active');
+    window.location.href = `product-detail.html?id=${productId}`;
 }
 
 // Generate reviews
@@ -574,6 +821,25 @@ function addToCart(productId) {
     updateCartCount();
     renderCart();
     showNotification('Added to cart!');
+}
+
+// Buy Now - Add to cart and redirect to checkout
+function buyNow(productId) {
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+
+    const existingItem = cart.find(item => item.id === productId);
+    if (existingItem) {
+        existingItem.quantity++;
+    } else {
+        cart.push({ ...product, quantity: 1 });
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+    
+    // Redirect to checkout page
+    window.location.href = 'checkout.html';
 }
 
 // Toggle sidebar
@@ -713,28 +979,42 @@ function updateSavedCount() {
 // Toggle cart
 function toggleCart() {
     const cartSidebar = document.getElementById('cartSidebar');
+    const savedSidebar = document.getElementById('savedSidebar');
     const overlay = document.getElementById('overlay');
     
-    cartSidebar.classList.toggle('open');
-    overlay.classList.toggle('active');
+    const isCartOpen = cartSidebar.classList.contains('open');
     
-    if (cartSidebar.classList.contains('open')) {
+    if (isCartOpen) {
+        // Close cart
+        cartSidebar.classList.remove('open');
+        overlay.classList.remove('active');
+    } else {
+        // Open cart, close other sidebars
+        savedSidebar.classList.remove('open');
+        cartSidebar.classList.add('open');
+        overlay.classList.add('active');
         renderCart();
-        document.getElementById('savedSidebar').classList.remove('open');
     }
 }
 
 // Toggle saved
 function toggleSaved() {
     const savedSidebar = document.getElementById('savedSidebar');
+    const cartSidebar = document.getElementById('cartSidebar');
     const overlay = document.getElementById('overlay');
     
-    savedSidebar.classList.toggle('open');
-    overlay.classList.toggle('active');
+    const isSavedOpen = savedSidebar.classList.contains('open');
     
-    if (savedSidebar.classList.contains('open')) {
+    if (isSavedOpen) {
+        // Close saved
+        savedSidebar.classList.remove('open');
+        overlay.classList.remove('active');
+    } else {
+        // Open saved, close other sidebars
+        cartSidebar.classList.remove('open');
+        savedSidebar.classList.add('open');
+        overlay.classList.add('active');
         renderSavedItems();
-        document.getElementById('cartSidebar').classList.remove('open');
     }
 }
 
@@ -867,17 +1147,36 @@ function showCategory(category) {
                     </div>
                     <div class="products-grid">
                         ${filteredProducts.map(product => `
-                            <div class="product-card" onclick="showProductDetail(${product.id})">
-                                <div class="product-image">${product.icon}</div>
-                                <div class="product-info">
-                                    <h3>${product.name}</h3>
-                                    <div class="rating">
-                                        <span class="stars">${'⭐'.repeat(Math.round(product.rating))}</span>
-                                        <span class="rating-value">${product.rating}</span>
+                            <div class="product-card" data-id="${product.id}" onclick="if(event.target.closest('button') === null) showProductDetail(${product.id});" style="cursor: pointer;">
+                                <div class="product-image">
+                                    ${product.icon}
+                                    <div class="product-actions">
+                                        <button class="action-btn save-btn ${isSaved(product.id) ? 'saved' : ''}" 
+                                                onclick="toggleSaveItem(${product.id}); event.stopPropagation();">
+                                            <i class="fas fa-heart"></i>
+                                        </button>
+                                        <button class="action-btn quick-view-btn" 
+                                                onclick="showProductDetail(${product.id}); event.stopPropagation();">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
                                     </div>
-                                    <p class="reviews">${product.reviews} reviews</p>
-                                    <p class="price">$${product.price.toFixed(2)}</p>
-                                    <button class="btn-secondary" onclick="event.stopPropagation(); addToCart(${product.id})">Add to Cart</button>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-category">${product.category}</div>
+                                    <h3 class="product-name">${product.name}</h3>
+                                    <div class="product-rating">
+                                        ${'★'.repeat(Math.floor(product.rating))}${'☆'.repeat(5 - Math.floor(product.rating))}
+                                        (${product.reviews})
+                                    </div>
+                                    <div class="product-price">$${product.price.toFixed(2)}</div>
+                                    <div class="product-buttons">
+                                        <button class="add-to-cart-btn" onclick="addToCart(${product.id}); event.stopPropagation();">
+                                            Add to Cart
+                                        </button>
+                                        <button class="buy-now-btn" onclick="buyNow(${product.id}); event.stopPropagation();">
+                                            Buy Now
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         `).join('')}
@@ -918,13 +1217,19 @@ function closeModal() {
 
 // Close all sidebars
 function closeAllSidebars() {
-    document.getElementById('cartSidebar').classList.remove('open');
-    document.getElementById('savedSidebar').classList.remove('open');
-    document.getElementById('productModal').classList.remove('open');
-    document.getElementById('searchModal').classList.remove('open');
-    document.getElementById('overlay').classList.remove('active');
+    const cartSidebar = document.getElementById('cartSidebar');
+    const savedSidebar = document.getElementById('savedSidebar');
+    const productModal = document.getElementById('productModal');
+    const searchModal = document.getElementById('searchModal');
+    const overlay = document.getElementById('overlay');
     const sidebar = document.getElementById('sidebar');
+    
+    if (cartSidebar) cartSidebar.classList.remove('open');
+    if (savedSidebar) savedSidebar.classList.remove('open');
+    if (productModal) productModal.classList.remove('open');
+    if (searchModal) searchModal.classList.remove('open');
     if (sidebar) sidebar.classList.remove('open');
+    if (overlay) overlay.classList.remove('active');
     document.body.classList.remove('sidebar-open');
 }
 

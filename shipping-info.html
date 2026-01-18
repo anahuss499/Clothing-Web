@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="images/real-removebg-preview (1).png">
+    <title>Shipping Information - The Believers</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .legal-page {
+            padding: 60px 20px;
+            background-color: var(--light-gray);
+        }
+        .legal-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: var(--primary-white);
+            padding: 50px;
+            border-radius: 8px;
+        }
+        .legal-container h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            color: var(--primary-black);
+        }
+        .last-updated {
+            color: var(--text-light);
+            font-size: 14px;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--border-gray);
+            padding-bottom: 20px;
+        }
+        .legal-container h2 {
+            font-size: 22px;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            color: var(--primary-black);
+        }
+        .legal-container h3 {
+            font-size: 18px;
+            margin-top: 25px;
+            margin-bottom: 12px;
+            color: var(--text-dark);
+        }
+        .legal-container p {
+            line-height: 1.8;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+            font-size: 15px;
+        }
+        .legal-container ul, .legal-container ol {
+            margin: 15px 0 15px 30px;
+            color: var(--text-dark);
+        }
+        .legal-container li {
+            margin-bottom: 10px;
+            line-height: 1.7;
+        }
+        .shipping-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: var(--primary-white);
+        }
+        .shipping-table th,
+        .shipping-table td {
+            border: 1px solid var(--border-gray);
+            padding: 12px 15px;
+            text-align: left;
+        }
+        .shipping-table th {
+            background-color: var(--light-gray);
+            font-weight: 600;
+            color: var(--primary-black);
+        }
+        .shipping-table tr:hover {
+            background-color: #fafafa;
+        }
+        .highlight {
+            background-color: #d4edda;
+            padding: 15px;
+            border-left: 4px solid var(--success);
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .info-box {
+            background-color: #e7f3ff;
+            padding: 15px;
+            border-left: 4px solid #0056b3;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary-gold);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 30px;
+            transition: gap 0.3s ease;
+        }
+        .back-link:hover {
+            gap: 12px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <img class="site-logo" src="images/real-removebg-preview (1).png" alt="The Believers Logo">
+                    <p class="tagline">Faith & Street Culture</p>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="index.html#products">Shop</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                </ul>
+                <div class="nav-icons">
+                    <button class="icon-btn" id="loginBtn" onclick="window.location.href='login.html'" title="Login">
+                        <i class="fas fa-user"></i>
+                    </button>
+                    <button class="icon-btn" id="cartBtn">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="badge" id="cartCount">0</span>
+                    </button>
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Legal Content -->
+    <main class="legal-page">
+        <div class="legal-container">
+            <a href="index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+
+            <h1>Shipping Information</h1>
+            <div class="last-updated">
+                Last Updated: January 2026
+            </div>
+
+            <h2>1. Shipping Methods & Timeframes</h2>
+            
+            <div class="info-box">
+                <strong>📦 Standard Domestic Shipping (USA):</strong> 5-7 business days<br>
+                <strong>📦 Expedited Shipping (USA):</strong> 2-3 business days<br>
+                <strong>📦 Express Overnight (USA):</strong> Next business day<br>
+                <strong>🌍 International Shipping:</strong> 10-21 business days (varies by country)
+            </div>
+
+            <h3>1.1 Processing Time</h3>
+            <p>
+                All shipping timeframes are calculated from the order processing date, not the purchase date. We process orders during business hours (Monday-Friday, 9 AM - 5 PM EST, excluding holidays). Orders placed on weekends or holidays will be processed on the next business day.
+            </p>
+            <p>
+                <strong>Note:</strong> Estimated delivery times are not guaranteed and are provided for reference only. Actual delivery may take longer due to circumstances beyond our control.
+            </p>
+
+            <h3>1.2 Shipping Carriers</h3>
+            <p>
+                We partner with major shipping carriers, including:
+            </p>
+            <ul>
+                <li><strong>USPS</strong> (United States Postal Service) - Domestic and International</li>
+                <li><strong>UPS</strong> (United Parcel Service) - Domestic and International</li>
+                <li><strong>FedEx</strong> - Domestic and International</li>
+                <li><strong>DHL</strong> - International Express</li>
+            </ul>
+            <p>
+                The carrier is selected based on destination, weight, and service level. You will receive a tracking number and estimated delivery date via email.
+            </p>
+
+            <h2>2. Domestic Shipping Rates</h2>
+            <p>
+                Shipping costs for orders within the United States are calculated based on weight, dimensions, and selected service level:
+            </p>
+
+            <table class="shipping-table">
+                <thead>
+                    <tr>
+                        <th>Service Level</th>
+                        <th>Delivery Time</th>
+                        <th>Cost (under 2 lbs)</th>
+                        <th>Cost (2-5 lbs)</th>
+                        <th>Tracking</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Standard Shipping</strong></td>
+                        <td>5-7 business days</td>
+                        <td>$5.99</td>
+                        <td>$8.99</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Expedited Shipping</strong></td>
+                        <td>2-3 business days</td>
+                        <td>$12.99</td>
+                        <td>$17.99</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Express Overnight</strong></td>
+                        <td>Next business day</td>
+                        <td>$24.99</td>
+                        <td>$34.99</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Free Shipping</strong></td>
+                        <td>5-7 business days*</td>
+                        <td colspan="2">On orders over $75</td>
+                        <td>Yes</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p style="font-size: 13px; color: var(--text-light); margin-top: 10px;">
+                *Free shipping on orders over $75 excludes Alaska, Hawaii, and U.S. Territories.
+            </p>
+
+            <h2>3. International Shipping</h2>
+
+            <h3>3.1 International Shipping Costs</h3>
+            <table class="shipping-table">
+                <thead>
+                    <tr>
+                        <th>Region</th>
+                        <th>Delivery Time</th>
+                        <th>Cost (under 2 lbs)</th>
+                        <th>Cost (2-5 lbs)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Canada</strong></td>
+                        <td>7-14 business days</td>
+                        <td>$15.99</td>
+                        <td>$22.99</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Europe</strong></td>
+                        <td>10-21 business days</td>
+                        <td>$25.99</td>
+                        <td>$35.99</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Australia</strong></td>
+                        <td>14-21 business days</td>
+                        <td>$28.99</td>
+                        <td>$39.99</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Asia (excluding Middle East)</strong></td>
+                        <td>14-21 business days</td>
+                        <td>$22.99</td>
+                        <td>$32.99</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Middle East</strong></td>
+                        <td>10-21 business days</td>
+                        <td>$26.99</td>
+                        <td>$36.99</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Latin America</strong></td>
+                        <td>12-21 business days</td>
+                        <td>$19.99</td>
+                        <td>$28.99</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>3.2 International Customs & Duties</h3>
+            <p>
+                International orders are subject to customs duties, taxes, and import fees, which are the responsibility of the recipient. These charges are determined by the destination country and are not included in the shipping cost. Please check your country's customs regulations before ordering.
+            </p>
+            <p>
+                Customs clearance can add 3-7 business days to delivery time. We provide all necessary documentation to expedite customs processing, but delays are sometimes unavoidable.
+            </p>
+
+            <h3>3.3 Restricted Shipping Destinations</h3>
+            <p>
+                We currently do not ship to the following countries due to customs restrictions or shipping limitations:
+            </p>
+            <ul>
+                <li>Iran, Syria, North Korea, and other OFAC-restricted countries</li>
+                <li>Certain remote islands and territories</li>
+                <li>Countries with trade embargoes</li>
+            </ul>
+            <p>
+                Please verify your address is eligible for international shipping before placing an order.
+            </p>
+
+            <h2>4. Tracking & Delivery Confirmation</h2>
+
+            <h3>4.1 Tracking Information</h3>
+            <p>
+                Once your order ships, you will receive an email with:
+            </p>
+            <ul>
+                <li>Unique tracking number</li>
+                <li>Carrier information</li>
+                <li>Estimated delivery date</li>
+                <li>Link to track your package in real-time</li>
+            </ul>
+
+            <h3>4.2 Delivery Confirmation</h3>
+            <p>
+                Most shipments require a signature upon delivery. Some packages may be left at your doorstep without signature if you authorized it or the carrier determines it's safe.
+            </p>
+
+            <h3>4.3 Signature Options</h3>
+            <p>
+                For orders shipped via UPS or FedEx, you can:
+            </p>
+            <ul>
+                <li>Authorize package delivery without signature through the carrier's website</li>
+                <li>Request hold for pickup at a local facility</li>
+                <li>Leave delivery instructions for the carrier</li>
+            </ul>
+
+            <h2>5. Shipping Address Requirements</h2>
+
+            <h3>5.1 Valid Addresses</h3>
+            <p>
+                We ship to:
+            </p>
+            <ul>
+                <li>Residential addresses</li>
+                <li>Business addresses</li>
+                <li>PO Box (USPS only)</li>
+                <li>APO/FPO military addresses</li>
+                <li>UPS Store and other shipping center addresses</li>
+            </ul>
+
+            <h3>5.2 Address Accuracy</h3>
+            <p>
+                Providing an accurate shipping address is your responsibility. We are not responsible for:
+            </p>
+            <ul>
+                <li>Packages shipped to incorrect addresses provided at checkout</li>
+                <li>Packages returned due to undeliverable addresses</li>
+                <li>Delays caused by incomplete or unclear address information</li>
+            </ul>
+            <p>
+                If you need to change your address after placing an order, contact us immediately at shipping@thebelievers.com, as we may still be able to update the address before shipment.
+            </p>
+
+            <h2>6. Undelivered & Lost Packages</h2>
+
+            <h3>6.1 Package Not Delivered</h3>
+            <p>
+                If your package does not arrive within the estimated timeframe:
+            </p>
+            <ol>
+                <li>Check your tracking information for delivery updates</li>
+                <li>Contact the shipping carrier for more information</li>
+                <li>Wait 2-3 additional business days in case of carrier delays</li>
+                <li>If still not received, contact us at claims@thebelievers.com</li>
+            </ol>
+
+            <h3>6.2 Lost Package Claims</h3>
+            <p>
+                We file loss claims with the carrier on your behalf if a package is confirmed lost. Claims typically take 30-60 days to process. Once resolved, you will receive either:
+            </p>
+            <ul>
+                <li>A replacement shipment</li>
+                <li>A full refund to your original payment method</li>
+            </ul>
+
+            <h3>6.3 Damaged Packages</h3>
+            <p>
+                If your package arrives damaged:
+            </p>
+            <ol>
+                <li>Do not throw away packaging or packing materials</li>
+                <li>Take photos of the damage and contents</li>
+                <li>Contact the carrier to file a damage claim</li>
+                <li>Email us at claims@thebelievers.com with photos and order number</li>
+            </ol>
+            <p>
+                You may be requested to return the damaged item for inspection before a replacement or refund is issued.
+            </p>
+
+            <h2>7. Special Shipping Services</h2>
+
+            <h3>7.1 Hold for Pickup</h3>
+            <p>
+                We can arrange for your package to be held at a local carrier facility for pickup. Contact us to arrange pickup at your nearest:
+            </p>
+            <ul>
+                <li>USPS Post Office</li>
+                <li>UPS Store or UPS Customer Center</li>
+                <li>FedEx Office or FedEx Ground Location</li>
+            </ul>
+
+            <h3>7.2 Signature Confirmation</h3>
+            <p>
+                For high-value orders, we recommend signature confirmation. This service ensures someone is present to receive the package. Additional cost applies: $3.50 for USPS, $5.00 for UPS/FedEx.
+            </p>
+
+            <h3>7.3 Insurance</h3>
+            <p>
+                All shipments include basic carrier liability ($100 USD minimum). For orders over $500, we recommend additional shipping insurance. Please contact us for insurance options.
+            </p>
+
+            <h2>8. Returns Shipping</h2>
+
+            <h3>8.1 Return Shipping Labels</h3>
+            <p>
+                We provide prepaid return shipping labels for:
+            </p>
+            <ul>
+                <li>Defective or damaged products</li>
+                <li>Incorrect items received</li>
+                <li>Non-returnable items (at customer's expense if returned)</li>
+            </ul>
+
+            <h3>8.2 Return Address</h3>
+            <p>
+                The return address will be provided in your return authorization email. Do not return items without a return authorization number.
+            </p>
+
+            <h3>8.3 Return Shipping Timeline</h3>
+            <p>
+                Once you initiate a return, you will have 30 days to ship the item back. Items must be received within 45 days of the original delivery date to be eligible for refund.
+            </p>
+
+            <h2>9. Holidays & Delays</h2>
+
+            <h3>9.1 Holiday Processing</h3>
+            <p>
+                <strong>Islamic Holidays:</strong> During Ramadan and Eid celebrations (Eid al-Fitr and Eid al-Adha), there is a possibility of processing and shipping delays as we observe these sacred occasions. We will do our best to maintain regular operations, but we recommend ordering in advance if your delivery date falls near these holidays.
+            </p>
+
+            <h3>9.2 Holiday Season Extended Processing</h3>
+            <p>
+                During peak seasons (November 15 - December 25), processing may take 2-5 business days. Shipping timeframes may also be extended. We recommend placing orders at least 10 business days before your desired delivery date.
+            </p>
+
+            <h3>9.3 Weather & Force Majeure</h3>
+            <p>
+                Unforeseen events such as severe weather, natural disasters, carrier disruptions, or other circumstances beyond our control may cause shipping delays. We are not responsible for delays caused by force majeure events.
+            </p>
+
+            <h2>10. Shipping to Multiple Addresses</h2>
+
+            <h3>10.1 Multiple Orders</h3>
+            <p>
+                If you need to ship to multiple addresses, you will need to place separate orders. Each order will have its own shipping cost and may be processed separately.
+            </p>
+
+            <h3>10.2 Gift Wrapping & Personalization</h3>
+            <p>
+                We offer free gift wrapping with personalized messages for orders over $50. Select this option at checkout. Allow 1-2 additional business days for processing.
+            </p>
+
+            <h2>11. Shipping Costs & Taxes</h2>
+
+            <h3>11.1 Transparent Pricing</h3>
+            <p>
+                Shipping costs are calculated and displayed before checkout. No hidden fees are added after purchase.
+            </p>
+
+            <h3>11.2 Sales Tax</h3>
+            <p>
+                Sales tax is calculated based on your shipping address. For international orders, import duties and taxes are the responsibility of the recipient and are not included in the displayed total.
+            </p>
+
+            <h3>11.3 Promotional Shipping</h3>
+            <p>
+                Free shipping promotional codes are valid on standard domestic shipping only. Restrictions may apply to Alaska, Hawaii, APO/FPO addresses, and certain promotional periods. See specific promotion details for eligibility.
+            </p>
+
+            <h2>12. Contact Information</h2>
+            <p>
+                For shipping questions, concerns, or support:
+            </p>
+            <ul>
+                <li><strong>Email:</strong> shipping@thebelievers.com</li>
+                <li><strong>Phone:</strong> 1-800-BELIEVERS (1-800-235-5243)</li>
+                <li><strong>Hours:</strong> Monday-Friday, 9 AM - 5 PM EST</li>
+                <li><strong>Mailing Address:</strong> The Believers, Shipping Department, 123 Fashion Street, New York, NY 10001, USA</li>
+            </ul>
+
+            <div class="highlight">
+                <strong>✅ We're here to help!</strong> If you have any questions about shipping, tracking, or delivery, please don't hesitate to contact our customer service team. We're committed to getting your order to you safely and on time.
+            </div>
+
+            <h2>13. Frequently Asked Questions</h2>
+
+            <h3>When will my order ship?</h3>
+            <p>
+                Orders are processed within 1-2 business days. You will receive an email confirmation with tracking information once your order ships.
+            </p>
+
+            <h3>How long does international shipping take?</h3>
+            <p>
+                International orders typically take 10-21 business days, depending on the destination country and customs processing.
+            </p>
+
+            <h3>Can I change my address after ordering?</h3>
+            <p>
+                If your order has not yet shipped, we can update your address. Contact us immediately at shipping@thebelievers.com with your order number.
+            </p>
+
+            <h3>Do you offer free shipping?</h3>
+            <p>
+                Yes! Free standard shipping is available on domestic orders over $75. See our Domestic Shipping Rates section for details.
+            </p>
+
+            <h3>What if my package is lost?</h3>
+            <p>
+                Contact us with your tracking number and proof of non-delivery. We will work with the carrier to locate your package or issue a replacement/refund.
+            </p>
+
+            <h3>Can I return a package if I'm not home?</h3>
+            <p>
+                Contact the carrier to request they hold your package at a local facility. You can arrange pickup at your convenience.
+            </p>
+
+            <p style="margin-top: 50px; padding-top: 30px; border-top: 2px solid var(--border-gray); color: var(--text-light);">
+                <strong>Last Updated: January 2026</strong><br>
+                Thank you for choosing The Believers!
+            </p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>The Believers</h3>
+                    <p>Modern Islamic clothing and comfort blending faith with contemporary style.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="terms-of-service.html">Terms of Service</a></li>
+                        <li><a href="shipping-info.html">Shipping Info</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="currentYear"></span> The Believers. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

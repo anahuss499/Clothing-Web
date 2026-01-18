@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="images/real-removebg-preview (1).png">
+    <title>Product Details - The Believers</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Product Detail Page Specific Styles */
+        .product-detail-page {
+            padding: 40px 0;
+            background-color: var(--light-gray);
+        }
+
+        .product-detail-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            background-color: var(--primary-white);
+            padding: 40px;
+            border-radius: 8px;
+            margin-bottom: 60px;
+        }
+
+        .product-detail-images {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .main-image {
+            width: 100%;
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, var(--light-gray) 0%, var(--border-gray) 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 150px;
+        }
+
+        .thumbnail-gallery {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .thumbnail {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, var(--light-gray) 0%, var(--border-gray) 100%);
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .thumbnail:hover,
+        .thumbnail.active {
+            border-color: var(--primary-gold);
+        }
+
+        .product-detail-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .product-header {
+            border-bottom: 2px solid var(--border-gray);
+            padding-bottom: 20px;
+        }
+
+        .product-category-badge {
+            display: inline-block;
+            background-color: var(--primary-gold);
+            color: var(--primary-white);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .product-detail-info h1 {
+            font-size: 32px;
+            color: var(--primary-black);
+            margin: 15px 0;
+        }
+
+        .product-rating-detail {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stars {
+            font-size: 20px;
+            color: var(--primary-gold);
+        }
+
+        .review-count {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        .product-price-detail {
+            font-size: 28px;
+            color: var(--primary-black);
+            font-weight: 700;
+        }
+
+        .product-description-detail {
+            color: var(--text-dark);
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        .size-section,
+        .color-section {
+            border-top: 1px solid var(--border-gray);
+            padding-top: 20px;
+        }
+
+        .size-section h3,
+        .color-section h3 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .size-options {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .size-btn {
+            padding: 12px;
+            border: 2px solid var(--border-gray);
+            background: var(--primary-white);
+            cursor: pointer;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .size-btn:hover {
+            border-color: var(--primary-gold);
+        }
+
+        .size-btn.active {
+            background-color: var(--primary-gold);
+            border-color: var(--primary-gold);
+            color: var(--primary-white);
+        }
+
+        .color-options {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .color-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .color-btn:hover,
+        .color-btn.active {
+            border-color: var(--primary-gold);
+            transform: scale(1.15);
+        }
+
+        .product-actions-section {
+            display: flex;
+            gap: 12px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-gray);
+        }
+
+        .qty-selector {
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--border-gray);
+            border-radius: 6px;
+            overflow: hidden;
+            width: fit-content;
+        }
+
+        .qty-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .qty-btn:hover {
+            background-color: var(--light-gray);
+        }
+
+        .qty-display {
+            padding: 0 15px;
+            min-width: 50px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .add-to-cart-btn-detail {
+            flex: 1;
+            padding: 14px 20px;
+            background-color: var(--primary-gold);
+            color: var(--primary-white);
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-cart-btn-detail:hover {
+            background-color: var(--accent-brown);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212, 165, 116, 0.3);
+        }
+
+        .buy-now-btn-detail {
+            flex: 1;
+            padding: 14px 20px;
+            background-color: var(--primary-black);
+            color: var(--primary-white);
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .buy-now-btn-detail:hover {
+            background-color: var(--text-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .save-btn-detail {
+            padding: 14px 20px;
+            background-color: var(--light-gray);
+            border: 2px solid var(--border-gray);
+            border-radius: 6px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .save-btn-detail:hover {
+            border-color: var(--primary-gold);
+        }
+
+        .save-btn-detail.saved {
+            background-color: var(--primary-gold);
+            border-color: var(--primary-gold);
+            color: var(--primary-white);
+        }
+
+        .product-info-section {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 30px 0;
+            border-top: 1px solid var(--border-gray);
+            border-bottom: 1px solid var(--border-gray);
+        }
+
+        .info-item {
+            text-align: center;
+        }
+
+        .info-icon {
+            font-size: 28px;
+            color: var(--primary-gold);
+            margin-bottom: 10px;
+        }
+
+        .info-title {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .info-text {
+            color: var(--text-light);
+            font-size: 13px;
+        }
+
+        /* Reviews Section */
+        .reviews-container {
+            background-color: var(--primary-white);
+            padding: 40px;
+            border-radius: 8px;
+            margin-bottom: 60px;
+        }
+
+        .reviews-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--border-gray);
+            padding-bottom: 20px;
+        }
+
+        .reviews-header h2 {
+            font-size: 28px;
+        }
+
+        .write-review-btn {
+            padding: 10px 20px;
+            background-color: var(--primary-gold);
+            color: var(--primary-white);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .write-review-btn:hover {
+            background-color: var(--accent-brown);
+        }
+
+        .reviews-summary {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+            padding: 30px;
+            background-color: var(--light-gray);
+            border-radius: 8px;
+        }
+
+        .rating-summary {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .big-rating {
+            font-size: 64px;
+            color: var(--primary-gold);
+            font-weight: 700;
+        }
+
+        .rating-info h3 {
+            margin-bottom: 10px;
+        }
+
+        .rating-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .rating-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+        }
+
+        .bar-fill {
+            width: 150px;
+            height: 6px;
+            background-color: var(--border-gray);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .bar-progress {
+            height: 100%;
+            background-color: var(--primary-gold);
+        }
+
+        .bar-count {
+            min-width: 40px;
+            text-align: right;
+        }
+
+        .reviews-list {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .review-item {
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--border-gray);
+        }
+
+        .review-item:last-child {
+            border-bottom: none;
+        }
+
+        .review-header-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 12px;
+        }
+
+        .reviewer-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .reviewer-name {
+            font-weight: 700;
+            color: var(--primary-black);
+        }
+
+        .review-date {
+            font-size: 13px;
+            color: var(--text-light);
+        }
+
+        .review-rating-stars {
+            color: var(--primary-gold);
+            font-size: 16px;
+        }
+
+        .review-content {
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .review-helpful {
+            display: flex;
+            gap: 15px;
+            font-size: 13px;
+        }
+
+        .helpful-btn {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .helpful-btn:hover {
+            color: var(--primary-gold);
+        }
+
+        /* Recommended Products */
+        .recommended-section {
+            background-color: var(--primary-white);
+            padding: 40px;
+            border-radius: 8px;
+        }
+
+        .recommended-title {
+            font-size: 28px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--border-gray);
+        }
+
+        .recommended-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        /* Back Button */
+        .back-to-products {
+            margin-bottom: 30px;
+        }
+
+        .back-btn-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary-gold);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn-link:hover {
+            gap: 12px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .product-detail-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .size-options {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .product-info-section {
+                grid-template-columns: 1fr;
+            }
+
+            .reviews-summary {
+                grid-template-columns: 1fr;
+            }
+
+            .recommended-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .product-detail-info h1 {
+                font-size: 24px;
+            }
+
+            .product-actions-section {
+                flex-direction: column;
+            }
+
+            .add-to-cart-btn-detail {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-detail-container {
+                padding: 20px;
+            }
+
+            .size-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .recommended-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .thumbnail-gallery {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <img class="site-logo" src="images/real-removebg-preview (1).png" alt="The Believers Logo">
+                    <p class="tagline">Faith & Street Culture</p>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html#home" class="active">Home</a></li>
+                    <li><a href="index.html#men" onclick="showCategory('men')">Men</a></li>
+                    <li><a href="index.html#women" onclick="showCategory('women')">Women</a></li>
+                    <li><a href="index.html#kids" onclick="showCategory('kids')">Kids</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                </ul>
+                <div class="nav-icons">
+                    <button class="icon-btn" id="loginBtn" onclick="window.location.href='login.html'" title="Login">
+                        <i class="fas fa-user"></i>
+                    </button>
+                    <button class="icon-btn" id="savedBtn">
+                        <i class="fas fa-heart"></i>
+                        <span class="badge" id="savedCount">0</span>
+                    </button>
+                    <button class="icon-btn" id="cartBtn">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="badge" id="cartCount">0</span>
+                    </button>
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Product Detail Page -->
+    <main class="product-detail-page">
+        <div class="container">
+            <!-- Back Button -->
+            <div class="back-to-products">
+                <a href="index.html#products" class="back-btn-link">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Products</span>
+                </a>
+            </div>
+
+            <!-- Product Detail Container -->
+            <div class="product-detail-container" id="productDetailContainer">
+                <!-- Will be filled by JavaScript -->
+            </div>
+
+            <!-- Product Info Section -->
+            <div class="product-info-section" id="productInfoSection">
+                <!-- Will be filled by JavaScript -->
+            </div>
+
+            <!-- Reviews Section -->
+            <div class="reviews-container">
+                <div class="reviews-header">
+                    <h2>Customer Reviews</h2>
+                    <button class="write-review-btn" onclick="scrollToReviewForm()">Write a Review</button>
+                </div>
+
+                <div class="reviews-summary" id="reviewsSummary">
+                    <!-- Will be filled by JavaScript -->
+                </div>
+
+                <div class="reviews-list" id="reviewsList">
+                    <!-- Will be filled by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Payment Methods Section -->
+            <div class="payment-section">
+                <div class="container">
+                    <h2 class="payment-title">Payment Methods</h2>
+                    <p class="payment-subtitle">We accept multiple secure payment options</p>
+                    
+                    <div class="payment-methods-grid">
+                        <div class="payment-method">
+                            <div class="payment-icon">
+                                <i class="fas fa-credit-card"></i>
+                            </div>
+                            <h3>Credit Card</h3>
+                            <p>Visa, Mastercard, American Express</p>
+                        </div>
+
+                        <div class="payment-method">
+                            <div class="payment-icon">
+                                <i class="fab fa-paypal"></i>
+                            </div>
+                            <h3>PayPal</h3>
+                            <p>Fast and secure payment</p>
+                        </div>
+
+                        <div class="payment-method">
+                            <div class="payment-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <h3>Apple Pay</h3>
+                            <p>Quick checkout on Apple devices</p>
+                        </div>
+
+                        <div class="payment-method">
+                            <div class="payment-icon">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                            <h3>Secure Payment</h3>
+                            <p>SSL encrypted transactions</p>
+                        </div>
+                    </div>
+
+                    <div class="payment-info">
+                        <div class="info-box">
+                            <i class="fas fa-shield-alt"></i>
+                            <div>
+                                <h4>100% Secure</h4>
+                                <p>Your payment information is encrypted and secure</p>
+                            </div>
+                        </div>
+                        <div class="info-box">
+                            <i class="fas fa-undo"></i>
+                            <div>
+                                <h4>Easy Returns</h4>
+                                <p>30-day money back guarantee on all purchases</p>
+                            </div>
+                        </div>
+                        <div class="info-box">
+                            <i class="fas fa-headset"></i>
+                            <div>
+                                <h4>24/7 Support</h4>
+                                <p>Our team is here to help with any questions</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recommended Products Section -->
+            <div class="recommended-section">
+                <h3 class="recommended-title">You Might Also Like</h3>
+                <div class="recommended-grid" id="recommendedGrid">
+                    <!-- Will be filled by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button class="close-btn" id="closeCartBtn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be dynamically loaded here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">$0.00</span>
+            </div>
+            <button class="checkout-btn" onclick="goToCheckout()">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Saved Items Sidebar -->
+    <div class="saved-sidebar" id="savedSidebar">
+        <div class="saved-header">
+            <h3>Saved Items</h3>
+            <button class="close-btn" id="closeSavedBtn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="saved-items" id="savedItems">
+            <!-- Saved items will be dynamically loaded here -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <img class="footer-logo" src="images/logoandtext.png" alt="The Believers Logo">
+                    <p>Modern Islamic clothing and comfort blending faith with contemporary style.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Shop</h4>
+                    <ul>
+                        <li><a href="index.html#men" onclick="showCategory('men'); return false;">Men's Collection</a></li>
+                        <li><a href="index.html#women" onclick="showCategory('women'); return false;">Women's Collection</a></li>
+                        <li><a href="index.html#kids" onclick="showCategory('kids'); return false;">Kids Collection</a></li>
+                        <li><a href="index.html#products">New Arrivals</a></li>
+                        <li><a href="index.html#about">About Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="shipping-info.html">Shipping Info</a></li>
+                        <li><a href="terms-of-service.html">Returns & Exchanges</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe to get special offers and updates delivered to your inbox.</p>
+                    <form class="newsletter-form" onsubmit="return false;">
+                        <input type="email" placeholder="Enter your email" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="currentYear"></span> The Believers. All rights reserved. | <a href="privacy-policy.html">Privacy Policy</a> | <a href="terms-of-service.html">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="product-detail.js"></script>
+</body>
+</html>

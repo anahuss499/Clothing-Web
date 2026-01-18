@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     renderOrderSummary();
     initializeEventListeners();
+    initializeAddressAutocomplete();
     
     // Set current year in footer
     const yearElement = document.getElementById('currentYear');
@@ -18,6 +19,159 @@ document.addEventListener('DOMContentLoaded', function() {
         yearElement.textContent = new Date().getFullYear();
     }
 });
+
+// Address Autocomplete using OpenStreetMap/Nominatim
+function initializeAddressAutocomplete() {
+    const addressInput = document.getElementById('address');
+    const suggestionsContainer = document.getElementById('addressSuggestions');
+
+    if (!addressInput) return;
+
+    addressInput.addEventListener('input', debounce(function(e) {
+        const query = e.target.value.trim();
+        
+        if (query.length < 3) {
+            suggestionsContainer.classList.remove('active');
+            return;
+        }
+
+        fetchAddressSuggestions(query, suggestionsContainer, addressInput);
+    }, 300));
+
+    // Close suggestions when clicking outside
+    document.addEventListener('click', function(e) {
+        if (e.target !== addressInput) {
+            suggestionsContainer.classList.remove('active');
+        }
+    });
+}
+
+// Fetch address suggestions from Nominatim (OpenStreetMap)
+async function fetchAddressSuggestions(query, container, addressInput) {
+    try {
+        const response = await fetch(
+            `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=8&addressdetails=1`,
+            {
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }
+        );
+
+        if (!response.ok) throw new Error('Network response was not ok');
+        const results = await response.json();
+
+        if (results.length === 0) {
+            container.innerHTML = '<div style="padding: 12px 15px; color: #999;">No addresses found</div>';
+            container.classList.add('active');
+            return;
+        }
+
+        container.innerHTML = results.map((result, index) => `
+            <div class="address-suggestion-item" onclick="selectAddress(this, '${result.address.road || result.address.house_number || ''}', '${result.address.city || result.address.town || result.address.village || ''}', '${result.address.state || result.address.region || ''}', '${result.address.postcode || ''}', '${result.address.country || ''}')">
+                <div class="suggestion-main">${result.display_name.split(',')[0]}</div>
+                <div class="suggestion-secondary">${result.display_name}</div>
+            </div>
+        `).join('');
+
+        container.classList.add('active');
+    } catch (error) {
+        console.error('Error fetching address suggestions:', error);
+        container.innerHTML = '<div style="padding: 12px 15px; color: #999;">Unable to fetch suggestions</div>';
+        container.classList.add('active');
+    }
+}
+
+// Select address from suggestions
+function selectAddress(element, road, city, state, postcode, country) {
+    const addressInput = document.getElementById('address');
+    const cityInput = document.getElementById('city');
+    const stateInput = document.getElementById('state');
+    const zipInput = document.getElementById('zipCode');
+    const countryInput = document.getElementById('country');
+    const suggestionsContainer = document.getElementById('addressSuggestions');
+
+    // Set address field
+    const fullAddress = road || element.querySelector('.suggestion-main').textContent;
+    addressInput.value = fullAddress;
+
+    // Set city
+    if (cityInput) cityInput.value = city;
+
+    // Set state/province
+    if (stateInput) stateInput.value = state;
+
+    // Set postal code
+    if (zipInput) zipInput.value = postcode;
+
+    // Set country
+    if (countryInput && country) {
+        const countryCode = getCountryCode(country);
+        if (countryCode) {
+            countryInput.value = countryCode;
+        }
+    }
+
+    // Close suggestions
+    suggestionsContainer.classList.remove('active');
+}
+
+// Convert country name to country code
+function getCountryCode(countryName) {
+    const countryMap = {
+        'United States': 'US',
+        'Canada': 'CA',
+        'United Kingdom': 'UK',
+        'United Arab Emirates': 'AE',
+        'Saudi Arabia': 'SA',
+        'Malaysia': 'MY',
+        'Indonesia': 'ID',
+        'Australia': 'AU',
+        'Germany': 'DE',
+        'France': 'FR',
+        'Spain': 'ES',
+        'Italy': 'IT',
+        'Netherlands': 'NL',
+        'Belgium': 'BE',
+        'Austria': 'AT',
+        'Switzerland': 'CH',
+        'Sweden': 'SE',
+        'Norway': 'NO',
+        'Denmark': 'DK',
+        'Poland': 'PL',
+        'Greece': 'GR',
+        'Turkey': 'TR',
+        'South Africa': 'ZA',
+        'India': 'IN',
+        'Pakistan': 'PK',
+        'Bangladesh': 'BD',
+        'Egypt': 'EG',
+        'Nigeria': 'NG',
+        'New Zealand': 'NZ',
+        'Singapore': 'SG',
+        'Hong Kong': 'HK',
+        'Japan': 'JP',
+        'South Korea': 'KR',
+        'China': 'CN',
+        'Mexico': 'MX',
+        'Brazil': 'BR'
+    };
+
+    return countryMap[countryName] || null;
+}
+
+// Debounce function to limit API calls
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
 
 // Event listeners
 function initializeEventListeners() {
