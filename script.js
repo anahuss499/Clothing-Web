@@ -172,6 +172,7 @@ const products = [
         category: 'women',
         type: 'islamic',
         subtype: 'abaya',
+        abayaStyle: 'modern',
         price: 89.99,
         rating: 4.7,
         reviews: 35,
@@ -195,6 +196,7 @@ const products = [
         category: 'women',
         type: 'islamic',
         subtype: 'abaya',
+        abayaStyle: 'classic',
         price: 79.99,
         rating: 4.8,
         reviews: 51,
@@ -217,6 +219,7 @@ const products = [
         category: 'women',
         type: 'islamic',
         subtype: 'abaya',
+        abayaStyle: 'embroidered',
         price: 129.99,
         rating: 4.9,
         reviews: 29,
@@ -231,6 +234,51 @@ const products = [
         reviews_data: [
             { author: 'Yasmin S.', rating: 5, date: '2 weeks ago', text: 'Absolutely stunning! The embroidery is exquisite.' },
             { author: 'Dina W.', rating: 5, date: '1 month ago', text: 'Worth every penny. I get compliments every time I wear it.' }
+        ]
+    },
+    {
+        id: 32,
+        name: 'Dubai Luxury Abaya',
+        category: 'women',
+        type: 'islamic',
+        subtype: 'abaya',
+        abayaStyle: 'dubai',
+        price: 149.99,
+        rating: 4.9,
+        reviews: 34,
+        description: 'Exquisite Dubai-style abaya with crystal embellishments and premium fabrics. Elegant and luxurious.',
+        icon: '👗',
+        sizes: ['S', 'M', 'L', 'XL'],
+        colors: [
+            { name: 'Black with Crystals', hex: '#1a1a1a' },
+            { name: 'Midnight Blue with Crystals', hex: '#001a4d' }
+        ],
+        images: ['👗', '👗', '👗', '👗'],
+        reviews_data: [
+            { author: 'Zahra E.', rating: 5, date: '1 week ago', text: 'Absolutely gorgeous! The crystals are stunning and high quality.' },
+            { author: 'Amira F.', rating: 5, date: '2 weeks ago', text: 'Perfect for special occasions. This abaya is a showstopper!' }
+        ]
+    },
+    {
+        id: 33,
+        name: 'Simple Black Abaya',
+        category: 'women',
+        type: 'islamic',
+        subtype: 'abaya',
+        abayaStyle: 'simple',
+        price: 59.99,
+        rating: 4.5,
+        reviews: 42,
+        description: 'Understated and elegant abaya in plain black. Perfect for everyday wear and minimalist style.',
+        icon: '👗',
+        sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+        colors: [
+            { name: 'Pure Black', hex: '#000000' }
+        ],
+        images: ['👗', '👗', '👗', '👗'],
+        reviews_data: [
+            { author: 'Hana G.', rating: 5, date: '1 week ago', text: 'Simple and perfect! Great quality for the price.' },
+            { author: 'Sarah J.', rating: 4, date: '2 weeks ago', text: 'Very comfortable and versatile. Love it!' }
         ]
     },
     {
@@ -552,6 +600,7 @@ const products = [
         category: 'men',
         type: 'islamic',
         subtype: 'thobe',
+        menType: 'thobe',
         price: 89.99,
         rating: 4.7,
         reviews: 33,
@@ -568,6 +617,198 @@ const products = [
             { author: 'Faisal P.', rating: 5, date: '2 weeks ago', text: 'Excellent jacket! Looks very elegant and modern.' },
             { author: 'Bilal Q.', rating: 4, date: '1 month ago', text: 'Good quality but could use better stitching.' }
         ]
+    },
+    // Moroccan Jubbahs
+    {
+        id: 24,
+        name: 'Moroccan Thobe Djellaba',
+        category: 'men',
+        type: 'islamic',
+        subtype: 'jubbah',
+        menType: 'moroccan',
+        price: 95.99,
+        rating: 4.8,
+        reviews: 31,
+        description: 'Traditional Moroccan djellaba with modern touches. Soft fabric with traditional embroidery on chest.',
+        icon: '👔',
+        sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+        colors: [
+            { name: 'Navy Blue', hex: '#001f3f' },
+            { name: 'Forest Green', hex: '#228b22' },
+            { name: 'Maroon', hex: '#800000' }
+        ],
+        images: ['👔', '👔', '👔', '👔'],
+        reviews_data: [
+            { author: 'Hassan M.', rating: 5, date: '2 weeks ago', text: 'Authentic Moroccan style! Very comfortable and looks great.' },
+            { author: 'Karim Z.', rating: 5, date: '1 month ago', text: 'Perfect for special occasions. Quality is outstanding!' }
+        ]
+    },
+    {
+        id: 25,
+        name: 'Moroccan Embroidered Djellaba',
+        category: 'men',
+        type: 'islamic',
+        subtype: 'jubbah',
+        menType: 'moroccan',
+        price: 115.99,
+        rating: 4.9,
+        reviews: 24,
+        description: 'Premium Moroccan djellaba with intricate gold embroidery. Perfect for Eid and celebrations.',
+        icon: '👔',
+        sizes: ['S', 'M', 'L', 'XL'],
+        colors: [
+            { name: 'Black with Gold', hex: '#1a1a1a' },
+            { name: 'Burgundy with Gold', hex: '#800020' }
+        ],
+        images: ['👔', '👔', '👔', '👔'],
+        reviews_data: [
+            { author: 'Omar N.', rating: 5, date: '2 weeks ago', text: 'Stunning embroidery work! Received many compliments.' },
+            { author: 'Youssef R.', rating: 5, date: '1 month ago', text: 'Worth every penny. Premium quality!' }
+        ]
+    },
+    // Arab Jubbahs
+    {
+        id: 26,
+        name: 'Traditional Arab Jubbah',
+        category: 'men',
+        type: 'islamic',
+        subtype: 'jubbah',
+        menType: 'arab',
+        price: 85.99,
+        rating: 4.7,
+        reviews: 28,
+        description: 'Classic Arab jubbah with traditional cut. Perfect for formal occasions.',
+        icon: '👔',
+        sizes: ['M', 'L', 'XL', 'XXL'],
+        colors: [
+            { name: 'Black', hex: '#1a1a1a' },
+            { name: 'Dark Brown', hex: '#654321' },
+            { name: 'Navy', hex: '#001f3f' }
+        ],
+        images: ['👔', '👔', '👔', '👔'],
+        reviews_data: [
+            { author: 'Rashid A.', rating: 5, date: '1 week ago', text: 'Authentic Arab styling. Very satisfied!' },
+            { author: 'Samir K.', rating: 4, date: '2 weeks ago', text: 'Good quality, fits perfectly.' }
+        ]
+    },
+    {
+        id: 27,
+        name: 'Saudi Style Jubbah',
+        category: 'men',
+        type: 'islamic',
+        subtype: 'jubbah',
+        menType: 'arab',
+        price: 99.99,
+        rating: 4.8,
+        reviews: 35,
+        description: 'Modern Saudi-inspired jubbah with premium fabric. Elegant and comfortable.',
+        icon: '👔',
+        sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+        colors: [
+            { name: 'Deep Black', hex: '#0a0a0a' },
+            { name: 'Charcoal', hex: '#36454f' }
+        ],
+        images: ['👔', '👔', '👔', '👔'],
+        reviews_data: [
+            { author: 'Tariq H.', rating: 5, date: '2 weeks ago', text: 'Excellent quality and perfect fit!' },
+            { author: 'Ali M.', rating: 5, date: '1 month ago', text: 'Best jubbah I\'ve owned. Highly recommend!' }
+        ]
+    },
+    // Turkish Jubbahs
+    {
+        id: 28,
+        name: 'Turkish Casual Jubbah',
+        category: 'men',
+        type: 'islamic',
+        subtype: 'jubbah',
+        menType: 'turkish',
+        price: 79.99,
+        rating: 4.6,
+        reviews: 26,
+        description: 'Contemporary Turkish jubbah with relaxed fit. Great for everyday wear.',
+        icon: '👔',
+        sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+        colors: [
+            { name: 'Olive Green', hex: '#556b2f' },
+            { name: 'Stone Gray', hex: '#708090' },
+            { name: 'Navy', hex: '#001f3f' }
+        ],
+        images: ['👔', '👔', '👔', '👔'],
+        reviews_data: [
+            { author: 'Emre T.', rating: 5, date: '1 week ago', text: 'Very comfortable and stylish!' },
+            { author: 'Mustafa D.', rating: 4, date: '2 weeks ago', text: 'Good quality, arrived on time.' }
+        ]
+    },
+    {
+        id: 29,
+        name: 'Ottoman Inspired Jubbah',
+        category: 'men',
+        type: 'islamic',
+        subtype: 'jubbah',
+        menType: 'turkish',
+        price: 109.99,
+        rating: 4.8,
+        reviews: 32,
+        description: 'Premium Turkish jubbah with rich traditional patterns. Perfect for special events.',
+        icon: '👔',
+        sizes: ['M', 'L', 'XL', 'XXL'],
+        colors: [
+            { name: 'Royal Blue', hex: '#4169e1' },
+            { name: 'Deep Red', hex: '#8b0000' }
+        ],
+        images: ['👔', '👔', '👔', '👔'],
+        reviews_data: [
+            { author: 'Cengiz Y.', rating: 5, date: '1 week ago', text: 'Beautiful patterns and excellent craftsmanship!' },
+            { author: 'Mehmet K.', rating: 5, date: '2 weeks ago', text: 'Worth the investment. Love the quality!' }
+        ]
+    },
+    // Pakistani Jubbahs
+    {
+        id: 30,
+        name: 'Pakistani Traditional Sherwani',
+        category: 'men',
+        type: 'islamic',
+        subtype: 'jubbah',
+        menType: 'pakistani',
+        price: 125.99,
+        rating: 4.9,
+        reviews: 29,
+        description: 'Elegant Pakistani sherwani with fine embroidery. Perfect for weddings and celebrations.',
+        icon: '👔',
+        sizes: ['S', 'M', 'L', 'XL'],
+        colors: [
+            { name: 'Gold Embroidered Black', hex: '#1a1a1a' },
+            { name: 'Silver Embroidered Navy', hex: '#001f3f' }
+        ],
+        images: ['👔', '👔', '👔', '👔'],
+        reviews_data: [
+            { author: 'Amir P.', rating: 5, date: '1 week ago', text: 'Absolutely stunning! Perfect for my wedding!' },
+            { author: 'Zain S.', rating: 5, date: '2 weeks ago', text: 'Premium quality and beautiful embroidery work!' }
+        ]
+    },
+    {
+        id: 31,
+        name: 'Pakistani Casual Kurta Jubbah',
+        category: 'men',
+        type: 'islamic',
+        subtype: 'jubbah',
+        menType: 'pakistani',
+        price: 74.99,
+        rating: 4.7,
+        reviews: 27,
+        description: 'Comfortable Pakistani kurta with modern design. Versatile for casual and semi-formal wear.',
+        icon: '👔',
+        sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+        colors: [
+            { name: 'Cream', hex: '#fffdd0' },
+            { name: 'Sage Green', hex: '#9dc183' },
+            { name: 'Dusty Blue', hex: '#6c8ebf' }
+        ],
+        images: ['👔', '👔', '👔', '👔'],
+        reviews_data: [
+            { author: 'Rashid U.', rating: 5, date: '1 week ago', text: 'Very comfortable for daily wear!' },
+            { author: 'Hassan V.', rating: 4, date: '2 weeks ago', text: 'Good value and comfortable fit.' }
+        ]
     }
 ];
 
@@ -575,6 +816,8 @@ const products = [
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let savedItems = JSON.parse(localStorage.getItem('savedItems')) || [];
 let currentFilter = 'all';
+let menTypeFilter = null;  // Filter for men's jubbahs (moroccan, arab, turkish, pakistani)
+let abayaStyleFilter = null;  // Filter for women's abayas (classic, dubai, modern, embroidered, simple)
 
 // Initialize
 document.addEventListener('DOMContentLoaded', function() {
@@ -609,9 +852,16 @@ function initializeEventListeners() {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             this.classList.add('active');
             currentFilter = this.dataset.filter;
+            showAllProducts = false; // Reset to show initial products
             renderProducts();
         });
     });
+    
+    // View More button
+    const viewMoreBtn = document.getElementById('viewMoreBtn');
+    if (viewMoreBtn) {
+        viewMoreBtn.addEventListener('click', toggleViewMore);
+    }
 
     // Initialize Dropdown Menu Handlers
     const navDropdowns = document.querySelectorAll('.nav-dropdown');
@@ -733,13 +983,24 @@ function initializeEventListeners() {
 }
 
 // Render products
+// View More functionality
+let showAllProducts = false;
+const PRODUCTS_PER_ROW = 4;
+const INITIAL_ROWS = 3;
+const INITIAL_PRODUCTS_COUNT = PRODUCTS_PER_ROW * INITIAL_ROWS;
+
 function renderProducts() {
     const productsGrid = document.getElementById('productsGrid');
+    const viewMoreContainer = document.getElementById('viewMoreContainer');
+    const viewMoreBtn = document.getElementById('viewMoreBtn');
+    
     const filteredProducts = currentFilter === 'all' 
         ? products 
         : products.filter(p => p.category === currentFilter);
 
-    productsGrid.innerHTML = filteredProducts.map(product => `
+    const productsToShow = showAllProducts ? filteredProducts : filteredProducts.slice(0, INITIAL_PRODUCTS_COUNT);
+    
+    productsGrid.innerHTML = productsToShow.map(product => `
         <div class="product-card" data-id="${product.id}" onclick="if(event.target.closest('button') === null) showProductDetail(${product.id});" style="cursor: pointer;">
             <div class="product-image">
                 ${product.icon}
@@ -773,6 +1034,29 @@ function renderProducts() {
             </div>
         </div>
     `).join('');
+    
+    // Show/hide view more button based on product count
+    if (filteredProducts.length > INITIAL_PRODUCTS_COUNT) {
+        viewMoreContainer.style.display = 'flex';
+        if (showAllProducts) {
+            viewMoreBtn.innerHTML = '<span>View Less</span><i class="fas fa-chevron-up"></i>';
+        } else {
+            viewMoreBtn.innerHTML = '<span>View More Products</span><i class="fas fa-chevron-down"></i>';
+        }
+    } else {
+        viewMoreContainer.style.display = 'none';
+    }
+}
+
+// Toggle view more
+function toggleViewMore() {
+    showAllProducts = !showAllProducts;
+    renderProducts();
+    
+    // Scroll to products section when collapsing
+    if (!showAllProducts) {
+        document.getElementById('products').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
 }
 
 // Render streetwear section
@@ -988,13 +1272,13 @@ function renderCart() {
 
     cartItems.innerHTML = cart.map(item => `
         <div class="cart-item">
-            <div class="cart-item-image">${item.icon}</div>
-            <div class="cart-item-details">
-                <div class="cart-item-name">${item.name}</div>
-                <div class="cart-item-price">$${item.price.toFixed(2)}</div>
-                <div class="cart-item-quantity">
+            <div class="item-image">${item.icon}</div>
+            <div class="item-details">
+                <div class="item-name">${item.name}</div>
+                <div class="item-price">$${item.price.toFixed(2)}</div>
+                <div class="item-quantity">
                     <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
-                    <span>${item.quantity}</span>
+                    <span class="quantity-display">${item.quantity}</span>
                     <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
                 </div>
             </div>
@@ -1044,12 +1328,12 @@ function renderSavedItems() {
 
     savedItemsContainer.innerHTML = savedItems.map(item => `
         <div class="saved-item">
-            <div class="saved-item-image">${item.icon}</div>
-            <div class="saved-item-details">
-                <div class="saved-item-name">${item.name}</div>
-                <div class="saved-item-price">$${item.price.toFixed(2)}</div>
+            <div class="item-image">${item.icon}</div>
+            <div class="item-details">
+                <div class="item-name">${item.name}</div>
+                <div class="item-price">$${item.price.toFixed(2)}</div>
                 <button class="btn-secondary" onclick="addToCart(${item.id}); showNotification('Added to cart!');">
-                    Add to Cart
+                    <i class="fas fa-shopping-cart"></i> Add to Cart
                 </button>
             </div>
             <button class="remove-btn" onclick="toggleSaveItem(${item.id})">
@@ -1285,8 +1569,165 @@ function showCategory(category) {
     document.getElementById('categorySection').scrollIntoView({ behavior: 'smooth' });
 }
 
+// Filter men's products by type (thobe, moroccan, arab, turkish, pakistani)
+function filterByMenType(type) {
+    menTypeFilter = type === 'thobe' ? null : type;  // thobe is default, no filter needed
+    abayaStyleFilter = null;  // Reset abaya filter
+    
+    // Trigger category display with filter applied
+    if (menTypeFilter) {
+        showCategoryWithFilter('men', menTypeFilter);
+    } else {
+        showCategory('men');
+    }
+}
+
+// Filter women's products by abaya style
+function filterByAbayaStyle(style) {
+    abayaStyleFilter = style;
+    menTypeFilter = null;  // Reset men filter
+    
+    // Trigger category display with filter applied
+    showCategoryWithFilter('women', style);
+}
+
+// Show category with applied filter
+function showCategoryWithFilter(category, filterValue) {
+    // Hide main sections
+    document.getElementById('products').classList.add('hidden');
+    document.getElementById('about').classList.add('hidden');
+    document.getElementById('categorySection').classList.remove('hidden');
+    
+    // Set category information
+    const categoryInfo = {
+        'men': {
+            title: "Men's Collection",
+            subtitle: "Modern Islamic wear for men",
+            icon: 'fa-male',
+            subsections: []
+        },
+        'women': {
+            title: "Women's Collection",
+            subtitle: "Modest and elegant designs",
+            icon: 'fa-female',
+            subsections: []
+        }
+    };
+    
+    const info = categoryInfo[category];
+    if (!info) return;
+    
+    // Update logo section
+    document.getElementById('categorySectionTitle').textContent = info.title;
+    document.getElementById('categoryLogoTitle').textContent = info.title;
+    document.getElementById('categoryLogoSubtitle').textContent = info.subtitle;
+    document.getElementById('categoryIcon').innerHTML = `<img class="category-logo-image" src="images/real-removebg-preview (1).png" alt="The Believers Logo">`;
+    
+    // Render filtered subsections
+    const subsectionsContainer = document.getElementById('categorySubsections');
+    subsectionsContainer.innerHTML = '';
+    
+    let filteredProducts = [];
+    let subsectionName = '';
+    let subsectionIcon = '';
+    
+    if (category === 'men' && menTypeFilter) {
+        // Filter by menType
+        if (menTypeFilter === 'moroccan') {
+            filteredProducts = products.filter(p => p.category === 'men' && p.menType === 'moroccan');
+            subsectionName = 'Moroccan Jubbah';
+            subsectionIcon = 'fa-female';
+        } else if (menTypeFilter === 'arab') {
+            filteredProducts = products.filter(p => p.category === 'men' && p.menType === 'arab');
+            subsectionName = 'Arab Jubbah';
+            subsectionIcon = 'fa-female';
+        } else if (menTypeFilter === 'turkish') {
+            filteredProducts = products.filter(p => p.category === 'men' && p.menType === 'turkish');
+            subsectionName = 'Turkish Jubbah';
+            subsectionIcon = 'fa-female';
+        } else if (menTypeFilter === 'pakistani') {
+            filteredProducts = products.filter(p => p.category === 'men' && p.menType === 'pakistani');
+            subsectionName = 'Pakistani Jubbah';
+            subsectionIcon = 'fa-female';
+        }
+    } else if (category === 'women' && abayaStyleFilter) {
+        // Filter by abayaStyle
+        filteredProducts = products.filter(p => 
+            p.category === 'women' && 
+            p.subtype === 'abaya' && 
+            p.abayaStyle === abayaStyleFilter
+        );
+        
+        if (abayaStyleFilter === 'classic') subsectionName = 'Classic Abaya';
+        else if (abayaStyleFilter === 'dubai') subsectionName = 'Dubai Style Abaya';
+        else if (abayaStyleFilter === 'modern') subsectionName = 'Modern Abaya';
+        else if (abayaStyleFilter === 'embroidered') subsectionName = 'Embroidered Abaya';
+        else if (abayaStyleFilter === 'simple') subsectionName = 'Simple Abaya';
+        subsectionIcon = 'fa-female';
+    }
+    
+    // Display filtered products
+    if (filteredProducts && filteredProducts.length > 0) {
+        const subsectionHTML = `
+            <div class="subsection">
+                <div class="subsection-header">
+                    <h3 class="subsection-title">
+                        <i class="fas ${subsectionIcon}"></i> ${subsectionName}
+                    </h3>
+                </div>
+                <div class="products-grid">
+                    ${filteredProducts.map(product => `
+                        <div class="product-card" data-id="${product.id}" onclick="if(event.target.closest('button') === null) showProductDetail(${product.id});" style="cursor: pointer;">
+                            <div class="product-image">
+                                ${product.icon}
+                                <div class="product-actions">
+                                    <button class="action-btn save-btn ${isSaved(product.id) ? 'saved' : ''}" 
+                                            onclick="toggleSaveItem(${product.id}); event.stopPropagation();">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                    <button class="action-btn quick-view-btn" 
+                                            onclick="showProductDetail(${product.id}); event.stopPropagation();">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <div class="product-category">${product.category}</div>
+                                <h3 class="product-name">${product.name}</h3>
+                                <div class="product-rating">
+                                    ${'★'.repeat(Math.floor(product.rating))}${'☆'.repeat(5 - Math.floor(product.rating))}
+                                    (${product.reviews})
+                                </div>
+                                <div class="product-price">$${product.price.toFixed(2)}</div>
+                                <div class="product-buttons">
+                                    <button class="add-to-cart-btn" onclick="addToCart(${product.id}); event.stopPropagation();">
+                                        Add to Cart
+                                    </button>
+                                    <button class="buy-now-btn" onclick="buyNow(${product.id}); event.stopPropagation();">
+                                        Buy Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+        subsectionsContainer.innerHTML = subsectionHTML;
+    } else {
+        subsectionsContainer.innerHTML = '<p style="text-align: center; padding: 40px;">No products found in this category.</p>';
+    }
+    
+    // Scroll to category section
+    document.getElementById('categoryLogoSection').scrollIntoView({ behavior: 'smooth' });
+}
+
 // Back to home from category section
 function backToHome() {
+    // Reset all filters
+    menTypeFilter = null;
+    abayaStyleFilter = null;
+    
     // Show products section and about
     document.getElementById('products').classList.remove('hidden');
     document.getElementById('about').classList.remove('hidden');
