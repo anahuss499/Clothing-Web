@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -15,14 +17,35 @@
     --text-dark: #2d2d2d;
     --text-light: #666666;
     --success: #4caf50;
+    --font-body: 'Manrope', 'Inter', 'Segoe UI', sans-serif;
+    --font-heading: 'Playfair Display', 'Georgia', serif;
 }
 
 body {
-    font-family: 'Inter', 'Segoe UI', sans-serif;
+    font-family: var(--font-body);
     color: var(--text-dark);
     background-color: var(--primary-white);
     line-height: 1.6;
     letter-spacing: 0.3px;
+}
+
+h1, h2, h3, h4, .section-title, .hero-title, .category-logo-title, .subsection-title {
+    font-family: var(--font-heading);
+    letter-spacing: 0.5px;
+}
+
+.category-card h3,
+.category-card p,
+.nav-links a,
+.dropdown-menu a,
+.btn-secondary,
+.filter-btn,
+.product-name,
+.product-price,
+.reviewer-name,
+.review-content,
+.review-date {
+    font-family: var(--font-body);
 }
 
 /* ==================== CUSTOM SCROLLBAR ==================== */
@@ -598,18 +621,18 @@ body {
 
 .hero-title {
     font-size: 56px;
-    font-weight: 300;
-    letter-spacing: 2px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
     margin-bottom: 20px;
     line-height: 1.2;
 }
 
 .hero-subtitle {
     font-size: 18px;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.88);
     margin-bottom: 40px;
-    font-weight: 300;
-    letter-spacing: 1px;
+    font-weight: 500;
+    letter-spacing: 0.6px;
 }
 
 .cta-btn {
@@ -643,8 +666,8 @@ body {
     font-size: 36px;
     text-align: center;
     margin-bottom: 60px;
-    font-weight: 300;
-    letter-spacing: 1px;
+    font-weight: 600;
+    letter-spacing: 0.6px;
     color: var(--text-dark);
 }
 
@@ -955,18 +978,46 @@ body {
 }
 
 .subsection-title {
-    font-size: 28px;
-    font-weight: 400;
+    font-size: 36px;
+    font-weight: 700;
     letter-spacing: 1px;
-    color: var(--text-dark);
+    color: var(--primary-black);
     display: flex;
     align-items: center;
     gap: 15px;
+    text-transform: uppercase;
+    padding: 20px 0;
+    border-bottom: 3px solid var(--primary-gold);
+    margin-bottom: 30px;
 }
 
 .subsection-title i {
-    font-size: 32px;
+    font-size: 40px;
     color: var(--primary-gold);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Streetwear category subsections */
+.streetwear-category {
+    margin-bottom: 50px;
+}
+
+.category-subtitle {
+    font-family: var(--font-heading);
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin: 30px 0 20px 0;
+    padding-left: 15px;
+    border-left: 4px solid var(--primary-gold);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.category-subtitle i {
+    color: var(--primary-gold);
+    font-size: 22px;
 }
 
 /* ==================== CATEGORY SECTION ==================== */
@@ -1082,18 +1133,18 @@ body {
 }
 
 .category-logo-title {
-    font-size: 48px;
-    font-weight: 300;
+    font-size: 52px;
+    font-weight: 600;
     margin-bottom: 12px;
-    letter-spacing: 2px;
-    text-transform: capitalize;
+    letter-spacing: 0.6px;
+    text-transform: none;
 }
 
 .category-logo-subtitle {
-    font-size: 16px;
-    color: rgba(255, 255, 255, 0.85);
-    font-weight: 300;
-    letter-spacing: 0.5px;
+    font-size: 17px;
+    color: rgba(255, 255, 255, 0.88);
+    font-weight: 500;
+    letter-spacing: 0.4px;
 }
 
 .category-section-header {
@@ -1144,12 +1195,49 @@ body {
 
 .streetwear-subtitle {
     margin-top: 0;
-    margin-bottom: 0;
+    margin-bottom: 30px;
     font-size: 16px;
     font-weight: 500;
     color: #4a4a4a;
     text-align: center;
     letter-spacing: 0.25px;
+}
+
+.streetwear-filters {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 25px;
+}
+
+.streetwear-filters .filter-btn {
+    padding: 10px 25px;
+    background: var(--primary-white);
+    border: 2px solid var(--border-gray);
+    color: var(--text-dark);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 25px;
+}
+
+.streetwear-filters .filter-btn:hover {
+    border-color: var(--primary-gold);
+    color: var(--primary-gold);
+    background: rgba(212, 165, 116, 0.05);
+    transform: translateY(-2px);
+}
+
+.streetwear-filters .filter-btn.active {
+    background: linear-gradient(135deg, var(--primary-gold) 0%, #c9a961 100%);
+    border-color: var(--primary-gold);
+    color: var(--primary-white);
+    box-shadow: 0 4px 12px rgba(212, 165, 116, 0.4);
 }
 
 @keyframes sheen {
@@ -1537,11 +1625,10 @@ body {
 .cart-sidebar,
 .saved-sidebar {
     position: fixed;
-    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    background: #ffffff;
     z-index: 998;
-    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2);
+    box-shadow: -6px 0 12px rgba(0, 0, 0, 0.08);
     overflow-y: auto;
-    backdrop-filter: blur(10px);
 }
 
 .cart-sidebar {
@@ -1549,26 +1636,11 @@ body {
     top: 0;
     width: 450px;
     height: 100vh;
-    transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transition: right 0.25s ease;
 }
 
 .cart-sidebar.open {
     right: 0;
-    animation: slideInBounce 0.5s ease-out;
-}
-
-@keyframes slideInBounce {
-    0% {
-        right: -450px;
-        opacity: 0;
-    }
-    60% {
-        right: 10px;
-    }
-    100% {
-        right: 0;
-        opacity: 1;
-    }
 }
 
 .saved-sidebar {
@@ -1576,116 +1648,75 @@ body {
     top: 0;
     width: 450px;
     height: 100vh;
-    transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transition: right 0.25s ease;
 }
 
 .saved-sidebar.open {
     right: 0;
-    animation: slideInBounce 0.5s ease-out;
 }
 
 .cart-header,
 .saved-header {
-    padding: 25px 20px;
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    padding: 18px 20px;
+    background: #f6f6f6;
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: sticky;
     top: 0;
     z-index: 10;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .cart-header h3,
 .saved-header h3 {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
-    color: var(--primary-white);
-    letter-spacing: 0.5px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.cart-header h3::before {
-    content: '🛒';
-    font-size: 24px;
-}
-
-.saved-header h3::before {
-    content: '❤️';
-    font-size: 24px;
+    color: var(--text-dark);
+    letter-spacing: 0.25px;
 }
 
 .close-btn {
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    background: #eeeeee;
+    border: 1px solid #dddddd;
     cursor: pointer;
-    font-size: 20px;
-    color: var(--primary-white);
-    transition: all 0.3s ease;
+    font-size: 18px;
+    color: var(--text-dark);
+    transition: background 0.2s ease, color 0.2s ease;
     padding: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
-    width: 36px;
-    height: 36px;
+    border-radius: 8px;
+    width: 34px;
+    height: 34px;
 }
 
 .close-btn:hover {
-    background: var(--primary-gold);
-    border-color: var(--primary-gold);
-    color: var(--primary-black);
-    transform: rotate(90deg) scale(1.1);
-    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+    background: #e0e0e0;
+    border-color: #d5d5d5;
 }
 
 .cart-items,
 .saved-items {
-    padding: 20px;
+    padding: 18px;
     min-height: 400px;
-    background: linear-gradient(to bottom, #ffffff 0%, #f8f9fa 100%);
+    background: #ffffff;
 }
 
 .cart-item,
 .saved-item {
     display: flex;
-    gap: 15px;
-    margin-bottom: 15px;
-    padding: 15px;
-    background: var(--primary-white);
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s ease;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    gap: 12px;
+    margin-bottom: 12px;
+    padding: 12px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: none;
+    transition: none;
+    border: 1px solid #e5e5e5;
     position: relative;
     overflow: hidden;
-}
-
-.cart-item::before,
-.saved-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 4px;
-    height: 100%;
-    background: linear-gradient(180deg, var(--primary-gold) 0%, #c9a961 100%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.cart-item:hover,
-.saved-item:hover {
-    transform: translateX(-5px);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-}
-
-.cart-item:hover::before,
-.saved-item:hover::before {
-    opacity: 1;
 }
 
 .cart-item:last-child,
@@ -2504,6 +2535,28 @@ body {
     .perfume-title {
         font-size: 36px;
     }
+
+    /* Keep streetwear filters on one line with horizontal scroll */
+    .streetwear-filters {
+        justify-content: flex-start;
+        gap: 10px;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 6px;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .streetwear-filters::-webkit-scrollbar {
+        display: none;
+    }
+
+    .streetwear-filters .filter-btn {
+        flex: 0 0 auto;
+        padding: 10px 18px;
+        font-size: 12px;
+        white-space: nowrap;
+    }
 }
 
 @media (max-width: 480px) {
@@ -2623,7 +2676,9 @@ body {
         gap: 10px;
     }
     
-    .view-more-container {\n        margin-top: 30px;\n    }\n    \n    .view-more-btn {\n        padding: 12px 30px;\n        font-size: 11px;\n        letter-spacing: 1.2px;\n        gap: 10px;\n    }\n    \n    .view-more-btn i {\n        font-size: 13px;\n    }
+    .view-more-container {
+        margin-top: 30px;
+    }
 
     .product-image {
         height: 150px;
@@ -2712,6 +2767,16 @@ body {
 
     .btn-secondary {
         padding: 8px 16px;
+        font-size: 11px;
+    }
+
+    /* Slightly tighter streetwear pills on very small screens */
+    .streetwear-filters {
+        gap: 8px;
+    }
+
+    .streetwear-filters .filter-btn {
+        padding: 8px 14px;
         font-size: 11px;
     }
 }

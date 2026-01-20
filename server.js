@@ -209,6 +209,119 @@ app.get('/api/health', (req, res) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
+// Order notification endpoint
+app.post('/api/order', async (req, res) => {
+    try {
+        const {
+            orderNumber,
+            date,
+            items,
+            shippingInfo,
+            deliveryMethod,
+            paymentMethod,
+            totals
+        } = req.body || {};
+
+        if (!orderNumber || !items || !Array.isArray(items) || items.length === 0) {
+            return res.status(400).send('Missing order items or order number.');
+        }
+
+        if (!shippingInfo || !shippingInfo.email || !shippingInfo.firstName || !shippingInfo.lastName) {
+            return res.status(400).send('Missing customer contact information.');
+        }
+
+        const adminEmail = process.env.ADMIN_ORDER_EMAIL || process.env.SENDER_EMAIL;
+        if (!adminEmail) {
+            return res.status(500).send('Admin email is not configured.');
+        }
+
+        const orderDate = date ? new Date(date) : new Date();
+        const totalAmount = totals?.total ?? 0;
+
+        const formatAddress = (info) => {
+            const parts = [info.address, info.city, info.state, info.zipCode, info.country].filter(Boolean);
+            return parts.join(', ');
+        };
+
+        const itemsHtml = items.map(item => {
+            const lineTotal = (item.price * item.quantity).toFixed(2);
+            return `<li><strong>${item.name}</strong> x${item.quantity} — £${lineTotal}</li>`;
+        }).join('');
+
+        // Admin notification email
+        const adminMsg = {
+            to: adminEmail,
+            from: {
+                email: process.env.SENDER_EMAIL,
+                name: 'The Believers Orders'
+            },
+            subject: `New Order ${orderNumber} - £${totalAmount.toFixed(2)}`,
+            html: `
+                <div style="font-family: Arial, sans-serif; color: #1a1a1a;">
+                    <h2>New Order Received</h2>
+                    <p><strong>Order #:</strong> ${orderNumber}</p>
+                    <p><strong>Date:</strong> ${orderDate.toISOString()}</p>
+                    <p><strong>Customer:</strong> ${shippingInfo.firstName} ${shippingInfo.lastName}</p>
+                    <p><strong>Email:</strong> ${shippingInfo.email}</p>
+                    <p><strong>Phone:</strong> ${shippingInfo.phone || 'N/A'}</p>
+                    <p><strong>Address:</strong> ${formatAddress(shippingInfo)}</p>
+                    <p><strong>Delivery:</strong> ${deliveryMethod || 'Standard (7-14 days)'}</p>
+                    <p><strong>Payment Method:</strong> ${paymentMethod}</p>
+                    <h3>Items</h3>
+                    <ul>${itemsHtml}</ul>
+                    <h3>Totals</h3>
+                    <ul>
+                        <li>Subtotal: £${(totals?.subtotal ?? 0).toFixed(2)}</li>
+                        <li>Shipping: £${(totals?.shipping ?? 0).toFixed(2)}</li>
+                        <li>Tax: £${(totals?.tax ?? 0).toFixed(2)}</li>
+                        <li><strong>Total: £${(totals?.total ?? 0).toFixed(2)}</strong></li>
+                    </ul>
+                </div>
+            `,
+            trackingSettings: {
+                clickTracking: { enable: false },
+                openTracking: { enable: false }
+            }
+        };
+
+        // Customer confirmation email
+        const customerMsg = {
+            to: shippingInfo.email,
+            from: {
+                email: process.env.SENDER_EMAIL,
+                name: 'The Believers'
+            },
+            subject: `Thank you for your order #${orderNumber}`,
+            html: `
+                <div style="font-family: Arial, sans-serif; color: #1a1a1a;">
+                    <h2>Thank you for your order!</h2>
+                    <p>Salam ${shippingInfo.firstName},</p>
+                    <p>We received your order <strong>#${orderNumber}</strong> placed on <strong>${orderDate.toDateString()}</strong>.</p>
+                    <p><strong>Delivery method:</strong> ${deliveryMethod || 'Standard (7-14 days)'}</p>
+                    <h3>Items</h3>
+                    <ul>${itemsHtml}</ul>
+                    <h3>Order Total</h3>
+                    <p><strong>£${(totals?.total ?? 0).toFixed(2)}</strong></p>
+                    <p>Shipping to: ${formatAddress(shippingInfo)}</p>
+                    <p style="margin-top: 24px;">We will notify you when your order ships. If you have any questions, reply to this email.</p>
+                    <p>Thank you for choosing The Believers.</p>
+                </div>
+            `,
+            trackingSettings: {
+                clickTracking: { enable: false },
+                openTracking: { enable: false }
+            }
+        };
+
+        await Promise.all([sgMail.send(adminMsg), sgMail.send(customerMsg)]);
+
+        return res.json({ success: true });
+    } catch (error) {
+        console.error('Order email error:', error.response?.body || error.message);
+        return res.status(500).send('Failed to send order notification.');
+    }
+});
+
 // Start server
 app.listen(PORT, () => {
     console.log(`✅ Server running on port ${PORT}`);

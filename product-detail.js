@@ -6,10 +6,14 @@ function getProductIdFromURL() {
     return parseInt(params.get('id'));
 }
 
+let currentProductId = null;
+let currentReviewRating = 0;
+
 // Initialize product detail page
 document.addEventListener('DOMContentLoaded', function() {
     checkUserLogin();
     const productId = getProductIdFromURL();
+    currentProductId = productId;
     
     if (productId) {
         displayProductDetail(productId);
@@ -23,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
     updateCartCount();
     updateSavedCount();
     initializeEventListeners();
+    initializeReviewForm();
     
     // Set current year in footer
     document.getElementById('currentYear').textContent = new Date().getFullYear();
@@ -72,7 +77,7 @@ function displayProductDetail(productId) {
             </div>
 
             <div class="product-price-detail">
-                $${product.price.toFixed(2)}
+                £${product.price.toFixed(2)}
             </div>
 
             <p class="product-description-detail">
@@ -127,8 +132,8 @@ function displayProductDetail(productId) {
     infoSection.innerHTML = `
         <div class="info-item">
             <div class="info-icon"><i class="fas fa-truck"></i></div>
-            <div class="info-title">Free Shipping</div>
-            <div class="info-text">On orders over $50</div>
+            <div class="info-title">Free Standard Shipping</div>
+            <div class="info-text">Express delivery available for £5</div>
         </div>
         <div class="info-item">
             <div class="info-icon"><i class="fas fa-undo"></i></div>
@@ -286,8 +291,10 @@ function displayReviews(productId) {
 
     // Display individual reviews
     const reviewsList = document.getElementById('reviewsList');
-    reviewsList.innerHTML = reviews.map(review => `
-        <div class="review-item">
+    reviewsList.innerHTML = reviews.map((review, index) => {
+        const isUserReview = review.userId && review.userId === getCurrentUserId();
+        return `
+        <div class="review-item" id="review-${index}">
             <div class="review-header-item">
                 <div class="reviewer-info">
                     <div class="reviewer-name">${review.author}</div>
@@ -295,17 +302,21 @@ function displayReviews(productId) {
                 </div>
                 <div class="review-rating-stars">${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}</div>
             </div>
-            <p class="review-content">${review.text}</p>
+            ${review.text ? `<p class="review-content">${review.text}</p>` : ''}
             <div class="review-helpful">
-                <button class="helpful-btn" onclick="this.textContent = '👍 Helpful'; this.disabled = true;" title="Mark as helpful">
-                    <i class="far fa-thumbs-up"></i> Helpful
+                <button class="helpful-btn" onclick="markHelpful(${index}, 'helpful', this)" title="Mark as helpful">
+                    <i class="far fa-thumbs-up"></i> Helpful <span class="helpful-count">${review.helpfulCount || 0}</span>
                 </button>
-                <button class="helpful-btn" onclick="this.textContent = '👎 Not helpful'; this.disabled = true;" title="Mark as not helpful">
-                    <i class="far fa-thumbs-down"></i> Not helpful
-                </button>
+                ${isUserReview ? `
+                    <div class="review-actions">
+                        <button class="review-action-btn" onclick="editReview(${index})">Edit</button>
+                        <button class="review-action-btn delete" onclick="deleteReview(${index})">Delete</button>
+                    </div>
+                ` : ''}
             </div>
         </div>
-    `).join('');
+    `;}
+    ).join('');
 }
 
 // Display recommended products
@@ -342,7 +353,7 @@ function displayRecommendedProducts(productId) {
                     ${'★'.repeat(Math.floor(product.rating))}${'☆'.repeat(5 - Math.floor(product.rating))}
                     (${product.reviews})
                 </div>
-                <div class="product-price">$${product.price.toFixed(2)}</div>
+                <div class="product-price">£${product.price.toFixed(2)}</div>
                 <div class="product-buttons">
                     <button class="add-to-cart-btn" onclick="addToCart(${product.id}); event.stopPropagation();">
                         Add to Cart
@@ -364,6 +375,269 @@ function goToProduct(productId) {
 
 // Scroll to review form
 function scrollToReviewForm() {
-    document.querySelector('.reviews-header').scrollIntoView({ behavior: 'smooth' });
-    alert('Review form coming soon!');
+    const reviewForm = document.getElementById('writeReviewSection');
+    const isLoggedIn = getCurrentUserId();
+    
+    if (!isLoggedIn) {
+        showNotification('Please log in to write a review');
+        window.location.href = 'login.html';
+        return;
+    }
+    
+    reviewForm.style.display = 'block';
+    reviewForm.scrollIntoView({ behavior: 'smooth' });
+}
+
+// Initialize review form
+function initializeReviewForm() {
+    const form = document.getElementById('reviewForm');
+    if (form) {
+        form.addEventListener('submit', submitReview);
+    }
+}
+
+// Set review rating
+function setReviewRating(rating) {
+    currentReviewRating = rating;
+    document.getElementById('reviewRating').value = rating;
+    
+    // Update star display
+    document.querySelectorAll('#starRatingInput .star').forEach((star, index) => {
+        if (index < rating) {
+            star.classList.add('active');
+        } else {
+            star.classList.remove('active');
+        }
+    });
+    
+    // Update label
+    const labels = ['', 'Poor', 'Fair', 'Good', 'Very Good', 'Excellent'];
+    document.getElementById('ratingLabel').textContent = labels[rating];
+}
+
+// Submit review
+async function submitReview(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('reviewerName').value.trim();
+    const rating = parseInt(document.getElementById('reviewRating').value);
+    const comment = document.getElementById('reviewComment').value.trim();
+    
+    // Validation
+    if (!name) {
+        showNotification('Please enter your name');
+        return;
+    }
+    
+    if (rating === 0) {
+        showNotification('Please select a rating');
+        return;
+    }
+    
+    if (!comment) {
+        showNotification('Please enter a comment');
+        return;
+    }
+    
+    const userId = getCurrentUserId();
+    const product = products.find(p => p.id === currentProductId);
+    
+    if (!product) return;
+    
+    // Create new review
+    const newReview = {
+        id: Date.now(),
+        author: name,
+        userId: userId,
+        rating: rating,
+        text: comment,
+        date: 'Just now',
+        helpfulCount: 0
+    };
+    
+    // Initialize reviews_data if not exists
+    if (!product.reviews_data) {
+        product.reviews_data = [];
+    }
+    
+    product.reviews_data.unshift(newReview);
+    
+    // Save to localStorage
+    localStorage.setItem('products', JSON.stringify(products));
+    
+    // Reset form
+    document.getElementById('reviewForm').reset();
+    document.getElementById('reviewRating').value = 0;
+    currentReviewRating = 0;
+    document.querySelectorAll('#starRatingInput .star').forEach(star => {
+        star.classList.remove('active');
+    });
+    document.getElementById('ratingLabel').textContent = 'Select rating';
+    
+    // Hide form
+    document.getElementById('writeReviewSection').style.display = 'none';
+    
+    // Refresh reviews display
+    displayReviews(currentProductId);
+    
+    showNotification('Review submitted successfully!');
+}
+
+// Cancel review form
+function cancelReviewForm() {
+    document.getElementById('writeReviewSection').style.display = 'none';
+    document.getElementById('reviewForm').reset();
+    document.getElementById('reviewRating').value = 0;
+    currentReviewRating = 0;
+    document.querySelectorAll('#starRatingInput .star').forEach(star => {
+        star.classList.remove('active');
+    });
+    document.getElementById('ratingLabel').textContent = 'Select rating';
+}
+
+// Edit review
+function editReview(reviewIndex) {
+    const product = products.find(p => p.id === currentProductId);
+    if (!product || !product.reviews_data || !product.reviews_data[reviewIndex]) return;
+    
+    const review = product.reviews_data[reviewIndex];
+    
+    // Populate form with review data
+    document.getElementById('reviewerName').value = review.author;
+    document.getElementById('reviewComment').value = review.text || '';
+    setReviewRating(review.rating);
+    
+    // Store current review index for updating
+    document.getElementById('reviewForm').reviewIndex = reviewIndex;
+    document.getElementById('reviewForm').isEditing = true;
+    
+    // Update submit button text
+    const submitBtn = document.querySelector('.submit-review-btn');
+    submitBtn.textContent = 'Update Review';
+    
+    // Show form
+    document.getElementById('writeReviewSection').style.display = 'block';
+    document.getElementById('writeReviewSection').scrollIntoView({ behavior: 'smooth' });
+}
+
+// Modified submitReview to handle editing
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('reviewForm');
+    if (form) {
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('reviewerName').value.trim();
+            const rating = parseInt(document.getElementById('reviewRating').value);
+            const comment = document.getElementById('reviewComment').value.trim();
+            
+            // Validation
+            if (!name) {
+                showNotification('Please enter your name');
+                return;
+            }
+            
+            if (rating === 0) {
+                showNotification('Please select a rating');
+                return;
+            }
+            
+            if (!comment) {
+                showNotification('Please enter a comment');
+                return;
+            }
+            
+            const userId = getCurrentUserId();
+            const product = products.find(p => p.id === currentProductId);
+            
+            if (!product) return;
+            
+            // Initialize reviews_data if not exists
+            if (!product.reviews_data) {
+                product.reviews_data = [];
+            }
+            
+            if (form.isEditing && form.reviewIndex !== undefined) {
+                // Update existing review
+                const review = product.reviews_data[form.reviewIndex];
+                review.author = name;
+                review.rating = rating;
+                review.text = comment;
+                review.date = 'Just edited';
+                
+                document.querySelector('.submit-review-btn').textContent = 'Submit Review';
+                form.isEditing = false;
+                form.reviewIndex = undefined;
+                
+                showNotification('Review updated successfully!');
+            } else {
+                // Create new review
+                const newReview = {
+                    id: Date.now(),
+                    author: name,
+                    userId: userId,
+                    rating: rating,
+                    text: comment,
+                    date: 'Just now',
+                    helpfulCount: 0
+                };
+                
+                product.reviews_data.unshift(newReview);
+                showNotification('Review submitted successfully!');
+            }
+            
+            // Save to localStorage
+            localStorage.setItem('products', JSON.stringify(products));
+            
+            // Reset form
+            document.getElementById('reviewForm').reset();
+            document.getElementById('reviewRating').value = 0;
+            currentReviewRating = 0;
+            document.querySelectorAll('#starRatingInput .star').forEach(star => {
+                star.classList.remove('active');
+            });
+            document.getElementById('ratingLabel').textContent = 'Select rating';
+            
+            // Hide form
+            document.getElementById('writeReviewSection').style.display = 'none';
+            
+            // Refresh reviews display
+            displayReviews(currentProductId);
+        });
+    }
+});
+
+// Delete review
+function deleteReview(reviewIndex) {
+    if (!confirm('Are you sure you want to delete this review?')) return;
+    
+    const product = products.find(p => p.id === currentProductId);
+    if (!product || !product.reviews_data) return;
+    
+    product.reviews_data.splice(reviewIndex, 1);
+    
+    // Save to localStorage
+    localStorage.setItem('products', JSON.stringify(products));
+    
+    // Refresh reviews display
+    displayReviews(currentProductId);
+    
+    showNotification('Review deleted successfully!');
+}
+
+// Mark review as helpful
+function markHelpful(reviewIndex, type, button) {
+    const product = products.find(p => p.id === currentProductId);
+    if (!product || !product.reviews_data || !product.reviews_data[reviewIndex]) return;
+    
+    const review = product.reviews_data[reviewIndex];
+    
+    if (type === 'helpful') {
+        review.helpfulCount = (review.helpfulCount || 0) + 1;
+        button.classList.add('marked-helpful');
+        button.disabled = true;
+    }
+    
+    // Save to localStorage
+    localStorage.setItem('products', JSON.stringify(products));
 }
