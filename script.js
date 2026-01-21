@@ -1404,20 +1404,24 @@ function renderCart() {
 }
 
 // Toggle save item
-function toggleSaveItem(productId) {
+async function toggleSaveItem(productId) {
     const product = products.find(p => p.id === productId);
     if (!product) return;
 
-    const index = savedItems.findIndex(item => item.id === productId);
-    if (index > -1) {
-        savedItems.splice(index, 1);
+    const saved = isSaved(productId);
+    if (saved) {
+        await UserAccount.removeSavedItem(productId);
         showNotification('Removed from saved items');
     } else {
-        savedItems.push(product);
+        await UserAccount.addSavedItem({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            image: product.images ? product.images[0] : '',
+            size: product.sizes ? product.sizes[0] : 'M'
+        });
         showNotification('Saved for later!');
     }
-
-    localStorage.setItem('savedItems', JSON.stringify(savedItems));
     updateSavedCount();
     renderSavedItems();
     renderProducts(); // Re-render to update save button states
@@ -1425,33 +1429,36 @@ function toggleSaveItem(productId) {
 
 // Check if saved
 function isSaved(productId) {
-    return savedItems.some(item => item.id === productId);
+    const items = UserAccount.getSavedItems();
+    return items.some(item => item.id === productId || item.productId === productId);
 }
 
 // Render saved items
 function renderSavedItems() {
     const savedItemsContainer = document.getElementById('savedItems');
-    
-    if (savedItems.length === 0) {
+    const items = UserAccount.getSavedItems();
+    if (!items || items.length === 0) {
         savedItemsContainer.innerHTML = '<div class="empty-message">No saved items</div>';
         return;
     }
-
-    savedItemsContainer.innerHTML = savedItems.map(item => `
+    savedItemsContainer.innerHTML = items.map(item => {
+        const id = item.id || item.productId;
+        return `
         <div class="saved-item">
-            <div class="item-image">${item.icon}</div>
+            <div class="item-image">${item.icon || ''}</div>
             <div class="item-details">
-                <div class="item-name">${item.name}</div>
-                <div class="item-price">£${item.price.toFixed(2)}</div>
-                <button class="btn-secondary" onclick="addToCart(${item.id}); showNotification('Added to cart!');">
+                <div class="item-name">${item.name || item.productName}</div>
+                <div class="item-price">£${(item.price || item.productPrice).toFixed(2)}</div>
+                <button class="btn-secondary" onclick="addToCart(${id}); showNotification('Added to cart!');">
                     <i class="fas fa-shopping-cart"></i> Add to Cart
                 </button>
             </div>
-            <button class="remove-btn" onclick="toggleSaveItem(${item.id})">
+            <button class="remove-btn" onclick="toggleSaveItem(${id})">
                 <i class="fas fa-trash"></i>
             </button>
         </div>
-    `).join('');
+        `;
+    }).join('');
 }
 
 // Update cart count
@@ -1462,7 +1469,8 @@ function updateCartCount() {
 
 // Update saved count
 function updateSavedCount() {
-    document.getElementById('savedCount').textContent = savedItems.length;
+    const items = UserAccount.getSavedItems();
+    document.getElementById('savedCount').textContent = items.length;
 }
 
 // Toggle cart

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation - The Believers</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 3px solid #d4a574;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .header img {
+            max-width: 200px;
+            height: auto;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            font-family: 'Playfair Display', Georgia, serif;
+            letter-spacing: 1px;
+        }
+        
+        .header p {
+            font-size: 20px;
+            opacity: 1;
+            color: #d4a574;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 10px;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .greeting {
+            margin-bottom: 30px;
+        }
+        
+        .greeting h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .greeting p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .order-section {
+            background-color: #f8f8f8;
+            border-left: 4px solid #d4a574;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .order-section h3 {
+            font-size: 15px;
+            color: #333;
+            margin-bottom: 12px;
+        }
+        
+        .order-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .detail-item {
+            padding: 8px 0;
+        }
+        
+        .detail-label {
+            font-size: 12px;
+            color: #8b7355;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        .detail-value {
+            font-size: 16px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .items-table {
+            width: 100%;
+            margin: 20px 0;
+        }
+        
+        .items-table thead {
+            background-color: #1a1a1a;
+        }
+        
+        .items-table th {
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            color: #ffffff;
+            font-size: 13px;
+        }
+        
+        .items-table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+        
+        .items-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .items-table .quantity {
+            text-align: center;
+        }
+        
+        .items-table .price {
+            text-align: right;
+            font-weight: 600;
+        }
+        
+        .total-row {
+            background-color: #f9f9f9;
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        .shipping-section {
+            background-color: #f8f8f8;
+            border-left: 4px solid #d4a574;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .shipping-section h3 {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .shipping-info {
+            color: #666;
+            line-height: 1.8;
+            font-size: 14px;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            background-color: #d4edda;
+            color: #155724;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin: 15px 0;
+        }
+        
+        .status-badge.processing {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-badge.completed {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .footer {
+            background-color: #f9f9f9;
+            padding: 30px 40px;
+            text-align: center;
+            border-top: 1px solid #eee;
+        }
+        
+        .footer p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .footer-links {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .footer-links a {
+            color: #d4a574;
+            text-decoration: none;
+            font-size: 13px;
+            margin: 0 10px;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .note {
+            background-color: #fff8f0;
+            border-left: 4px solid #d4a574;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #8b7355;
+        }
+        
+        .note-icon {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <!-- Header -->
+        <div class="header">
+            <img src="images/logoandtext.png" alt="The Believers Logo">
+            <p>Order Confirmation</p>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="content">
+            <!-- Greeting -->
+            <div class="greeting">
+                <h2>Thank You for Your Order!</h2>
+                <p>Hi <strong>John Doe</strong>,</p>
+                <p>We've received your order and it's being processed. Your payment has been confirmed and you'll receive a shipping confirmation email shortly.</p>
+            </div>
+            
+            <!-- Order Details Section -->
+            <div class="order-section">
+                <h3>Order Details</h3>
+                
+                <div class="order-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Order ID</div>
+                        <div class="detail-value">#ORD-2025-001234</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Order Date</div>
+                        <div class="detail-value">January 21, 2025</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Payment Method</div>
+                        <div class="detail-value">Visa Debit Card</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Status</div>
+                        <div class="detail-value"><span class="status-badge processing">Processing</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Order Items -->
+            <h3 style="margin-top: 25px; margin-bottom: 15px; color: #333;">Order Items</h3>
+            <table class="items-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th class="quantity">Qty</th>
+                        <th class="price">Price</th>
+                        <th class="price">Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Premium Cotton T-Shirt</td>
+                        <td class="quantity">2</td>
+                        <td class="price">$35.00</td>
+                        <td class="price">$70.00</td>
+                    </tr>
+                    <tr>
+                        <td>Slim Fit Jeans</td>
+                        <td class="quantity">1</td>
+                        <td class="price">$89.99</td>
+                        <td class="price">$89.99</td>
+                    </tr>
+                    <tr>
+                        <td>Designer Baseball Cap</td>
+                        <td class="quantity">1</td>
+                        <td class="price">$45.00</td>
+                        <td class="price">$45.00</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td colspan="3" style="text-align: right;">Subtotal</td>
+                        <td class="price">$204.99</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td colspan="3" style="text-align: right;">Shipping (Express)</td>
+                        <td class="price">$10.00</td>
+                    </tr>
+                    <tr class="total-row" style="font-size: 18px;">
+                        <td colspan="3" style="text-align: right;">Total</td>
+                        <td class="price" style="color: #d4a574;">$214.99</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <!-- Shipping Information -->
+            <div class="shipping-section">
+                <h3>Shipping Address</h3>
+                <div class="shipping-info">
+                    John Doe<br>
+                    123 Main Street<br>
+                    New York, NY 10001<br>
+                    United States<br>
+                    <br>
+                    <strong>Phone:</strong> (555) 123-4567
+                </div>
+            </div>
+            
+            <!-- Important Note -->
+            <div class="note">
+                <span class="note-icon">ℹ️</span>
+                <strong>What's Next?</strong> Your order is being prepared for shipment. You'll receive a tracking number via email as soon as your package is shipped (typically within 1-2 business days).
+            </div>
+            
+            <!-- Contact Support -->
+            <p style="margin-top: 30px; color: #666; font-size: 14px;">
+                Have questions about your order? Our customer support team is here to help! Reply to this email or visit our <a href="#" style="color: #667eea; text-decoration: none;">Help Center</a>.
+            </p>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>The Believers</strong></p>
+            <p>Your trusted fashion & lifestyle brand</p>
+            
+            <div class="footer-links">
+                <a href="contact.html">Contact Us</a>
+                <a href="shipping-info.html">Shipping Info</a>
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms-of-service.html">Terms of Service</a>
+            </div>
+            
+            <p style="margin-top: 20px; font-size: 12px; color: #999;">
+                © 2026 The Believers. All rights reserved.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

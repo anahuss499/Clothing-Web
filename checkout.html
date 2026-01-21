@@ -207,30 +207,33 @@
 
                         <!-- Card Payment Form -->
                         <div id="cardPaymentForm" class="payment-form">
+                            <p style="color: #666; margin-bottom: 15px; font-size: 14px;">
+                                Accepted: Visa, Mastercard, American Express, and Debit Cards
+                            </p>
+                            
                             <div class="form-group">
-                                <label for="cardNumber">Card Number *</label>
-                                <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="cardName">Name on Card *</label>
-                                <input type="text" id="cardName">
+                                <label for="card-field">Card Number *</label>
+                                <div id="card-field"></div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label for="expiryDate">Expiry Date *</label>
-                                    <input type="text" id="expiryDate" placeholder="MM/YY" maxlength="5">
+                                    <label for="expiry-field">Expiry Date *</label>
+                                    <div id="expiry-field"></div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="cvv">CVV *</label>
-                                    <input type="text" id="cvv" placeholder="123" maxlength="4">
+                                    <label for="cvv-field">CVV *</label>
+                                    <div id="cvv-field"></div>
                                 </div>
                             </div>
 
+                            <button type="button" id="card-payment-btn" class="cta-btn" style="width: 100%; margin-top: 20px;">
+                                <i class="fas fa-credit-card"></i> Pay with Card
+                            </button>
+
                             <div class="security-note">
                                 <i class="fas fa-lock"></i>
-                                <span>Your payment information is encrypted and secure</span>
+                                <span>Your payment information is encrypted and secure (PCI Compliant)</span>
                             </div>
                         </div>
 
@@ -238,8 +241,8 @@
                         <div id="paypalPaymentForm" class="payment-form" style="display: none;">
                             <div class="paypal-info">
                                 <i class="fab fa-paypal" style="font-size: 48px; color: #003087;"></i>
-                                <p>Click "Place Order" to proceed with PayPal payment</p>
-                                <p class="note">You will be redirected to PayPal to complete your purchase</p>
+                                <p>You will be securely redirected to PayPal to complete your purchase</p>
+                                <div id="paypal-button-container" style="margin-top: 20px;"></div>
                             </div>
                         </div>
                     </div>
@@ -382,5 +385,9 @@
     <div class="overlay" id="overlay"></div>
 
     <script src="checkout.js"></script>
+    <script src="visitor-tracker.js"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=AXs2XjOvM-s0uzvISq9BqUGUyLBjZ-vA2ZIt8GAgCODfJ0Tld9IdjCOxBXwBcihKU4Et2ilxrUrbSAFc&currency=USD&components=hosted-fields,buttons"></script>
+    <script src="paypal-checkout.js"></script>
+    <script src="card-payment.js"></script>
 </body>
 </html>

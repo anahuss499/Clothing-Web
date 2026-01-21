@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Sign Up - The Believers</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .auth-split-layout {
+            display: flex;
+            min-height: 100vh;
+            width: 100vw;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(120deg, #1a1a1a 0%, #d4a574 100%);
+        }
+        .auth-left-panel {
+            flex: 1 1 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-right: 5vw;
+            max-width: 500px;
+            text-align: center;
+        }
+        .brand-logo {
+            width: 120px;
+            margin-bottom: 18px;
+            filter: drop-shadow(0 0 18px rgba(212, 165, 116, 0.5));
+        }
+        .brand-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #d4a574;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+        .brand-tagline {
+            font-size: 1.1rem;
+            color: #d4a574;
+            margin-bottom: 18px;
+            font-style: italic;
+            opacity: 0.9;
+        }
+        .brand-welcome {
+            font-size: 1.1rem;
+            color: #fff;
+            background: rgba(255,255,255,0.13);
+            border-radius: 12px;
+            padding: 18px 18px;
+            margin-top: 18px;
+            font-weight: 300;
+            display: inline-block;
+        }
+        .auth-right-panel {
+            flex: 1 1 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-left: 5vw;
+            max-width: 420px;
+            box-sizing: border-box;
+            width: 100%;
+            min-width: 320px;
+        }
+        .auth-tabs {
+            width: 100%;
+            margin-top: 24px;
+        }
+        .auth-tab {
+            flex: 1;
+            padding: 16px 0;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            color: #888;
+            transition: all 0.2s ease;
+            border-bottom: 2px solid transparent;
+            background: #fff;
+        }
+        .auth-tab.active {
+            color: #d4a574;
+            border-bottom-color: #d4a574;
+            background: #faf8f4;
+        }
+        .auth-content {
+            width: 100%;
+            padding: 24px 0 0 0;
+        }
+        .auth-form {
+            display: none;
+            width: 100%;
+            margin-bottom: 0;
+        }
+        .auth-form.active {
+            display: block;
+        }
+        .auth-right-panel {
+            background: rgba(255,255,255,0.18);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.18), 0 2px 24px rgba(212,165,116,0.10);
+            backdrop-filter: blur(18px) saturate(1.2);
+            border: 1.5px solid rgba(212, 165, 116, 0.18);
+            position: relative;
+            z-index: 1;
+            padding: 48px 36px 48px 36px;
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            color: #222;
+            font-weight: 500;
+            font-size: 13px;
+        }
+        .form-group input {
+            background: #f8f8f8;
+            color: #2d2d2d;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            font-size: 1rem;
+            margin-top: 4px;
+            padding: 10px 12px;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #d4a574;
+        }
+        .form-row {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+        }
+        .form-row .form-group {
+            flex: 1 1 0;
+            min-width: 0;
+        }
+        .auth-btn {
+            margin-top: 12px;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            padding: 12px 0;
+            width: 100%;
+            background: #d4a574;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+        .auth-btn:hover {
+            background: #b88a4a;
+            box-shadow: 0 2px 8px rgba(212, 165, 116, 0.18);
+        }
+        .auth-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        .error-message {
+            background: #fee;
+            color: #c33;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 14px;
+            font-size: 13px;
+            display: none;
+        }
+        .error-message.show {
+            display: block;
+        }
+        .success-message {
+            background: #efe;
+            color: #3c3;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 14px;
+            font-size: 13px;
+            display: none;
+        }
+        .success-message.show {
+            display: block;
+        }
+        .forgot-password {
+            margin-top: 8px;
+            margin-bottom: 0;
+            text-align: left;
+        }
+        .forgot-password a {
+            color: #bfa77a;
+            text-decoration: underline;
+            font-size: 0.97rem;
+        }
+        .divider {
+            text-align: center;
+            margin: 18px 0;
+            position: relative;
+        }
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #e0e0e0;
+        }
+        .divider span {
+            background: #fff;
+            padding: 0 10px;
+            position: relative;
+            color: #999;
+            font-size: 13px;
+        }
+        .social-login {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 16px 0 0 0;
+            width: 100%;
+            align-items: center;
+        }
+        .social-btn {
+            width: 100%;
+            background: #fff;
+            color: #d4a574;
+            border: 1px solid #d4a574;
+            border-radius: 8px;
+            padding: 10px 0;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background 0.2s, color 0.2s;
+        }
+        .social-btn:hover {
+            background: #d4a574;
+            color: #fff;
+        }
+        .back-link {
+            margin-top: 18px;
+            text-align: left;
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+        }
+        .back-link a {
+            color: #fff;
+            background: linear-gradient(90deg, #d4a574 0%, #b88a4a 100%);
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border-radius: 8px;
+            padding: 10px 22px;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(212, 165, 116, 0.13);
+            transition: background 0.2s, color 0.2s;
+        }
+        .back-link a:hover {
+            background: #fff;
+            color: #b88a4a;
+            border: 1px solid #b88a4a;
+        }
+        @media (max-width: 900px) {
+            .auth-split-layout {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .auth-left-panel, .auth-right-panel {
+                max-width: 100vw;
+                padding: 24px 0;
+                justify-content: center;
+                align-items: center;
+            }
+            .auth-right-panel {
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+        <div class="auth-split-layout">
+            <div class="auth-left-panel">
+                <img src="images/logoandtext.png" alt="The Believers Logo" class="brand-logo">
+                <h1 class="brand-title">THE BELIEVERS</h1>
+                <p class="brand-tagline">Faith & Comfort</p>
+                <p class="brand-welcome">Create an account or sign in to save your favorites and access your orders.</p>
+            </div>
+            <div class="auth-right-panel">
+                <div class="auth-tabs">
+                    <div class="auth-tab active" data-tab="login">Login</div>
+                    <div class="auth-tab" data-tab="signup">Sign Up</div>
+                </div>
+                <div class="auth-content">
+                    <!-- Login Form -->
+                    <form id="loginForm" class="auth-form active">
+                        <div class="error-message" id="loginError"></div>
+                        <div class="success-message" id="loginSuccess"></div>
+                        <div class="form-group">
+                            <label for="loginEmail">Email Address</label>
+                            <input type="email" id="loginEmail" required placeholder="your@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <input type="password" id="loginPassword" required placeholder="Enter your password">
+                        </div>
+                        <button type="submit" class="auth-btn">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </button>
+                        <div class="forgot-password">
+                            <a href="#">Forgot your password?</a>
+                        </div>
+                    </form>
+                    <!-- Signup Form -->
+                    <form id="signupForm" class="auth-form">
+                        <div class="error-message" id="signupError"></div>
+                        <div class="success-message" id="signupSuccess"></div>
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" required placeholder="John">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" required placeholder="Doe">
+                        </div>
+                        <div class="form-group">
+                            <label for="signupEmail">Email Address</label>
+                            <input type="email" id="signupEmail" required placeholder="your@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="signupPassword">Password (min. 6 characters)</label>
+                            <input type="password" id="signupPassword" required placeholder="Create a password" minlength="6">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password</label>
+                            <input type="password" id="confirmPassword" required placeholder="Confirm your password">
+                        </div>
+                        <button type="submit" class="auth-btn">
+                            <i class="fas fa-user-plus"></i> Create Account
+                        </button>
+                    </form>
+                    <div class="divider">
+                        <span>or</span>
+                    </div>
+                    <div class="social-login">
+                        <button class="social-btn google-btn" id="googleSignInBtn">
+                            <i class="fab fa-google"></i>
+                            <span>Continue with Google</span>
+                        </button>
+                    </div>
+                    <div class="back-link">
+                        <a href="index.html">
+                            <i class="fas fa-arrow-left"></i> Back to Home
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <script src="auth.js"></script>
+    <script>
+    // Tab switching logic for login/signup
+    const tabs = document.querySelectorAll('.auth-tab');
+    const forms = document.querySelectorAll('.auth-form');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', function() {
+        tabs.forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        const tabType = this.getAttribute('data-tab');
+        forms.forEach(form => {
+          if (form.id === tabType + 'Form') {
+            form.classList.add('active');
+          } else {
+            form.classList.remove('active');
+          }
+        });
+      });
+    });
+    // Ensure only one form is visible on load
+    window.addEventListener('DOMContentLoaded', () => {
+      const activeTab = document.querySelector('.auth-tab.active');
+      tabs.forEach(t => t.classList.remove('active'));
+      activeTab.classList.add('active');
+      forms.forEach(form => {
+        if (form.id === activeTab.getAttribute('data-tab') + 'Form') {
+          form.classList.add('active');
+        } else {
+          form.classList.remove('active');
+        }
+      });
+    });
+    // Google Sign-In Button Click (demo only, replace with real logic as needed)
+    document.getElementById('googleSignInBtn').addEventListener('click', function() {
+      alert('Google Sign-In coming soon!');
+    });
+    </script>
+</body>
+</html>

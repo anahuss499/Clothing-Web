@@ -417,6 +417,13 @@ async function processOrder() {
         }
     };
 
+    // Send order to analytics backend
+    try {
+        await saveOrderToBackend(orderDetails);
+    } catch (error) {
+        console.error('Failed to save order to analytics:', error);
+    }
+
     // Send order notification to backend (admin + customer email)
     try {
         await sendOrderNotification(orderDetails);
@@ -436,6 +443,93 @@ async function processOrder() {
 
     // Show success modal
     showSuccessModal(orderNumber);
+}
+
+// Save order to backend for analytics
+async function saveOrderToBackend(orderDetails) {
+    // Detect device type
+    const deviceType = /Mobile|Android|iPhone/i.test(navigator.userAgent) ? 'mobile' : 'desktop';
+    
+    // Get traffic source
+    const trafficSource = getTrafficSource();
+    
+    // Prepare order data for backend
+    const orderData = {
+        orderId: orderDetails.orderNumber,
+        customerEmail: orderDetails.shippingInfo.email,
+        customerName: `${orderDetails.shippingInfo.firstName} ${orderDetails.shippingInfo.lastName}`,
+        products: orderDetails.items.map(item => ({
+            name: item.name,
+            price: item.price,
+            quantity: item.quantity,
+            size: item.size,
+            image: item.image
+        })),
+        subtotal: orderDetails.totals.subtotal,
+        tax: orderDetails.totals.tax,
+        shipping: orderDetails.totals.shipping,
+        discount: orderDetails.totals.subtotal * promoDiscount,
+        total: orderDetails.totals.total,
+        shippingAddress: {
+            fullName: `${orderDetails.shippingInfo.firstName} ${orderDetails.shippingInfo.lastName}`,
+            address: orderDetails.shippingInfo.address,
+            city: orderDetails.shippingInfo.city,
+            state: orderDetails.shippingInfo.state,
+            zipCode: orderDetails.shippingInfo.zipCode,
+            country: orderDetails.shippingInfo.country,
+            phone: orderDetails.shippingInfo.phone
+        },
+        paymentMethod: orderDetails.paymentMethod,
+        deviceType: deviceType,
+        trafficSource: trafficSource,
+        referrer: document.referrer || 'Direct'
+    };
+
+    // Send to backend
+    const response = await fetch('/api/orders', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(orderData)
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to save order');
+    }
+
+    return await response.json();
+}
+
+// Get traffic source from URL parameters or referrer
+function getTrafficSource() {
+    // Check for UTM parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const utmSource = urlParams.get('utm_source');
+    
+    if (utmSource) {
+        return utmSource.charAt(0).toUpperCase() + utmSource.slice(1);
+    }
+    
+    // Check referrer
+    const referrer = document.referrer;
+    if (!referrer) return 'Direct';
+    
+    try {
+        const referrerUrl = new URL(referrer);
+        const hostname = referrerUrl.hostname.toLowerCase();
+        
+        if (hostname.includes('google')) return 'Google';
+        if (hostname.includes('facebook')) return 'Facebook';
+        if (hostname.includes('instagram')) return 'Instagram';
+        if (hostname.includes('twitter') || hostname.includes('x.com')) return 'Twitter';
+        if (hostname.includes('tiktok')) return 'TikTok';
+        if (hostname.includes('youtube')) return 'YouTube';
+        
+        return 'Referral';
+    } catch {
+        return 'Direct';
+    }
 }
 
 // Show success modal

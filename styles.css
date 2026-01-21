@@ -344,21 +344,21 @@ h1, h2, h3, h4, .section-title, .hero-title, .category-logo-title, .subsection-t
 }
 
 .icon-btn {
-    background: linear-gradient(135deg, rgba(212, 165, 116, 0.08) 0%, rgba(212, 165, 116, 0.05) 100%);
-    border: 2px solid transparent;
+    background: #fff;
+    border: none;
     cursor: pointer;
     font-size: 18px;
     color: var(--text-dark);
     position: relative;
-    transition: all 0.4s ease;
-    padding: 10px;
+    transition: all 0.3s ease;
+    padding: 0;
     border-radius: 50%;
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 .icon-btn::before {
@@ -378,9 +378,8 @@ h1, h2, h3, h4, .section-title, .hero-title, .category-logo-title, .subsection-t
 
 .icon-btn:hover {
     color: var(--primary-gold);
-    transform: scale(1.15) rotate(5deg);
-    border-color: var(--primary-gold);
-    box-shadow: 0 4px 16px rgba(212, 165, 116, 0.4);
+    transform: scale(1.08);
+    box-shadow: 0 4px 12px rgba(212, 165, 116, 0.18);
 }
 
 .icon-btn:active {
@@ -1709,7 +1708,7 @@ h1, h2, h3, h4, .section-title, .hero-title, .category-logo-title, .subsection-t
     display: flex;
     gap: 12px;
     margin-bottom: 12px;
-    padding: 12px;
+    padding: 12px;   
     background: #ffffff;
     border-radius: 10px;
     box-shadow: none;
