@@ -68,8 +68,8 @@ class NewsletterService {
 }
 
 // Add CSS animations
-const style = document.createElement('style');
-style.textContent = `
+const newsletterStyle = document.createElement('style');
+newsletterStyle.textContent = `
     @keyframes slideIn {
         from {
             transform: translateX(400px);
@@ -115,7 +115,7 @@ style.textContent = `
         cursor: not-allowed;
     }
 `;
-document.head.appendChild(style);
+document.head.appendChild(newsletterStyle);
 
 // Initialize the newsletter service
 const newsletterService = new NewsletterService();

@@ -152,6 +152,14 @@ document.getElementById('signupForm').addEventListener('submit', async function(
     }
 });
 
+// Google Sign-In Button Click
+const googleBtn = document.getElementById('googleSignInBtn');
+if (googleBtn) {
+    googleBtn.addEventListener('click', function() {
+        window.location.href = '/auth/google';
+    });
+}
+
 // Helper function to show messages
 function showMessage(elementId, message) {
     const element = document.getElementById(elementId);

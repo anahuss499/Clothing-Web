@@ -1,6 +1,6 @@
 // Google OAuth Configuration
 // Replace with your actual Google Client ID
-const GOOGLE_CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com';
+const GOOGLE_CLIENT_ID = '748267354035-0encuaejqgkda7q7dusllb1qic27iebd.apps.googleusercontent.com';
 
 // Simple local persistence for demo (use a real backend for production)
 const STORAGE_KEYS = {

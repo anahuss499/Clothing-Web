@@ -1,4 +1,15 @@
+// ...existing code...
+// ...existing code...
+// ...existing code...
+// ...existing code...
+// ...existing code...
+// ...existing code...
+
+// ====== ALL REQUIRES FIRST ======
 const express = require('express');
+const session = require('express-session');
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const cors = require('cors');
 const sgMail = require('@sendgrid/mail');
 const rateLimit = require('express-rate-limit');
@@ -7,12 +18,91 @@ const jwt = require('jsonwebtoken');
 const checkoutNodeJssdk = require('@paypal/checkout-server-sdk');
 require('dotenv').config();
 
+// ====== APP INITIALIZATION ======
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
+// ====== MIDDLEWARE ======
 app.use(cors());
 app.use(express.json());
+app.use(session({
+    secret: process.env.SESSION_SECRET || 'your-session-secret',
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false }
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// ====== PASSPORT CONFIG ======
+passport.serializeUser((user, done) => {
+    done(null, user);
+});
+passport.deserializeUser((user, done) => {
+    done(null, user);
+});
+passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: process.env.GOOGLE_CALLBACK_URL || 'http://localhost:3000/auth/google/callback',
+}, async (accessToken, refreshToken, profile, done) => {
+    try {
+        const email = profile.emails && profile.emails[0] && profile.emails[0].value;
+        const firstName = profile.name && profile.name.givenName ? profile.name.givenName : '';
+        const lastName = profile.name && profile.name.familyName ? profile.name.familyName : '';
+        if (!email) {
+            return done(new Error('No email found in Google profile'));
+        }
+        let { user } = await dbOperations.getUserByEmail(email);
+        if (!user) {
+            const result = await dbOperations.createUser({
+                firstName,
+                lastName,
+                email,
+                password: '',
+                isActive: true
+            });
+            if (!result.success) {
+                return done(new Error(result.message));
+            }
+            user = result.user;
+        }
+        return done(null, {
+            id: user._id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            provider: 'google'
+        });
+    } catch (err) {
+        return done(err);
+    }
+}));
+
+// ===== GOOGLE OAUTH ROUTES (AFTER MIDDLEWARE) =====
+app.get('/auth/google', passport.authenticate('google', {
+    scope: ['profile', 'email']
+}));
+app.get('/auth/google/callback',
+    passport.authenticate('google', { failureRedirect: '/auth.html?error=google' }),
+    async (req, res) => {
+        console.log('Google callback invoked, req.user =', req.user ? (req.user.email || req.user.id) : 'no user');
+        console.log('Callback URL:', req.originalUrl);
+        const user = req.user;
+        const token = jwt.sign(
+            {
+                userId: user.id,
+                email: user.email,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                provider: 'google'
+            },
+            process.env.JWT_SECRET,
+            { expiresIn: '7d' }
+        );
+        res.redirect(`/index.html?login=google&token=${token}`);
+    }
+);
 
 // Admin dashboard route (MUST be before static middleware)
 app.get('/admin-secret-dashboard.html', (req, res) => {
@@ -1747,8 +1837,12 @@ app.post('/api/card/process-payment', async (req, res) => {
 });
 
 // Start server
-app.listen(PORT, () => {
-    console.log(`✅ Server running on port ${PORT}`);
+// Simple health check
+app.get('/__health', (req, res) => res.status(200).send('ok'));
+
+// Start server, bind to 0.0.0.0 so host can reach it from outside container
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`✅ Server running on port ${PORT} (bound to 0.0.0.0)`);
     console.log(`📧 Email service ready`);
     console.log(`🔒 Rate limiting enabled`);
     console.log(`🔐 Admin Dashboard: http://localhost:${PORT}/admin-secret-dashboard.html`);
