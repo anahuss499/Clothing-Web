@@ -162,7 +162,7 @@ const UserAccount = {
                     this.showAccountMenu(e);
                 });
             } else {
-                link.innerHTML = `<i class="fas fa-user"></i> Login`;
+                link.innerHTML = `<i class="fas fa-user"></i>`;
                 link.href = 'auth.html';
             }
         });
