@@ -14,7 +14,9 @@ document.addEventListener('DOMContentLoaded', function() {
     checkUserLogin();
     const productId = getProductIdFromURL();
     currentProductId = productId;
-    
+    console.debug('product-detail: DOMContentLoaded', { productId, href: window.location.href, productsDefined: typeof products !== 'undefined' });
+    showDebugPanel({ productId, href: window.location.href, productsDefined: typeof products !== 'undefined' });
+
     if (productId) {
         displayProductDetail(productId);
         displayReviews(productId);
@@ -35,10 +37,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Display full product detail
 function displayProductDetail(productId) {
-    const product = products.find(p => p.id === productId);
-    if (!product) return;
-
     const container = document.getElementById('productDetailContainer');
+    if (!container) return;
+
+    if (typeof products === 'undefined') {
+        console.error('product-detail: products array is not defined on this page');
+        container.innerHTML = `<div style="padding:30px;background:#fff;border-radius:8px;color:#d00;">Error: product data is unavailable. Please load the main page or run the app backend.</div>`;
+        showDebugPanel({ productsDefined: false });
+        return;
+    }
+
+    const product = products.find(p => p.id === productId);
+    if (!product) {
+        console.error('product-detail: product not found', { productId, availableIds: products.map(p => p.id) });
+        container.innerHTML = `<div style="padding:30px;background:#fff;border-radius:8px;color:#d00;">Product not found (id=${productId}). Try selecting a product from the products page.</div>`;
+        showDebugPanel({ productsDefined: true, productFound: false, availableIds: products.map(p => p.id) });
+        return;
+    }
+
+    showDebugPanel({ productsDefined: true, productFound: true, productId, productName: product.name });
+
     const infoSection = document.getElementById('productInfoSection');
 
     // Get product images (color variations)
@@ -155,6 +173,22 @@ function switchImage(thumbnail, imageContent) {
     
     document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
     thumbnail.classList.add('active');
+}
+
+// Visible debug panel for troubleshooting on-page
+function showDebugPanel(info) {
+    try {
+        let panel = document.getElementById('pdDebugPanel');
+        if (!panel) {
+            panel = document.createElement('div');
+            panel.id = 'pdDebugPanel';
+            panel.style.cssText = 'position:fixed;right:12px;top:80px;z-index:99999;background:rgba(0,0,0,0.75);color:#fff;padding:8px 12px;border-radius:8px;font-size:12px;max-width:320px;line-height:1.3;';
+            document.body.appendChild(panel);
+        }
+        panel.textContent = Object.entries(info).map(([k,v])=>`${k}: ${typeof v === 'object' ? JSON.stringify(v) : v}`).join(' | ');
+    } catch (e) {
+        console.error('showDebugPanel error', e);
+    }
 }
 
 // Select size

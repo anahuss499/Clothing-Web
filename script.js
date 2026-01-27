@@ -839,29 +839,46 @@ let abayaStyleFilter = null;  // Filter for women's abayas (classic, dubai, mode
 // Initialize
 document.addEventListener('DOMContentLoaded', function() {
     checkUserLogin(); // Check if user is logged in
-    renderProducts();
-    renderStreetWearSection();
+
+    // Only render products grid on pages that include it
+    if (document.getElementById('productsGrid')) {
+        renderProducts();
+    }
+
+    // Only render streetwear section when relevant grid exists
+    if (document.getElementById('menStreetGrid') || document.getElementById('womenStreetGrid') || document.querySelector('.streetwear-section')) {
+        renderStreetWearSection();
+    }
+
     updateCartCount();
     updateSavedCount();
     initializeEventListeners();
     
-    // Set current year in footer
-    document.getElementById('currentYear').textContent = new Date().getFullYear();
+    // Set current year in footer if element exists
+    const yearEl = document.getElementById('currentYear');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
 });
 
 // Event listeners
 function initializeEventListeners() {
     // Cart button
-    document.getElementById('cartBtn').addEventListener('click', toggleCart);
-    document.getElementById('closeCartBtn').addEventListener('click', toggleCart);
+    // Cart button
+    const cartBtnEl = document.getElementById('cartBtn');
+    const closeCartBtnEl = document.getElementById('closeCartBtn');
+    if (cartBtnEl) cartBtnEl.addEventListener('click', toggleCart);
+    if (closeCartBtnEl) closeCartBtnEl.addEventListener('click', toggleCart);
 
     // Saved button
-    document.getElementById('savedBtn').addEventListener('click', toggleSaved);
-    document.getElementById('closeSavedBtn').addEventListener('click', toggleSaved);
+    const savedBtnEl = document.getElementById('savedBtn');
+    const closeSavedBtnEl = document.getElementById('closeSavedBtn');
+    if (savedBtnEl) savedBtnEl.addEventListener('click', toggleSaved);
+    if (closeSavedBtnEl) closeSavedBtnEl.addEventListener('click', toggleSaved);
 
     // Modal close
-    document.getElementById('closeModalBtn').addEventListener('click', closeModal);
-    document.getElementById('overlay').addEventListener('click', closeAllSidebars);
+    const closeModalBtnEl = document.getElementById('closeModalBtn');
+    const overlayEl = document.getElementById('overlay');
+    if (closeModalBtnEl) closeModalBtnEl.addEventListener('click', closeModal);
+    if (overlayEl) overlayEl.addEventListener('click', closeAllSidebars);
 
     // Filter buttons
     document.querySelectorAll('.filter-btn').forEach(btn => {
