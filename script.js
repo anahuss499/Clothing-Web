@@ -866,11 +866,6 @@ function initializeEventListeners() {
     // Initialize Dropdown Menu Handlers
     const navDropdowns = document.querySelectorAll('.nav-dropdown');
     let mobileDropdownOpen = null;
-    const isTouchDevice = () => {
-        return (('ontouchstart' in window) ||
-                (navigator.maxTouchPoints > 0) ||
-                (navigator.msMaxTouchPoints > 0));
-    };
     
     function positionDropdown(dropdown) {
         const dropdownMenu = dropdown.querySelector('.dropdown-menu');
@@ -893,31 +888,26 @@ function initializeEventListeners() {
             
             // Show dropdown on hover (desktop)
             dropdown.addEventListener('mouseenter', function() {
-                if (!isTouchDevice()) {
-                    positionDropdown(dropdown);
-                    dropdownMenu.style.opacity = '1';
-                    dropdownMenu.style.visibility = 'visible';
-                    dropdownMenu.style.transform = 'translateY(0)';
-                }
+                positionDropdown(dropdown);
+                dropdownMenu.style.opacity = '1';
+                dropdownMenu.style.visibility = 'visible';
+                dropdownMenu.style.transform = 'translateY(0)';
             });
             
             // Hide dropdown on mouse leave (desktop)
             dropdown.addEventListener('mouseleave', function() {
-                if (!isTouchDevice()) {
-                    dropdownMenu.style.opacity = '0';
-                    dropdownMenu.style.visibility = 'hidden';
-                    dropdownMenu.style.transform = 'translateY(-10px)';
-                }
+                dropdownMenu.style.opacity = '0';
+                dropdownMenu.style.visibility = 'hidden';
+                dropdownMenu.style.transform = 'translateY(-10px)';
             });
             
-            // Handle click on main link to toggle dropdown (mobile/touch)
+            // Handle click on main link to toggle dropdown (mobile)
             mainLink.addEventListener('click', function(e) {
                 const isVisible = dropdownMenu.style.visibility === 'visible';
                 
                 // On mobile/touch, toggle dropdown instead of navigating
-                if (window.innerWidth <= 768 || isTouchDevice()) {
+                if (window.innerWidth <= 768) {
                     e.preventDefault();
-                    e.stopPropagation();
                     positionDropdown(dropdown);
                     
                     // Close any other open dropdown
@@ -941,49 +931,6 @@ function initializeEventListeners() {
                         mobileDropdownOpen = null;
                     }
                 }
-            });
-            
-            // Handle touch events for better mobile experience
-            if (isTouchDevice()) {
-                dropdown.addEventListener('touchend', function(e) {
-                    const isVisible = dropdownMenu.style.visibility === 'visible';
-                    if (!isVisible) {
-                        e.preventDefault();
-                        positionDropdown(dropdown);
-                        
-                        // Close any other open dropdown
-                        if (mobileDropdownOpen && mobileDropdownOpen !== dropdown) {
-                            const otherMenu = mobileDropdownOpen.querySelector('.dropdown-menu');
-                            otherMenu.style.opacity = '0';
-                            otherMenu.style.visibility = 'hidden';
-                            otherMenu.style.transform = 'translateY(-10px)';
-                        }
-                        
-                        dropdownMenu.style.opacity = '1';
-                        dropdownMenu.style.visibility = 'visible';
-                        dropdownMenu.style.transform = 'translateY(0)';
-                        mobileDropdownOpen = dropdown;
-                    }
-                }, { passive: false });
-            }
-        }
-    });
-    
-    // Close dropdown when clicking on a menu item
-    navDropdowns.forEach(dropdown => {
-        const dropdownMenu = dropdown.querySelector('.dropdown-menu');
-        if (dropdownMenu) {
-            const menuItems = dropdownMenu.querySelectorAll('a');
-            menuItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    // Close the dropdown after selecting an item
-                    setTimeout(() => {
-                        dropdownMenu.style.opacity = '0';
-                        dropdownMenu.style.visibility = 'hidden';
-                        dropdownMenu.style.transform = 'translateY(-10px)';
-                        mobileDropdownOpen = null;
-                    }, 100);
-                });
             });
         }
     });
@@ -1290,51 +1237,6 @@ function toggleSidebar(force) {
     overlay.classList.toggle('active', open);
     body.classList.toggle('sidebar-open', open);
 }
-
-// Initialize sidebar dropdown handlers
-function initSidebarDropdowns() {
-    const sidebarDropdowns = document.querySelectorAll('.sidebar-dropdown');
-    
-    sidebarDropdowns.forEach(dropdown => {
-        const toggle = dropdown.querySelector('.sidebar-dropdown-toggle');
-        
-        if (toggle) {
-            toggle.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                // Close other open dropdowns
-                sidebarDropdowns.forEach(otherDropdown => {
-                    if (otherDropdown !== dropdown) {
-                        otherDropdown.classList.remove('open');
-                    }
-                });
-                
-                // Toggle current dropdown
-                dropdown.classList.toggle('open');
-            });
-        }
-    });
-    
-    // Close dropdown and sidebar when clicking on a menu item
-    const menuItems = document.querySelectorAll('.sidebar-dropdown-menu a');
-    menuItems.forEach(item => {
-        item.addEventListener('click', function() {
-            setTimeout(() => {
-                sidebarDropdowns.forEach(dropdown => {
-                    dropdown.classList.remove('open');
-                });
-                // Close the entire sidebar
-                toggleSidebar(false);
-            }, 300);
-        });
-    });
-}
-
-// Initialize sidebar dropdowns when page loads
-document.addEventListener('DOMContentLoaded', function() {
-    initSidebarDropdowns();
-});
 
 // Remove from cart
 function removeFromCart(productId) {
@@ -1673,10 +1575,7 @@ function filterByMenType(type) {
     abayaStyleFilter = null;  // Reset abaya filter
     
     // Trigger category display with filter applied
-    if (menTypeFilter === 'streetwear') {
-        // Show streetwear section with only men's streetwear
-        showStreetWearSection('men');
-    } else if (menTypeFilter) {
+    if (menTypeFilter) {
         showCategoryWithFilter('men', menTypeFilter);
     } else {
         showCategory('men');
@@ -1689,46 +1588,7 @@ function filterByAbayaStyle(style) {
     menTypeFilter = null;  // Reset men filter
     
     // Trigger category display with filter applied
-    if (style === 'streetwear') {
-        // Show streetwear section with only women's streetwear
-        showStreetWearSection('women');
-    } else {
-        showCategoryWithFilter('women', style);
-    }
-}
-
-// Show streetwear section
-function showStreetWearSection(gender = null) {
-    // Hide other sections
-    document.getElementById('products').classList.add('hidden');
-    document.getElementById('about').classList.add('hidden');
-    document.getElementById('categorySection').classList.add('hidden');
-    document.getElementById('streetwearSection').classList.remove('hidden');
-    
-    // Get the grids
-    const menGrid = document.getElementById('menStreetGrid');
-    const womenGrid = document.getElementById('womenStreetGrid');
-    const menSection = document.querySelector('#streetwearSection .subsection:nth-child(2)');
-    const womenSection = document.querySelector('#streetwearSection .subsection:nth-child(3)');
-    
-    // Show/hide based on gender
-    if (gender === 'men') {
-        menSection.style.display = 'block';
-        womenSection.style.display = 'none';
-    } else if (gender === 'women') {
-        menSection.style.display = 'none';
-        womenSection.style.display = 'block';
-    } else {
-        // Show both if no gender specified
-        menSection.style.display = 'block';
-        womenSection.style.display = 'block';
-    }
-    
-    // Render streetwear products
-    renderStreetWearSection();
-    
-    // Scroll to streetwear section
-    document.getElementById('streetwearSection').scrollIntoView({ behavior: 'smooth' });
+    showCategoryWithFilter('women', style);
 }
 
 // Show category with applied filter
@@ -1789,31 +1649,21 @@ function showCategoryWithFilter(category, filterValue) {
             filteredProducts = products.filter(p => p.category === 'men' && p.menType === 'pakistani');
             subsectionName = 'Pakistani Jubbah';
             subsectionIcon = 'fa-female';
-        } else if (menTypeFilter === 'streetwear') {
-            filteredProducts = products.filter(p => p.category === 'men' && p.type === 'streetwear');
-            subsectionName = 'Men\'s Streetwear';
-            subsectionIcon = 'fa-male';
         }
     } else if (category === 'women' && abayaStyleFilter) {
-        // Filter by abayaStyle or streetwear
-        if (abayaStyleFilter === 'streetwear') {
-            filteredProducts = products.filter(p => p.category === 'women' && p.type === 'streetwear');
-            subsectionName = 'Women\'s Streetwear';
-            subsectionIcon = 'fa-female';
-        } else {
-            filteredProducts = products.filter(p => 
-                p.category === 'women' && 
-                p.subtype === 'abaya' && 
-                p.abayaStyle === abayaStyleFilter
-            );
-            
-            if (abayaStyleFilter === 'classic') subsectionName = 'Classic Abaya';
-            else if (abayaStyleFilter === 'dubai') subsectionName = 'Dubai Style Abaya';
-            else if (abayaStyleFilter === 'modern') subsectionName = 'Modern Abaya';
-            else if (abayaStyleFilter === 'embroidered') subsectionName = 'Embroidered Abaya';
-            else if (abayaStyleFilter === 'simple') subsectionName = 'Simple Abaya';
-            subsectionIcon = 'fa-female';
-        }
+        // Filter by abayaStyle
+        filteredProducts = products.filter(p => 
+            p.category === 'women' && 
+            p.subtype === 'abaya' && 
+            p.abayaStyle === abayaStyleFilter
+        );
+        
+        if (abayaStyleFilter === 'classic') subsectionName = 'Classic Abaya';
+        else if (abayaStyleFilter === 'dubai') subsectionName = 'Dubai Style Abaya';
+        else if (abayaStyleFilter === 'modern') subsectionName = 'Modern Abaya';
+        else if (abayaStyleFilter === 'embroidered') subsectionName = 'Embroidered Abaya';
+        else if (abayaStyleFilter === 'simple') subsectionName = 'Simple Abaya';
+        subsectionIcon = 'fa-female';
     }
     
     // Display filtered products
@@ -1882,13 +1732,6 @@ function backToHome() {
     document.getElementById('products').classList.remove('hidden');
     document.getElementById('about').classList.remove('hidden');
     document.getElementById('categorySection').classList.add('hidden');
-    document.getElementById('streetwearSection').classList.add('hidden');
-    
-    // Reset streetwear subsections display
-    const menSection = document.querySelector('#streetwearSection .subsection:nth-child(2)');
-    const womenSection = document.querySelector('#streetwearSection .subsection:nth-child(3)');
-    if (menSection) menSection.style.display = 'block';
-    if (womenSection) womenSection.style.display = 'block';
     
     // Reset filter to all
     currentFilter = 'all';

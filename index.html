@@ -15,10 +15,9 @@
             <nav class="navbar">
                 <div class="logo">
                     <img class="site-logo" src="images/real-removebg-preview (1).png" alt="The Believers Logo">
-                    <span class="logo-text">The Believers</span>
                 </div>
                 <ul class="nav-links">
-                    <li><a href="#home" class="active" onclick="backToHome(); return false;">Home</a></li>
+                    <li><a href="#home" class="active">Home</a></li>
                     <li class="nav-dropdown">
                         <a href="#men">Men</a>
                         <ul class="dropdown-menu">
@@ -27,7 +26,6 @@
                             <li><a href="#" onclick="filterByMenType('arab'); return false;">Arab Jubbah</a></li>
                             <li><a href="#" onclick="filterByMenType('turkish'); return false;">Turkish Jubbah</a></li>
                             <li><a href="#" onclick="filterByMenType('pakistani'); return false;">Pakistani Jubbah</a></li>
-                            <li><a href="#" onclick="filterByMenType('streetwear'); return false;">Streetwear</a></li>
                         </ul>
                     </li>
                     <li class="nav-dropdown">
@@ -38,7 +36,6 @@
                             <li><a href="#" onclick="filterByAbayaStyle('modern'); return false;">Modern Abaya</a></li>
                             <li><a href="#" onclick="filterByAbayaStyle('embroidered'); return false;">Embroidered Abaya</a></li>
                             <li><a href="#" onclick="filterByAbayaStyle('simple'); return false;">Simple Abaya</a></li>
-                            <li><a href="#" onclick="filterByAbayaStyle('streetwear'); return false;">Streetwear</a></li>
                         </ul>
                     </li>
                     <li><a href="#kids" onclick="showCategory('kids')">Kids</a></li>
@@ -74,34 +71,9 @@
             </button>
         </div>
         <nav class="sidebar-nav">
-            <a href="#home" class="sidebar-link" onclick="backToHome(); return false;"><i class="fas fa-home"></i><span>Home</span></a>
-            
-            <!-- Men Dropdown -->
-            <div class="sidebar-dropdown">
-                <a href="#men" class="sidebar-link sidebar-dropdown-toggle"><i class="fas fa-male"></i><span>Men</span><i class="fas fa-chevron-down"></i></a>
-                <ul class="sidebar-dropdown-menu">
-                    <li><a href="#" onclick="filterByMenType('thobe'); return false;">Thobes</a></li>
-                    <li><a href="#" onclick="filterByMenType('moroccan'); return false;">Moroccan Jubbah</a></li>
-                    <li><a href="#" onclick="filterByMenType('arab'); return false;">Arab Jubbah</a></li>
-                    <li><a href="#" onclick="filterByMenType('turkish'); return false;">Turkish Jubbah</a></li>
-                    <li><a href="#" onclick="filterByMenType('pakistani'); return false;">Pakistani Jubbah</a></li>
-                    <li><a href="#" onclick="filterByMenType('streetwear'); return false;">Streetwear</a></li>
-                </ul>
-            </div>
-
-            <!-- Women Dropdown -->
-            <div class="sidebar-dropdown">
-                <a href="#women" class="sidebar-link sidebar-dropdown-toggle"><i class="fas fa-female"></i><span>Women</span><i class="fas fa-chevron-down"></i></a>
-                <ul class="sidebar-dropdown-menu">
-                    <li><a href="#" onclick="filterByAbayaStyle('classic'); return false;">Classic Abaya</a></li>
-                    <li><a href="#" onclick="filterByAbayaStyle('dubai'); return false;">Dubai Style</a></li>
-                    <li><a href="#" onclick="filterByAbayaStyle('modern'); return false;">Modern Abaya</a></li>
-                    <li><a href="#" onclick="filterByAbayaStyle('embroidered'); return false;">Embroidered Abaya</a></li>
-                    <li><a href="#" onclick="filterByAbayaStyle('simple'); return false;">Simple Abaya</a></li>
-                    <li><a href="#" onclick="filterByAbayaStyle('streetwear'); return false;">Streetwear</a></li>
-                </ul>
-            </div>
-
+            <a href="#home" class="sidebar-link"><i class="fas fa-home"></i><span>Home</span></a>
+            <a href="#men" class="sidebar-link" onclick="showCategory('men')"><i class="fas fa-male"></i><span>Men</span></a>
+            <a href="#women" class="sidebar-link" onclick="showCategory('women')"><i class="fas fa-female"></i><span>Women</span></a>
             <a href="#kids" class="sidebar-link" onclick="showCategory('kids')"><i class="fas fa-child"></i><span>Kids</span></a>
             <a href="#about" class="sidebar-link"><i class="fas fa-info-circle"></i><span>About</span></a>
             <a href="checkout.html" class="sidebar-link"><i class="fas fa-credit-card"></i><span>Checkout</span></a>
@@ -113,7 +85,7 @@
         <div class="hero-content">
             <h2 class="hero-title">Modest Islamic Wear & More</h2>
             <p class="hero-subtitle">Where faith meets comfort</p>
-            <button class="cta-btn" onclick="backToHome(); document.getElementById('products').scrollIntoView({ behavior: 'smooth' })">Shop Now</button>
+            <button class="cta-btn" onclick="document.getElementById('products').scrollIntoView({ behavior: 'smooth' })">Shop Now</button>
         </div>
     </section>
 
