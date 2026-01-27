@@ -454,7 +454,6 @@
             display: flex;
             gap: 15px;
             font-size: 13px;
-            align-items: center;
         }
 
         .helpful-btn {
@@ -462,178 +461,11 @@
             border: none;
             color: var(--text-light);
             cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 5px 10px;
-            border-radius: 4px;
+            transition: color 0.3s;
         }
 
         .helpful-btn:hover {
             color: var(--primary-gold);
-            background-color: rgba(212, 165, 116, 0.1);
-        }
-
-        .helpful-count {
-            font-weight: 600;
-            color: var(--primary-gold);
-            font-size: 14px;
-            min-width: 20px;
-            text-align: center;
-        }
-
-        /* Review Form Styles */
-        .review-form-container {
-            background: linear-gradient(135deg, var(--light-gray) 0%, var(--border-gray) 100%);
-            padding: 40px;
-            border-radius: 8px;
-            margin-bottom: 40px;
-        }
-
-        .review-form-container h2 {
-            font-size: 24px;
-            margin-bottom: 25px;
-            color: var(--primary-black);
-        }
-
-        .review-form {
-            background-color: var(--primary-white);
-            padding: 30px;
-            border-radius: 8px;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: var(--primary-black);
-            font-size: 14px;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid var(--border-gray);
-            border-radius: 6px;
-            font-size: 14px;
-            font-family: inherit;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary-gold);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-        }
-
-        .star-rating-input {
-            display: flex;
-            gap: 10px;
-            font-size: 36px;
-            margin-bottom: 10px;
-        }
-
-        .star-rating-input .star {
-            cursor: pointer;
-            color: var(--border-gray);
-            transition: color 0.2s;
-        }
-
-        .star-rating-input .star:hover,
-        .star-rating-input .star.active {
-            color: var(--primary-gold);
-        }
-
-        #ratingLabel {
-            display: block;
-            color: var(--text-light);
-            font-size: 13px;
-            margin-top: 8px;
-        }
-
-        .form-actions {
-            display: flex;
-            gap: 15px;
-            margin-top: 30px;
-        }
-
-        .submit-review-btn,
-        .cancel-review-btn {
-            padding: 12px 30px;
-            border: none;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s;
-        }
-
-        .submit-review-btn {
-            background-color: var(--primary-gold);
-            color: var(--primary-white);
-            flex: 1;
-        }
-
-        .submit-review-btn:hover {
-            background-color: var(--accent-brown);
-            transform: translateY(-2px);
-        }
-
-        .cancel-review-btn {
-            background-color: var(--border-gray);
-            color: var(--primary-black);
-            flex: 1;
-        }
-
-        .cancel-review-btn:hover {
-            background-color: #999;
-        }
-
-        /* Review Item Actions */
-        .review-actions {
-            display: flex;
-            gap: 10px;
-            font-size: 12px;
-            margin-top: 8px;
-        }
-
-        .review-action-btn {
-            background: none;
-            border: none;
-            color: var(--primary-gold);
-            cursor: pointer;
-            text-decoration: underline;
-            font-size: 12px;
-            transition: color 0.3s;
-        }
-
-        .review-action-btn:hover {
-            color: var(--accent-brown);
-        }
-
-        .review-action-btn.delete {
-            color: #d9534f;
-        }
-
-        .review-action-btn.delete:hover {
-            color: #c9302c;
-        }
-
-        /* Helpful Count */
-        .helpful-count {
-            margin-left: 5px;
-            color: var(--text-light);
-            font-size: 12px;
         }
 
         /* Recommended Products */
@@ -785,42 +617,6 @@
             <!-- Product Info Section -->
             <div class="product-info-section" id="productInfoSection">
                 <!-- Will be filled by JavaScript -->
-            </div>
-
-            <!-- Write Review Form -->
-            <div class="reviews-container" id="writeReviewSection" style="display: none;">
-                <div class="review-form-container">
-                    <h2>Write Your Review</h2>
-                    <form id="reviewForm" class="review-form">
-                        <div class="form-group">
-                            <label>Your Name</label>
-                            <input type="text" id="reviewerName" placeholder="Enter your name" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Rating</label>
-                            <div class="star-rating-input" id="starRatingInput">
-                                <span class="star" data-value="1" onclick="setReviewRating(1)">★</span>
-                                <span class="star" data-value="2" onclick="setReviewRating(2)">★</span>
-                                <span class="star" data-value="3" onclick="setReviewRating(3)">★</span>
-                                <span class="star" data-value="4" onclick="setReviewRating(4)">★</span>
-                                <span class="star" data-value="5" onclick="setReviewRating(5)">★</span>
-                            </div>
-                            <input type="hidden" id="reviewRating" value="0">
-                            <span id="ratingLabel">Select rating</span>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Your Comment (Optional)</label>
-                            <textarea id="reviewComment" rows="5" placeholder="Share your thoughts about this product..."></textarea>
-                        </div>
-
-                        <div class="form-actions">
-                            <button type="submit" class="submit-review-btn">Submit Review</button>
-                            <button type="button" class="cancel-review-btn" onclick="cancelReviewForm()">Cancel</button>
-                        </div>
-                    </form>
-                </div>
             </div>
 
             <!-- Reviews Section -->

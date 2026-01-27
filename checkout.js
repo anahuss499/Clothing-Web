@@ -1,6 +1,5 @@
 // Load cart from localStorage
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
-let promoDiscount = 0; // fraction (e.g., 0.1 for 10%)
 
 // Initialize
 document.addEventListener('DOMContentLoaded', function() {
@@ -183,13 +182,6 @@ function initializeEventListeners() {
         });
     });
 
-    // Delivery method selection impacts shipping cost
-    document.querySelectorAll('input[name="deliveryMethod"]').forEach(radio => {
-        radio.addEventListener('change', function() {
-            calculateTotals();
-        });
-    });
-
     // Card number formatting
     const cardNumberInput = document.getElementById('cardNumber');
     if (cardNumberInput) {
@@ -246,7 +238,7 @@ function renderOrderSummary() {
                 <div class="summary-item-name">${item.name}</div>
                 <div class="summary-item-quantity">Qty: ${item.quantity}</div>
             </div>
-            <div class="summary-item-price">£${(item.price * item.quantity).toFixed(2)}</div>
+            <div class="summary-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
         </div>
     `).join('');
 
@@ -255,26 +247,15 @@ function renderOrderSummary() {
 
 // Calculate totals
 function calculateTotals() {
-    const rawSubtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const discountAmount = rawSubtotal * (promoDiscount || 0);
-    const subtotal = rawSubtotal - discountAmount;
-    const shipping = getShippingCost();
+    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const shipping = subtotal > 100 ? 0 : 9.99;
     const tax = subtotal * 0.08; // 8% tax
     const total = subtotal + shipping + tax;
 
-    document.getElementById('subtotal').textContent = `£${subtotal.toFixed(2)}`;
-    document.getElementById('shipping').textContent = shipping === 0 ? 'FREE' : `£${shipping.toFixed(2)}`;
-    document.getElementById('tax').textContent = `£${tax.toFixed(2)}`;
-    document.getElementById('total').textContent = `£${total.toFixed(2)}`;
-}
-
-// Shipping cost based on delivery selection
-function getShippingCost() {
-    const delivery = document.querySelector('input[name="deliveryMethod"]:checked')?.value || 'Standard (7-14 days)';
-    if (delivery.toLowerCase().includes('express')) {
-        return 5;
-    }
-    return 0; // standard is free
+    document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+    document.getElementById('shipping').textContent = shipping === 0 ? 'FREE' : `$${shipping.toFixed(2)}`;
+    document.getElementById('tax').textContent = `$${tax.toFixed(2)}`;
+    document.getElementById('total').textContent = `$${total.toFixed(2)}`;
 }
 
 // Apply promo code
@@ -289,15 +270,24 @@ function applyPromoCode() {
     };
 
     if (promoCodes[promoCode]) {
-        promoDiscount = promoCodes[promoCode];
-        const rawSubtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-        const discountAmount = rawSubtotal * promoDiscount;
-        showNotification(`Promo code applied! You saved £${discountAmount.toFixed(2)}`);
-        calculateTotals();
+        const discount = promoCodes[promoCode];
+        const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        const discountAmount = subtotal * discount;
+        
+        showNotification(`Promo code applied! You saved $${discountAmount.toFixed(2)}`);
+        
+        // Recalculate with discount
+        const newSubtotal = subtotal - discountAmount;
+        const shipping = newSubtotal > 100 ? 0 : 9.99;
+        const tax = newSubtotal * 0.08;
+        const total = newSubtotal + shipping + tax;
+
+        document.getElementById('subtotal').textContent = `$${newSubtotal.toFixed(2)}`;
+        document.getElementById('shipping').textContent = shipping === 0 ? 'FREE' : `$${shipping.toFixed(2)}`;
+        document.getElementById('tax').textContent = `$${tax.toFixed(2)}`;
+        document.getElementById('total').textContent = `$${total.toFixed(2)}`;
     } else {
-        promoDiscount = 0;
         showNotification('Invalid promo code', 'error');
-        calculateTotals();
     }
 }
 
@@ -380,18 +370,11 @@ function placeOrder() {
 }
 
 // Process order
-async function processOrder() {
+function processOrder() {
     // Generate order number
     const orderNumber = 'BLV' + Date.now().toString().slice(-8);
     
     // Get order details
-    const parseMoney = (val) => {
-        if (!val) return 0;
-        const cleaned = val.replace(/[^0-9.-]+/g, '');
-        const num = parseFloat(cleaned);
-        return isNaN(num) ? 0 : num;
-    };
-
     const orderDetails = {
         orderNumber: orderNumber,
         date: new Date().toISOString(),
@@ -407,30 +390,9 @@ async function processOrder() {
             zipCode: document.getElementById('zipCode').value,
             country: document.getElementById('country').value
         },
-        deliveryMethod: document.querySelector('input[name="deliveryMethod"]:checked')?.value || 'Standard (7-14 days)',
         paymentMethod: document.querySelector('input[name="paymentMethod"]:checked').value,
-        totals: {
-            subtotal: parseMoney(document.getElementById('subtotal').textContent),
-            shipping: parseMoney(document.getElementById('shipping').textContent),
-            tax: parseMoney(document.getElementById('tax').textContent),
-            total: parseMoney(document.getElementById('total').textContent)
-        }
+        total: document.getElementById('total').textContent
     };
-
-    // Send order to analytics backend
-    try {
-        await saveOrderToBackend(orderDetails);
-    } catch (error) {
-        console.error('Failed to save order to analytics:', error);
-    }
-
-    // Send order notification to backend (admin + customer email)
-    try {
-        await sendOrderNotification(orderDetails);
-    } catch (error) {
-        console.error('Order notification failed:', error);
-        showNotification('Order placed, but we could not send confirmation. We will follow up shortly.', 'error');
-    }
 
     // Store order in localStorage
     let orders = JSON.parse(localStorage.getItem('orders')) || [];
@@ -445,112 +407,19 @@ async function processOrder() {
     showSuccessModal(orderNumber);
 }
 
-// Save order to backend for analytics
-async function saveOrderToBackend(orderDetails) {
-    // Detect device type
-    const deviceType = /Mobile|Android|iPhone/i.test(navigator.userAgent) ? 'mobile' : 'desktop';
-    
-    // Get traffic source
-    const trafficSource = getTrafficSource();
-    
-    // Prepare order data for backend
-    const orderData = {
-        orderId: orderDetails.orderNumber,
-        customerEmail: orderDetails.shippingInfo.email,
-        customerName: `${orderDetails.shippingInfo.firstName} ${orderDetails.shippingInfo.lastName}`,
-        products: orderDetails.items.map(item => ({
-            name: item.name,
-            price: item.price,
-            quantity: item.quantity,
-            size: item.size,
-            image: item.image
-        })),
-        subtotal: orderDetails.totals.subtotal,
-        tax: orderDetails.totals.tax,
-        shipping: orderDetails.totals.shipping,
-        discount: orderDetails.totals.subtotal * promoDiscount,
-        total: orderDetails.totals.total,
-        shippingAddress: {
-            fullName: `${orderDetails.shippingInfo.firstName} ${orderDetails.shippingInfo.lastName}`,
-            address: orderDetails.shippingInfo.address,
-            city: orderDetails.shippingInfo.city,
-            state: orderDetails.shippingInfo.state,
-            zipCode: orderDetails.shippingInfo.zipCode,
-            country: orderDetails.shippingInfo.country,
-            phone: orderDetails.shippingInfo.phone
-        },
-        paymentMethod: orderDetails.paymentMethod,
-        deviceType: deviceType,
-        trafficSource: trafficSource,
-        referrer: document.referrer || 'Direct'
-    };
-
-    // Send to backend
-    const response = await fetch('/api/orders', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(orderData)
-    });
-
-    if (!response.ok) {
-        throw new Error('Failed to save order');
-    }
-
-    return await response.json();
-}
-
-// Get traffic source from URL parameters or referrer
-function getTrafficSource() {
-    // Check for UTM parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    const utmSource = urlParams.get('utm_source');
-    
-    if (utmSource) {
-        return utmSource.charAt(0).toUpperCase() + utmSource.slice(1);
-    }
-    
-    // Check referrer
-    const referrer = document.referrer;
-    if (!referrer) return 'Direct';
-    
-    try {
-        const referrerUrl = new URL(referrer);
-        const hostname = referrerUrl.hostname.toLowerCase();
-        
-        if (hostname.includes('google')) return 'Google';
-        if (hostname.includes('facebook')) return 'Facebook';
-        if (hostname.includes('instagram')) return 'Instagram';
-        if (hostname.includes('twitter') || hostname.includes('x.com')) return 'Twitter';
-        if (hostname.includes('tiktok')) return 'TikTok';
-        if (hostname.includes('youtube')) return 'YouTube';
-        
-        return 'Referral';
-    } catch {
-        return 'Direct';
-    }
-}
-
 // Show success modal
 function showSuccessModal(orderNumber) {
     document.getElementById('orderNumber').textContent = orderNumber;
     document.getElementById('successModal').classList.add('open');
     document.getElementById('overlay').classList.add('active');
+
+    // Send confirmation email (simulated)
+    sendConfirmationEmail(orderNumber);
 }
 
-// Send order notification (admin + customer email)
-async function sendOrderNotification(orderDetails) {
-    const response = await fetch('/api/order', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(orderDetails)
-    });
-
-    if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(errorText || 'Failed to send order notification');
-    }
+// Send confirmation email (simulated)
+function sendConfirmationEmail(orderNumber) {
+    // In a real application, this would trigger a backend API call to send email
 }
 
 // Show notification

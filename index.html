@@ -41,13 +41,7 @@
                             <li><a href="#" onclick="filterByAbayaStyle('streetwear'); return false;">Streetwear</a></li>
                         </ul>
                     </li>
-                    <li class="nav-dropdown">
-                        <a href="#kids">Kids</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#" onclick="filterByKidsGender('boys'); return false;">Boys</a></li>
-                            <li><a href="#" onclick="filterByKidsGender('girls'); return false;">Girls</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="#kids" onclick="showCategory('kids')">Kids</a></li>
                     <li><a href="#perfume">Perfume</a></li>
                     <li><a href="#about">About</a></li>
                 </ul>
@@ -108,15 +102,7 @@
                 </ul>
             </div>
 
-            <!-- Kids Dropdown -->
-            <div class="sidebar-dropdown">
-                <a href="#kids" class="sidebar-link sidebar-dropdown-toggle"><i class="fas fa-child"></i><span>Kids</span><i class="fas fa-chevron-down"></i></a>
-                <ul class="sidebar-dropdown-menu">
-                    <li><a href="#" onclick="filterByKidsGender('boys'); return false;">Boys</a></li>
-                    <li><a href="#" onclick="filterByKidsGender('girls'); return false;">Girls</a></li>
-                </ul>
-            </div>
-
+            <a href="#kids" class="sidebar-link" onclick="showCategory('kids')"><i class="fas fa-child"></i><span>Kids</span></a>
             <a href="#about" class="sidebar-link"><i class="fas fa-info-circle"></i><span>About</span></a>
             <a href="checkout.html" class="sidebar-link"><i class="fas fa-credit-card"></i><span>Checkout</span></a>
         </nav>
@@ -185,6 +171,10 @@
         </div>
 
         <div class="container">
+            <div class="category-section-header">
+                <h2 class="section-title" id="categorySectionTitle">Men's Collection</h2>
+            </div>
+
             <!-- Dynamic subsections will be loaded here -->
             <div id="categorySubsections"></div>
         </div>
@@ -220,12 +210,6 @@
             <div class="streetwear-header">
                 <h2 class="section-title streetwear-title"><i class="fas fa-bolt"></i> Streetwear Collection</h2>
                 <p class="section-subtitle streetwear-subtitle">Bold designs that blend faith and comfort</p>
-                <div class="streetwear-filters">
-                    <button class="filter-btn active" data-filter="all" onclick="filterStreetWear('all')">All</button>
-                    <button class="filter-btn" data-filter="hoodie" onclick="filterStreetWear('hoodie')">Hoodies</button>
-                    <button class="filter-btn" data-filter="jacket" onclick="filterStreetWear('jacket')">Jackets</button>
-                    <button class="filter-btn" data-filter="trouser" onclick="filterStreetWear('trouser')">Trousers</button>
-                </div>
             </div>
 
             <!-- Men's Streetwear -->

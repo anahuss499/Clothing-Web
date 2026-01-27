@@ -48,18 +48,6 @@ function showWelcomeToast(user) {
     }, 4000);
 }
 
-// Get current user ID (email is used as unique identifier)
-function getCurrentUserId() {
-    const isLoggedIn = localStorage.getItem('isLoggedIn');
-    if (isLoggedIn === 'true') {
-        const user = JSON.parse(localStorage.getItem('user'));
-        if (user && user.email) {
-            return user.email;
-        }
-    }
-    return null;
-}
-
 // Sample product data with enhanced details
 const products = [
     {
@@ -82,9 +70,9 @@ const products = [
         ],
         images: ['🕌', '🕌', '🕌', '🕌'],
         reviews_data: [
-            { author: 'Omar S.', rating: 5, date: '2 weeks ago', text: 'Perfect blend of modesty and style. The quality is exceptional and it fits perfectly!', helpfulCount: 32, notHelpfulCount: 3 },
-            { author: 'Ahmed K.', rating: 4, date: '1 month ago', text: 'Great thobe, very comfortable. Only issue is the delivery took longer than expected.', helpfulCount: 32, notHelpfulCount: 5 },
-            { author: 'Hassan M.', rating: 5, date: '1 month ago', text: 'Excellent craftsmanship. Will definitely buy again!', helpfulCount: 32, notHelpfulCount: 2 }
+            { author: 'Omar S.', rating: 5, date: '2 weeks ago', text: 'Perfect blend of modesty and style. The quality is exceptional and it fits perfectly!' },
+            { author: 'Ahmed K.', rating: 4, date: '1 month ago', text: 'Great thobe, very comfortable. Only issue is the delivery took longer than expected.' },
+            { author: 'Hassan M.', rating: 5, date: '1 month ago', text: 'Excellent craftsmanship. Will definitely buy again!' }
         ]
     },
     {
@@ -106,8 +94,8 @@ const products = [
         ],
         images: ['🕌', '🕌', '🕌', '🕌'],
         reviews_data: [
-            { author: 'Fatima B.', rating: 5, date: '3 weeks ago', text: 'My husband looks so handsome in this! Perfect for Eid celebrations.', helpfulCount: 32, notHelpfulCount: 4 },
-            { author: 'Mohammed F.', rating: 4, date: '1 month ago', text: 'Good quality, fits well. White color is brighter than expected.', helpfulCount: 32, notHelpfulCount: 4 }
+            { author: 'Fatima B.', rating: 5, date: '3 weeks ago', text: 'My husband looks so handsome in this! Perfect for Eid celebrations.' },
+            { author: 'Mohammed F.', rating: 4, date: '1 month ago', text: 'Good quality, fits well. White color is brighter than expected.' }
         ]
     },
     {
@@ -128,8 +116,8 @@ const products = [
         ],
         images: ['🕌', '🕌', '🕌', '🕌'],
         reviews_data: [
-            { author: 'Sultan A.', rating: 5, date: '2 weeks ago', text: 'Versatile and elegant. Great for both casual and formal settings.', helpfulCount: 32, notHelpfulCount: 4 },
-            { author: 'Yusuf M.', rating: 4, date: '2 weeks ago', text: 'Nice quality but fabric is a bit thick in summer.', helpfulCount: 32, notHelpfulCount: 4 }
+            { author: 'Sultan A.', rating: 5, date: '2 weeks ago', text: 'Versatile and elegant. Great for both casual and formal settings.' },
+            { author: 'Yusuf M.', rating: 4, date: '2 weeks ago', text: 'Nice quality but fabric is a bit thick in summer.' }
         ]
     },
     {
@@ -151,8 +139,8 @@ const products = [
         ],
         images: ['👕', '👕', '👕', '👕'],
         reviews_data: [
-            { author: 'Karim D.', rating: 5, date: '1 week ago', text: 'Love the design! Very comfortable hoodie, perfect for street style.', helpfulCount: 32, notHelpfulCount: 4 },
-            { author: 'Ali R.', rating: 5, date: '2 weeks ago', text: 'Great quality and the graphics are amazing.', helpfulCount: 32, notHelpfulCount: 4 }
+            { author: 'Karim D.', rating: 5, date: '1 week ago', text: 'Love the design! Very comfortable hoodie, perfect for street style.' },
+            { author: 'Ali R.', rating: 5, date: '2 weeks ago', text: 'Great quality and the graphics are amazing.' }
         ]
     },
     {
@@ -174,8 +162,8 @@ const products = [
         ],
         images: ['🧥', '🧥', '🧥', '🧥'],
         reviews_data: [
-            { author: 'Jamal S.', rating: 5, date: '2 weeks ago', text: 'Stylish and well-made. Exactly what I was looking for!', helpfulCount: 32, notHelpfulCount: 4 },
-            { author: 'Rashid M.', rating: 5, date: '1 month ago', text: 'Amazing quality. The design is subtle but meaningful.', helpfulCount: 32, notHelpfulCount: 4 }
+            { author: 'Jamal S.', rating: 5, date: '2 weeks ago', text: 'Stylish and well-made. Exactly what I was looking for!' },
+            { author: 'Rashid M.', rating: 5, date: '1 month ago', text: 'Amazing quality. The design is subtle but meaningful.' }
         ]
     },
     {
@@ -198,8 +186,8 @@ const products = [
         ],
         images: ['👗', '👗', '👗', '👗'],
         reviews_data: [
-            { author: 'Aisha N.', rating: 5, date: '3 weeks ago', text: 'Beautiful abaya! Fits perfectly and the material is so soft.', helpfulCount: 32, notHelpfulCount: 4 },
-            { author: 'Leila H.', rating: 4, date: '1 month ago', text: 'Very elegant. Only wish it came in more colors.', helpfulCount: 32, notHelpfulCount: 4 }
+            { author: 'Aisha N.', rating: 5, date: '3 weeks ago', text: 'Beautiful abaya! Fits perfectly and the material is so soft.' },
+            { author: 'Leila H.', rating: 4, date: '1 month ago', text: 'Very elegant. Only wish it came in more colors.' }
         ]
     },
     {
@@ -221,8 +209,8 @@ const products = [
         ],
         images: ['👗', '👗', '👗', '👗'],
         reviews_data: [
-            { author: 'Noor K.', rating: 5, date: '1 week ago', text: 'Perfect abaya! Great quality and very comfortable.', helpfulCount: 32, notHelpfulCount: 4 },
-            { author: 'Rania M.', rating: 4, date: '2 weeks ago', text: 'Good value for money. Very happy with my purchase.', helpfulCount: 32, notHelpfulCount: 4 }
+            { author: 'Noor K.', rating: 5, date: '1 week ago', text: 'Perfect abaya! Great quality and very comfortable.' },
+            { author: 'Rania M.', rating: 4, date: '2 weeks ago', text: 'Good value for money. Very happy with my purchase.' }
         ]
     },
     {
@@ -244,8 +232,8 @@ const products = [
         ],
         images: ['👗', '👗', '👗', '👗'],
         reviews_data: [
-            { author: 'Yasmin S.', rating: 5, date: '2 weeks ago', text: 'Absolutely stunning! The embroidery is exquisite.', helpfulCount: 32, notHelpfulCount: 4 },
-            { author: 'Dina W.', rating: 5, date: '1 month ago', text: 'Worth every penny. I get compliments every time I wear it.', helpfulCount: 32, notHelpfulCount: 4 }
+            { author: 'Yasmin S.', rating: 5, date: '2 weeks ago', text: 'Absolutely stunning! The embroidery is exquisite.' },
+            { author: 'Dina W.', rating: 5, date: '1 month ago', text: 'Worth every penny. I get compliments every time I wear it.' }
         ]
     },
     {
@@ -267,8 +255,8 @@ const products = [
         ],
         images: ['👗', '👗', '👗', '👗'],
         reviews_data: [
-            { author: 'Zahra E.', rating: 5, date: '1 week ago', text: 'Absolutely gorgeous! The crystals are stunning and high quality.', helpfulCount: 32, notHelpfulCount: 4 },
-            { author: 'Amira F.', rating: 5, date: '2 weeks ago', text: 'Perfect for special occasions. This abaya is a showstopper!', helpfulCount: 32, notHelpfulCount: 4 }
+            { author: 'Zahra E.', rating: 5, date: '1 week ago', text: 'Absolutely gorgeous! The crystals are stunning and high quality.' },
+            { author: 'Amira F.', rating: 5, date: '2 weeks ago', text: 'Perfect for special occasions. This abaya is a showstopper!' }
         ]
     },
     {
@@ -289,8 +277,8 @@ const products = [
         ],
         images: ['👗', '👗', '👗', '👗'],
         reviews_data: [
-            { author: 'Hana G.', rating: 5, date: '1 week ago', text: 'Simple and perfect! Great quality for the price.', helpfulCount: 32, notHelpfulCount: 4 },
-            { author: 'Sarah J.', rating: 4, date: '2 weeks ago', text: 'Very comfortable and versatile. Love it!', helpfulCount: 32, notHelpfulCount: 4 }
+            { author: 'Hana G.', rating: 5, date: '1 week ago', text: 'Simple and perfect! Great quality for the price.' },
+            { author: 'Sarah J.', rating: 4, date: '2 weeks ago', text: 'Very comfortable and versatile. Love it!' }
         ]
     },
     {
@@ -310,8 +298,8 @@ const products = [
         ],
         images: ['🧕', '🧕', '🧕', '🧕'],
         reviews_data: [
-            { author: 'Maha T.', rating: 5, date: '1 week ago', text: 'Great set of hijabs! Excellent quality and perfect colors.', helpfulCount: 32, notHelpfulCount: 4 },
-            { author: 'Zainab L.', rating: 4, date: '2 weeks ago', text: 'Good quality but wish there were more color options.', helpfulCount: 32, notHelpfulCount: 4 }
+            { author: 'Maha T.', rating: 5, date: '1 week ago', text: 'Great set of hijabs! Excellent quality and perfect colors.' },
+            { author: 'Zainab L.', rating: 4, date: '2 weeks ago', text: 'Good quality but wish there were more color options.' }
         ]
     },
     {
@@ -331,8 +319,8 @@ const products = [
         ],
         images: ['🧕', '🧕', '🧕', '🧕'],
         reviews_data: [
-            { author: 'Hana R.', rating: 5, date: '2 weeks ago', text: 'Perfect chiffon hijabs! Very easy to style.', helpfulCount: 32, notHelpfulCount: 4 },
-            { author: 'Sarai M.', rating: 4, date: '1 month ago', text: 'Good quality, but one hijab got damaged during shipping.', helpfulCount: 32, notHelpfulCount: 4 }
+            { author: 'Hana R.', rating: 5, date: '2 weeks ago', text: 'Perfect chiffon hijabs! Very easy to style.' },
+            { author: 'Sarai M.', rating: 4, date: '1 month ago', text: 'Good quality, but one hijab got damaged during shipping.' }
         ]
     },
     {
@@ -352,8 +340,8 @@ const products = [
         ],
         images: ['🧕', '🧕', '🧕', '🧕'],
         reviews_data: [
-            { author: 'Rana K.', rating: 5, date: '1 week ago', text: 'These hijabs stay in place all day! Best purchase ever.', helpfulCount: 32, notHelpfulCount: 4 },
-            { author: 'Lina S.', rating: 5, date: '2 weeks ago', text: 'Very comfortable and stylish. Highly recommend!', helpfulCount: 32, notHelpfulCount: 4 }
+            { author: 'Rana K.', rating: 5, date: '1 week ago', text: 'These hijabs stay in place all day! Best purchase ever.' },
+            { author: 'Lina S.', rating: 5, date: '2 weeks ago', text: 'Very comfortable and stylish. Highly recommend!' }
         ]
     },
     {
@@ -375,8 +363,8 @@ const products = [
         ],
         images: ['👕', '👕', '👕', '👕'],
         reviews_data: [
-            { author: 'Sara J.', rating: 5, date: '2 weeks ago', text: 'Love this hoodie! Perfect for layering and very comfortable.', helpfulCount: 32, notHelpfulCount: 4 },
-            { author: 'Noura B.', rating: 4, date: '1 month ago', text: 'Good quality but sizing runs small.', helpfulCount: 32, notHelpfulCount: 4 }
+            { author: 'Sara J.', rating: 5, date: '2 weeks ago', text: 'Love this hoodie! Perfect for layering and very comfortable.' },
+            { author: 'Noura B.', rating: 4, date: '1 month ago', text: 'Good quality but sizing runs small.' }
         ]
     },
     {
@@ -397,8 +385,8 @@ const products = [
         ],
         images: ['👖', '👖', '👖', '👖'],
         reviews_data: [
-            { author: 'Amira G.', rating: 5, date: '2 weeks ago', text: 'Perfect set! Everything matches and looks amazing together.', helpfulCount: 32, notHelpfulCount: 4 },
-            { author: 'Tasneem A.', rating: 5, date: '1 month ago', text: 'Great value as a set. Love the coordinated look!', helpfulCount: 32, notHelpfulCount: 4 }
+            { author: 'Amira G.', rating: 5, date: '2 weeks ago', text: 'Perfect set! Everything matches and looks amazing together.' },
+            { author: 'Tasneem A.', rating: 5, date: '1 month ago', text: 'Great value as a set. Love the coordinated look!' }
         ]
     },
     {
@@ -407,7 +395,6 @@ const products = [
         category: 'kids',
         type: 'islamic',
         subtype: 'other',
-        gender: 'unisex',
         price: 39.99,
         rating: 4.9,
         reviews: 31,
@@ -421,8 +408,8 @@ const products = [
         ],
         images: ['👶', '👶', '👶', '👶'],
         reviews_data: [
-            { author: 'Mama Zara', rating: 5, date: '2 weeks ago', text: 'My kids look so adorable in these kurtas! Perfect for Eid.', helpfulCount: 32, notHelpfulCount: 4 },
-            { author: 'Mama Amira', rating: 5, date: '1 month ago', text: 'Great quality and my kids love them!', helpfulCount: 32, notHelpfulCount: 4 }
+            { author: 'Mama Zara', rating: 5, date: '2 weeks ago', text: 'My kids look so adorable in these kurtas! Perfect for Eid.' },
+            { author: 'Mama Amira', rating: 5, date: '1 month ago', text: 'Great quality and my kids love them!' }
         ]
     },
     {
@@ -431,7 +418,6 @@ const products = [
         category: 'kids',
         type: 'islamic',
         subtype: 'thobe',
-        gender: 'boys',
         price: 45.99,
         rating: 4.8,
         reviews: 44,
@@ -445,8 +431,8 @@ const products = [
         ],
         images: ['🕌', '🕌', '🕌', '🕌'],
         reviews_data: [
-            { author: 'Mama Noor', rating: 5, date: '1 week ago', text: 'My son looks so cute! Perfect thobe for celebrations.', helpfulCount: 32, notHelpfulCount: 4 },
-            { author: 'Mama Yasmin', rating: 4, date: '2 weeks ago', text: 'Good quality but sizing is tight.', helpfulCount: 32, notHelpfulCount: 4 }
+            { author: 'Mama Noor', rating: 5, date: '1 week ago', text: 'My son looks so cute! Perfect thobe for celebrations.' },
+            { author: 'Mama Yasmin', rating: 4, date: '2 weeks ago', text: 'Good quality but sizing is tight.' }
         ]
     },
     {
@@ -455,7 +441,6 @@ const products = [
         category: 'kids',
         type: 'islamic',
         subtype: 'thobe',
-        gender: 'unisex',
         price: 42.99,
         rating: 4.7,
         reviews: 38,
@@ -468,8 +453,8 @@ const products = [
         ],
         images: ['🕌', '🕌', '🕌', '🕌'],
         reviews_data: [
-            { author: 'Mama Layla', rating: 5, date: '2 weeks ago', text: 'Perfect thobe! My children love wearing it.', helpfulCount: 32, notHelpfulCount: 4 },
-            { author: 'Mama Hana', rating: 4, date: '1 month ago', text: 'Good quality but white can stain easily.', helpfulCount: 32, notHelpfulCount: 4 }
+            { author: 'Mama Layla', rating: 5, date: '2 weeks ago', text: 'Perfect thobe! My children love wearing it.' },
+            { author: 'Mama Hana', rating: 4, date: '1 month ago', text: 'Good quality but white can stain easily.' }
         ]
     },
     {
@@ -478,7 +463,6 @@ const products = [
         category: 'kids',
         type: 'streetwear',
         subtype: 'tshirt',
-        gender: 'unisex',
         price: 19.99,
         rating: 4.5,
         reviews: 24,
@@ -491,8 +475,8 @@ const products = [
         ],
         images: ['👕', '👕', '👕', '👕'],
         reviews_data: [
-            { author: 'Mama Sara', rating: 5, date: '2 weeks ago', text: 'My kids love these tees! Great design and quality.', helpfulCount: 32, notHelpfulCount: 4 },
-            { author: 'Mama Dina', rating: 4, date: '1 month ago', text: 'Good price but material is thin.', helpfulCount: 32, notHelpfulCount: 4 }
+            { author: 'Mama Sara', rating: 5, date: '2 weeks ago', text: 'My kids love these tees! Great design and quality.' },
+            { author: 'Mama Dina', rating: 4, date: '1 month ago', text: 'Good price but material is thin.' }
         ]
     },
     {
@@ -514,8 +498,8 @@ const products = [
         ],
         images: ['🕋', '🕋', '🕋', '🕋'],
         reviews_data: [
-            { author: 'Abdullah M.', rating: 5, date: '1 week ago', text: 'Perfect prayer mat! Very portable and well-made.', helpfulCount: 32, notHelpfulCount: 4 },
-            { author: 'Khalid A.', rating: 5, date: '2 weeks ago', text: 'Excellent quality. I take it everywhere!', helpfulCount: 32, notHelpfulCount: 4 }
+            { author: 'Abdullah M.', rating: 5, date: '1 week ago', text: 'Perfect prayer mat! Very portable and well-made.' },
+            { author: 'Khalid A.', rating: 5, date: '2 weeks ago', text: 'Excellent quality. I take it everywhere!' }
         ]
     },
     {
@@ -537,8 +521,8 @@ const products = [
         ],
         images: ['👗', '👗', '👗', '👗'],
         reviews_data: [
-            { author: 'Nadia T.', rating: 5, date: '2 weeks ago', text: 'Stunning jilbab! The design is elegant and modern.', helpfulCount: 32, notHelpfulCount: 4 },
-            { author: 'Salma R.', rating: 5, date: '1 month ago', text: 'Worth the investment. High-quality material and beautiful design.', helpfulCount: 32, notHelpfulCount: 4 }
+            { author: 'Nadia T.', rating: 5, date: '2 weeks ago', text: 'Stunning jilbab! The design is elegant and modern.' },
+            { author: 'Salma R.', rating: 5, date: '1 month ago', text: 'Worth the investment. High-quality material and beautiful design.' }
         ]
     },
     {
@@ -560,8 +544,8 @@ const products = [
         ],
         images: ['👔', '👔', '👔', '👔'],
         reviews_data: [
-            { author: 'Tarek F.', rating: 5, date: '2 weeks ago', text: 'Great tracksuit! Perfect for gym and casual wear.', helpfulCount: 32, notHelpfulCount: 4 },
-            { author: 'Waleed S.', rating: 4, date: '1 month ago', text: 'Good quality but expensive.', helpfulCount: 32, notHelpfulCount: 4 }
+            { author: 'Tarek F.', rating: 5, date: '2 weeks ago', text: 'Great tracksuit! Perfect for gym and casual wear.' },
+            { author: 'Waleed S.', rating: 4, date: '1 month ago', text: 'Good quality but expensive.' }
         ]
     },
     {
@@ -570,7 +554,6 @@ const products = [
         category: 'kids',
         type: 'islamic',
         subtype: 'dress',
-        gender: 'girls',
         price: 44.99,
         rating: 4.7,
         reviews: 29,
@@ -584,8 +567,8 @@ const products = [
         ],
         images: ['👗', '👗', '👗', '👗'],
         reviews_data: [
-            { author: 'Mama Mariam', rating: 5, date: '2 weeks ago', text: 'Adorable dress! My daughter loves it.', helpfulCount: 32, notHelpfulCount: 4 },
-            { author: 'Mama Rana', rating: 4, date: '1 month ago', text: 'Pretty dress but runs a bit small.', helpfulCount: 32, notHelpfulCount: 4 }
+            { author: 'Mama Mariam', rating: 5, date: '2 weeks ago', text: 'Adorable dress! My daughter loves it.' },
+            { author: 'Mama Rana', rating: 4, date: '1 month ago', text: 'Pretty dress but runs a bit small.' }
         ]
     },
     {
@@ -607,7 +590,7 @@ const products = [
         ],
         images: ['🧕', '🧕', '🧕', '🧕'],
         reviews_data: [
-            { author: 'Mona E.', rating: 5, date: '1 week ago', text: 'Perfect for sports! Stays in place and breathes well.', helpfulCount: 32, notHelpfulCount: 4 },
+            { author: 'Mona E.', rating: 5, date: '1 week ago', text: 'Perfect for sports! Stays in place and breathes well.' },
             { author: 'Alia H.', rating: 5, date: '2 weeks ago', text: 'Best sports hijab I\'ve tried. Highly recommend!' }
         ]
     },
@@ -631,8 +614,8 @@ const products = [
         ],
         images: ['🧥', '🧥', '🧥', '🧥'],
         reviews_data: [
-            { author: 'Faisal P.', rating: 5, date: '2 weeks ago', text: 'Excellent jacket! Looks very elegant and modern.', helpfulCount: 32, notHelpfulCount: 4 },
-            { author: 'Bilal Q.', rating: 4, date: '1 month ago', text: 'Good quality but could use better stitching.', helpfulCount: 32, notHelpfulCount: 4 }
+            { author: 'Faisal P.', rating: 5, date: '2 weeks ago', text: 'Excellent jacket! Looks very elegant and modern.' },
+            { author: 'Bilal Q.', rating: 4, date: '1 month ago', text: 'Good quality but could use better stitching.' }
         ]
     },
     // Moroccan Jubbahs
@@ -656,8 +639,8 @@ const products = [
         ],
         images: ['👔', '👔', '👔', '👔'],
         reviews_data: [
-            { author: 'Hassan M.', rating: 5, date: '2 weeks ago', text: 'Authentic Moroccan style! Very comfortable and looks great.', helpfulCount: 32, notHelpfulCount: 4 },
-            { author: 'Karim Z.', rating: 5, date: '1 month ago', text: 'Perfect for special occasions. Quality is outstanding!', helpfulCount: 32, notHelpfulCount: 4 }
+            { author: 'Hassan M.', rating: 5, date: '2 weeks ago', text: 'Authentic Moroccan style! Very comfortable and looks great.' },
+            { author: 'Karim Z.', rating: 5, date: '1 month ago', text: 'Perfect for special occasions. Quality is outstanding!' }
         ]
     },
     {
@@ -679,8 +662,8 @@ const products = [
         ],
         images: ['👔', '👔', '👔', '👔'],
         reviews_data: [
-            { author: 'Omar N.', rating: 5, date: '2 weeks ago', text: 'Stunning embroidery work! Received many compliments.', helpfulCount: 32, notHelpfulCount: 4 },
-            { author: 'Youssef R.', rating: 5, date: '1 month ago', text: 'Worth every penny. Premium quality!', helpfulCount: 32, notHelpfulCount: 4 }
+            { author: 'Omar N.', rating: 5, date: '2 weeks ago', text: 'Stunning embroidery work! Received many compliments.' },
+            { author: 'Youssef R.', rating: 5, date: '1 month ago', text: 'Worth every penny. Premium quality!' }
         ]
     },
     // Arab Jubbahs
@@ -704,8 +687,8 @@ const products = [
         ],
         images: ['👔', '👔', '👔', '👔'],
         reviews_data: [
-            { author: 'Rashid A.', rating: 5, date: '1 week ago', text: 'Authentic Arab styling. Very satisfied!', helpfulCount: 32, notHelpfulCount: 4 },
-            { author: 'Samir K.', rating: 4, date: '2 weeks ago', text: 'Good quality, fits perfectly.', helpfulCount: 32, notHelpfulCount: 4 }
+            { author: 'Rashid A.', rating: 5, date: '1 week ago', text: 'Authentic Arab styling. Very satisfied!' },
+            { author: 'Samir K.', rating: 4, date: '2 weeks ago', text: 'Good quality, fits perfectly.' }
         ]
     },
     {
@@ -727,7 +710,7 @@ const products = [
         ],
         images: ['👔', '👔', '👔', '👔'],
         reviews_data: [
-            { author: 'Tariq H.', rating: 5, date: '2 weeks ago', text: 'Excellent quality and perfect fit!', helpfulCount: 32, notHelpfulCount: 4 },
+            { author: 'Tariq H.', rating: 5, date: '2 weeks ago', text: 'Excellent quality and perfect fit!' },
             { author: 'Ali M.', rating: 5, date: '1 month ago', text: 'Best jubbah I\'ve owned. Highly recommend!' }
         ]
     },
@@ -752,8 +735,8 @@ const products = [
         ],
         images: ['👔', '👔', '👔', '👔'],
         reviews_data: [
-            { author: 'Emre T.', rating: 5, date: '1 week ago', text: 'Very comfortable and stylish!', helpfulCount: 32, notHelpfulCount: 4 },
-            { author: 'Mustafa D.', rating: 4, date: '2 weeks ago', text: 'Good quality, arrived on time.', helpfulCount: 32, notHelpfulCount: 4 }
+            { author: 'Emre T.', rating: 5, date: '1 week ago', text: 'Very comfortable and stylish!' },
+            { author: 'Mustafa D.', rating: 4, date: '2 weeks ago', text: 'Good quality, arrived on time.' }
         ]
     },
     {
@@ -775,8 +758,8 @@ const products = [
         ],
         images: ['👔', '👔', '👔', '👔'],
         reviews_data: [
-            { author: 'Cengiz Y.', rating: 5, date: '1 week ago', text: 'Beautiful patterns and excellent craftsmanship!', helpfulCount: 32, notHelpfulCount: 4 },
-            { author: 'Mehmet K.', rating: 5, date: '2 weeks ago', text: 'Worth the investment. Love the quality!', helpfulCount: 32, notHelpfulCount: 4 }
+            { author: 'Cengiz Y.', rating: 5, date: '1 week ago', text: 'Beautiful patterns and excellent craftsmanship!' },
+            { author: 'Mehmet K.', rating: 5, date: '2 weeks ago', text: 'Worth the investment. Love the quality!' }
         ]
     },
     // Pakistani Jubbahs
@@ -799,8 +782,8 @@ const products = [
         ],
         images: ['👔', '👔', '👔', '👔'],
         reviews_data: [
-            { author: 'Amir P.', rating: 5, date: '1 week ago', text: 'Absolutely stunning! Perfect for my wedding!', helpfulCount: 32, notHelpfulCount: 4 },
-            { author: 'Zain S.', rating: 5, date: '2 weeks ago', text: 'Premium quality and beautiful embroidery work!', helpfulCount: 32, notHelpfulCount: 4 }
+            { author: 'Amir P.', rating: 5, date: '1 week ago', text: 'Absolutely stunning! Perfect for my wedding!' },
+            { author: 'Zain S.', rating: 5, date: '2 weeks ago', text: 'Premium quality and beautiful embroidery work!' }
         ]
     },
     {
@@ -823,8 +806,8 @@ const products = [
         ],
         images: ['👔', '👔', '👔', '👔'],
         reviews_data: [
-            { author: 'Rashid U.', rating: 5, date: '1 week ago', text: 'Very comfortable for daily wear!', helpfulCount: 32, notHelpfulCount: 4 },
-            { author: 'Hassan V.', rating: 4, date: '2 weeks ago', text: 'Good value and comfortable fit.', helpfulCount: 32, notHelpfulCount: 4 }
+            { author: 'Rashid U.', rating: 5, date: '1 week ago', text: 'Very comfortable for daily wear!' },
+            { author: 'Hassan V.', rating: 4, date: '2 weeks ago', text: 'Good value and comfortable fit.' }
         ]
     }
 ];
@@ -839,46 +822,29 @@ let abayaStyleFilter = null;  // Filter for women's abayas (classic, dubai, mode
 // Initialize
 document.addEventListener('DOMContentLoaded', function() {
     checkUserLogin(); // Check if user is logged in
-
-    // Only render products grid on pages that include it
-    if (document.getElementById('productsGrid')) {
-        renderProducts();
-    }
-
-    // Only render streetwear section when relevant grid exists
-    if (document.getElementById('menStreetGrid') || document.getElementById('womenStreetGrid') || document.querySelector('.streetwear-section')) {
-        renderStreetWearSection();
-    }
-
+    renderProducts();
+    renderStreetWearSection();
     updateCartCount();
     updateSavedCount();
     initializeEventListeners();
     
-    // Set current year in footer if element exists
-    const yearEl = document.getElementById('currentYear');
-    if (yearEl) yearEl.textContent = new Date().getFullYear();
+    // Set current year in footer
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
 });
 
 // Event listeners
 function initializeEventListeners() {
     // Cart button
-    // Cart button
-    const cartBtnEl = document.getElementById('cartBtn');
-    const closeCartBtnEl = document.getElementById('closeCartBtn');
-    if (cartBtnEl) cartBtnEl.addEventListener('click', toggleCart);
-    if (closeCartBtnEl) closeCartBtnEl.addEventListener('click', toggleCart);
+    document.getElementById('cartBtn').addEventListener('click', toggleCart);
+    document.getElementById('closeCartBtn').addEventListener('click', toggleCart);
 
     // Saved button
-    const savedBtnEl = document.getElementById('savedBtn');
-    const closeSavedBtnEl = document.getElementById('closeSavedBtn');
-    if (savedBtnEl) savedBtnEl.addEventListener('click', toggleSaved);
-    if (closeSavedBtnEl) closeSavedBtnEl.addEventListener('click', toggleSaved);
+    document.getElementById('savedBtn').addEventListener('click', toggleSaved);
+    document.getElementById('closeSavedBtn').addEventListener('click', toggleSaved);
 
     // Modal close
-    const closeModalBtnEl = document.getElementById('closeModalBtn');
-    const overlayEl = document.getElementById('overlay');
-    if (closeModalBtnEl) closeModalBtnEl.addEventListener('click', closeModal);
-    if (overlayEl) overlayEl.addEventListener('click', closeAllSidebars);
+    document.getElementById('closeModalBtn').addEventListener('click', closeModal);
+    document.getElementById('overlay').addEventListener('click', closeAllSidebars);
 
     // Filter buttons
     document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -1109,7 +1075,7 @@ function renderProducts() {
                     ${'★'.repeat(Math.floor(product.rating))}${'☆'.repeat(5 - Math.floor(product.rating))}
                     (${product.reviews})
                 </div>
-                <div class="product-price">£${product.price.toFixed(2)}</div>
+                <div class="product-price">$${product.price.toFixed(2)}</div>
                 <div class="product-buttons">
                     <button class="add-to-cart-btn" onclick="addToCart(${product.id}); event.stopPropagation();">
                         Add to Cart
@@ -1147,17 +1113,15 @@ function toggleViewMore() {
 }
 
 // Render streetwear section
-let currentStreetWearFilter = 'all'; // Track current filter
-
-function renderStreetWearSection(filter = 'all') {
-    currentStreetWearFilter = filter;
+function renderStreetWearSection() {
+    // Get streetwear products separated by gender
+    const menStreetWear = products.filter(p => p.category === 'men' && p.type === 'streetwear');
+    const womenStreetWear = products.filter(p => p.category === 'women' && p.type === 'streetwear');
     
-    // Helper function to render products
-    const renderProducts = (productList) => {
-        if (productList.length === 0) {
-            return '<p class="empty-message">No products available</p>';
-        }
-        return productList.map(product => `
+    // Render men's streetwear
+    const menStreetGrid = document.getElementById('menStreetGrid');
+    if (menStreetWear.length > 0) {
+        menStreetGrid.innerHTML = menStreetWear.map(product => `
             <div class="product-card" data-id="${product.id}" onclick="if(event.target.closest('button') === null) showProductDetail(${product.id});" style="cursor: pointer;">
                 <div class="product-image">
                     ${product.icon}
@@ -1179,7 +1143,7 @@ function renderStreetWearSection(filter = 'all') {
                         ${'★'.repeat(Math.floor(product.rating))}${'☆'.repeat(5 - Math.floor(product.rating))}
                         (${product.reviews})
                     </div>
-                    <div class="product-price">£${product.price.toFixed(2)}</div>
+                    <div class="product-price">$${product.price.toFixed(2)}</div>
                     <div class="product-buttons">
                         <button class="add-to-cart-btn" onclick="addToCart(${product.id}); event.stopPropagation();">
                             Add to Cart
@@ -1191,44 +1155,50 @@ function renderStreetWearSection(filter = 'all') {
                 </div>
             </div>
         `).join('');
-    };
-    
-    // Filter products based on selection
-    let menProducts, womenProducts;
-    
-    if (filter === 'all') {
-        menProducts = products.filter(p => p.category === 'men' && p.type === 'streetwear');
-        womenProducts = products.filter(p => p.category === 'women' && p.type === 'streetwear');
     } else {
-        menProducts = products.filter(p => p.category === 'men' && p.type === 'streetwear' && p.subtype === filter);
-        womenProducts = products.filter(p => p.category === 'women' && p.type === 'streetwear' && p.subtype === filter);
-    }
-    
-    // Render men's streetwear
-    const menStreetGrid = document.getElementById('menStreetGrid');
-    if (menStreetGrid) {
-        menStreetGrid.innerHTML = renderProducts(menProducts);
+        menStreetGrid.innerHTML = '<p class="empty-message">No men\'s streetwear available</p>';
     }
     
     // Render women's streetwear
     const womenStreetGrid = document.getElementById('womenStreetGrid');
-    if (womenStreetGrid) {
-        womenStreetGrid.innerHTML = renderProducts(womenProducts);
+    if (womenStreetWear.length > 0) {
+        womenStreetGrid.innerHTML = womenStreetWear.map(product => `
+            <div class="product-card" data-id="${product.id}" onclick="if(event.target.closest('button') === null) showProductDetail(${product.id});" style="cursor: pointer;">
+                <div class="product-image">
+                    ${product.icon}
+                    <div class="product-actions">
+                        <button class="action-btn save-btn ${isSaved(product.id) ? 'saved' : ''}" 
+                                onclick="toggleSaveItem(${product.id}); event.stopPropagation();">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                        <button class="action-btn quick-view-btn" 
+                                onclick="showProductDetail(${product.id}); event.stopPropagation();">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">${product.category}</div>
+                    <h3 class="product-name">${product.name}</h3>
+                    <div class="product-rating">
+                        ${'★'.repeat(Math.floor(product.rating))}${'☆'.repeat(5 - Math.floor(product.rating))}
+                        (${product.reviews})
+                    </div>
+                    <div class="product-price">$${product.price.toFixed(2)}</div>
+                    <div class="product-buttons">
+                        <button class="add-to-cart-btn" onclick="addToCart(${product.id}); event.stopPropagation();">
+                            Add to Cart
+                        </button>
+                        <button class="buy-now-btn" onclick="buyNow(${product.id}); event.stopPropagation();">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    } else {
+        womenStreetGrid.innerHTML = '<p class="empty-message">No women\'s streetwear available</p>';
     }
-}
-
-// Filter streetwear by type
-function filterStreetWear(filter) {
-    // Update active button
-    document.querySelectorAll('.streetwear-filters .filter-btn').forEach(btn => {
-        btn.classList.remove('active');
-        if (btn.dataset.filter === filter) {
-            btn.classList.add('active');
-        }
-    });
-    
-    // Re-render with filter
-    renderStreetWearSection(filter);
 }
 
 // Show product detail
@@ -1403,7 +1373,7 @@ function renderCart() {
             <div class="item-image">${item.icon}</div>
             <div class="item-details">
                 <div class="item-name">${item.name}</div>
-                <div class="item-price">£${item.price.toFixed(2)}</div>
+                <div class="item-price">$${item.price.toFixed(2)}</div>
                 <div class="item-quantity">
                     <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
                     <span class="quantity-display">${item.quantity}</span>
@@ -1421,24 +1391,20 @@ function renderCart() {
 }
 
 // Toggle save item
-async function toggleSaveItem(productId) {
+function toggleSaveItem(productId) {
     const product = products.find(p => p.id === productId);
     if (!product) return;
 
-    const saved = isSaved(productId);
-    if (saved) {
-        await UserAccount.removeSavedItem(productId);
+    const index = savedItems.findIndex(item => item.id === productId);
+    if (index > -1) {
+        savedItems.splice(index, 1);
         showNotification('Removed from saved items');
     } else {
-        await UserAccount.addSavedItem({
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            image: product.images ? product.images[0] : '',
-            size: product.sizes ? product.sizes[0] : 'M'
-        });
+        savedItems.push(product);
         showNotification('Saved for later!');
     }
+
+    localStorage.setItem('savedItems', JSON.stringify(savedItems));
     updateSavedCount();
     renderSavedItems();
     renderProducts(); // Re-render to update save button states
@@ -1446,36 +1412,33 @@ async function toggleSaveItem(productId) {
 
 // Check if saved
 function isSaved(productId) {
-    const items = UserAccount.getSavedItems();
-    return items.some(item => item.id === productId || item.productId === productId);
+    return savedItems.some(item => item.id === productId);
 }
 
 // Render saved items
 function renderSavedItems() {
     const savedItemsContainer = document.getElementById('savedItems');
-    const items = UserAccount.getSavedItems();
-    if (!items || items.length === 0) {
+    
+    if (savedItems.length === 0) {
         savedItemsContainer.innerHTML = '<div class="empty-message">No saved items</div>';
         return;
     }
-    savedItemsContainer.innerHTML = items.map(item => {
-        const id = item.id || item.productId;
-        return `
+
+    savedItemsContainer.innerHTML = savedItems.map(item => `
         <div class="saved-item">
-            <div class="item-image">${item.icon || ''}</div>
+            <div class="item-image">${item.icon}</div>
             <div class="item-details">
-                <div class="item-name">${item.name || item.productName}</div>
-                <div class="item-price">£${(item.price || item.productPrice).toFixed(2)}</div>
-                <button class="btn-secondary" onclick="addToCart(${id}); showNotification('Added to cart!');">
+                <div class="item-name">${item.name}</div>
+                <div class="item-price">$${item.price.toFixed(2)}</div>
+                <button class="btn-secondary" onclick="addToCart(${item.id}); showNotification('Added to cart!');">
                     <i class="fas fa-shopping-cart"></i> Add to Cart
                 </button>
             </div>
-            <button class="remove-btn" onclick="toggleSaveItem(${id})">
+            <button class="remove-btn" onclick="toggleSaveItem(${item.id})">
                 <i class="fas fa-trash"></i>
             </button>
         </div>
-        `;
-    }).join('');
+    `).join('');
 }
 
 // Update cart count
@@ -1486,8 +1449,7 @@ function updateCartCount() {
 
 // Update saved count
 function updateSavedCount() {
-    const items = UserAccount.getSavedItems();
-    document.getElementById('savedCount').textContent = items.length;
+    document.getElementById('savedCount').textContent = savedItems.length;
 }
 
 // Toggle cart
@@ -1571,7 +1533,7 @@ function handleSearch(e) {
             <div class="search-result-image">${product.icon}</div>
             <div class="search-result-info">
                 <h4>${product.name}</h4>
-                <p>£${product.price.toFixed(2)}</p>
+                <p>$${product.price.toFixed(2)}</p>
             </div>
         </div>
     `).join('');
@@ -1582,7 +1544,6 @@ function showCategory(category) {
     // Hide main sections
     document.getElementById('products').classList.add('hidden');
     document.getElementById('about').classList.add('hidden');
-    document.getElementById('streetwearSection').classList.add('hidden');
     document.getElementById('categorySection').classList.remove('hidden');
     
     // Set category information
@@ -1592,7 +1553,8 @@ function showCategory(category) {
             subtitle: "Modern Islamic wear for men",
             icon: 'fa-male',
             subsections: [
-                { name: 'Thobes', icon: 'fa-mosque', subtype: 'thobe' }
+                { name: 'Thobes', icon: 'fa-mosque', subtype: 'thobe' },
+                { name: 'Streetwear', icon: 'fa-hat-cowboy', type: 'streetwear' }
             ]
         },
         'women': {
@@ -1601,7 +1563,8 @@ function showCategory(category) {
             icon: 'fa-female',
             subsections: [
                 { name: 'Abayas', icon: 'fa-female', subtype: 'abaya' },
-                { name: 'Hijabs', icon: 'fa-head-side-mask', subtype: 'hijab' }
+                { name: 'Hijabs', icon: 'fa-head-side-mask', subtype: 'hijab' },
+                { name: 'Streetwear', icon: 'fa-hat-cowboy', type: 'streetwear' }
             ]
         },
         'kids': {
@@ -1609,8 +1572,8 @@ function showCategory(category) {
             subtitle: "Stylish wear for children",
             icon: 'fa-child',
             subsections: [
-                { name: 'Boys', icon: 'fa-male', gender: 'boys' },
-                { name: 'Girls', icon: 'fa-female', gender: 'girls' }
+                { name: 'Thobes', icon: 'fa-mosque', subtype: 'thobe' },
+                { name: 'Islamic Wear', icon: 'fa-star-and-crescent', type: 'islamic', excludeSubtype: 'thobe' }
             ]
         }
     };
@@ -1618,12 +1581,9 @@ function showCategory(category) {
     const info = categoryInfo[category];
     
     // Update logo section (use brand logo image)
-    const categorySectionTitle = document.getElementById('categorySectionTitle');
-    if (categorySectionTitle) {
-        categorySectionTitle.textContent = info.title;
-    }
+    document.getElementById('categorySectionTitle').textContent = info.title;
     document.getElementById('categoryLogoTitle').textContent = info.title;
-    document.getElementById('categoryLogoSubtitle').textContent = '';
+    document.getElementById('categoryLogoSubtitle').textContent = info.subtitle;
     document.getElementById('categoryIcon').innerHTML = `<img class="category-logo-image" src="images/real-removebg-preview (1).png" alt="The Believers Logo">`;
     
     // Render subsections dynamically
@@ -1633,12 +1593,7 @@ function showCategory(category) {
     info.subsections.forEach(subsection => {
         let filteredProducts;
         
-        if (subsection.gender) {
-            // Filter by gender (for kids)
-            filteredProducts = products.filter(p => 
-                p.category === category && (p.gender === subsection.gender || p.gender === 'unisex')
-            );
-        } else if (subsection.subtype) {
+        if (subsection.subtype) {
             // Filter by subtype
             filteredProducts = products.filter(p => 
                 p.category === category && p.subtype === subsection.subtype
@@ -1689,7 +1644,7 @@ function showCategory(category) {
                                         ${'★'.repeat(Math.floor(product.rating))}${'☆'.repeat(5 - Math.floor(product.rating))}
                                         (${product.reviews})
                                     </div>
-                                    <div class="product-price">£${product.price.toFixed(2)}</div>
+                                    <div class="product-price">$${product.price.toFixed(2)}</div>
                                     <div class="product-buttons">
                                         <button class="add-to-cart-btn" onclick="addToCart(${product.id}); event.stopPropagation();">
                                             Add to Cart
@@ -1742,21 +1697,6 @@ function filterByAbayaStyle(style) {
     }
 }
 
-// Filter kids products by gender
-function filterByKidsGender(gender) {
-    menTypeFilter = null;  // Reset men filter
-    abayaStyleFilter = null;  // Reset women filter
-    
-    // Show category with gender filter applied
-    if (gender === 'boys') {
-        showCategoryWithFilter('kids', 'boys');
-    } else if (gender === 'girls') {
-        showCategoryWithFilter('kids', 'girls');
-    } else {
-        showCategory('kids');
-    }
-}
-
 // Show streetwear section
 function showStreetWearSection(gender = null) {
     // Hide other sections
@@ -1796,7 +1736,6 @@ function showCategoryWithFilter(category, filterValue) {
     // Hide main sections
     document.getElementById('products').classList.add('hidden');
     document.getElementById('about').classList.add('hidden');
-    document.getElementById('streetwearSection').classList.add('hidden');
     document.getElementById('categorySection').classList.remove('hidden');
     
     // Set category information
@@ -1812,12 +1751,6 @@ function showCategoryWithFilter(category, filterValue) {
             subtitle: "Modest and elegant designs",
             icon: 'fa-female',
             subsections: []
-        },
-        'kids': {
-            title: "Kids Collection",
-            subtitle: "Stylish wear for children",
-            icon: 'fa-child',
-            subsections: []
         }
     };
     
@@ -1825,12 +1758,9 @@ function showCategoryWithFilter(category, filterValue) {
     if (!info) return;
     
     // Update logo section
-    const categorySectionTitle = document.getElementById('categorySectionTitle');
-    if (categorySectionTitle) {
-        categorySectionTitle.textContent = info.title;
-    }
+    document.getElementById('categorySectionTitle').textContent = info.title;
     document.getElementById('categoryLogoTitle').textContent = info.title;
-    document.getElementById('categoryLogoSubtitle').textContent = '';
+    document.getElementById('categoryLogoSubtitle').textContent = info.subtitle;
     document.getElementById('categoryIcon').innerHTML = `<img class="category-logo-image" src="images/real-removebg-preview (1).png" alt="The Believers Logo">`;
     
     // Render filtered subsections
@@ -1844,21 +1774,21 @@ function showCategoryWithFilter(category, filterValue) {
     if (category === 'men' && menTypeFilter) {
         // Filter by menType
         if (menTypeFilter === 'moroccan') {
-            filteredProducts = products.filter(p => p.category === 'men' && p.menType === 'moroccan' && p.type !== 'streetwear');
+            filteredProducts = products.filter(p => p.category === 'men' && p.menType === 'moroccan');
             subsectionName = 'Moroccan Jubbah';
-            subsectionIcon = 'fa-male';
+            subsectionIcon = 'fa-female';
         } else if (menTypeFilter === 'arab') {
-            filteredProducts = products.filter(p => p.category === 'men' && p.menType === 'arab' && p.type !== 'streetwear');
+            filteredProducts = products.filter(p => p.category === 'men' && p.menType === 'arab');
             subsectionName = 'Arab Jubbah';
-            subsectionIcon = 'fa-male';
+            subsectionIcon = 'fa-female';
         } else if (menTypeFilter === 'turkish') {
-            filteredProducts = products.filter(p => p.category === 'men' && p.menType === 'turkish' && p.type !== 'streetwear');
+            filteredProducts = products.filter(p => p.category === 'men' && p.menType === 'turkish');
             subsectionName = 'Turkish Jubbah';
-            subsectionIcon = 'fa-male';
+            subsectionIcon = 'fa-female';
         } else if (menTypeFilter === 'pakistani') {
-            filteredProducts = products.filter(p => p.category === 'men' && p.menType === 'pakistani' && p.type !== 'streetwear');
+            filteredProducts = products.filter(p => p.category === 'men' && p.menType === 'pakistani');
             subsectionName = 'Pakistani Jubbah';
-            subsectionIcon = 'fa-male';
+            subsectionIcon = 'fa-female';
         } else if (menTypeFilter === 'streetwear') {
             filteredProducts = products.filter(p => p.category === 'men' && p.type === 'streetwear');
             subsectionName = 'Men\'s Streetwear';
@@ -1874,8 +1804,7 @@ function showCategoryWithFilter(category, filterValue) {
             filteredProducts = products.filter(p => 
                 p.category === 'women' && 
                 p.subtype === 'abaya' && 
-                p.abayaStyle === abayaStyleFilter &&
-                p.type !== 'streetwear'
+                p.abayaStyle === abayaStyleFilter
             );
             
             if (abayaStyleFilter === 'classic') subsectionName = 'Classic Abaya';
@@ -1883,17 +1812,6 @@ function showCategoryWithFilter(category, filterValue) {
             else if (abayaStyleFilter === 'modern') subsectionName = 'Modern Abaya';
             else if (abayaStyleFilter === 'embroidered') subsectionName = 'Embroidered Abaya';
             else if (abayaStyleFilter === 'simple') subsectionName = 'Simple Abaya';
-            subsectionIcon = 'fa-female';
-        }
-    } else if (category === 'kids') {
-        // Filter kids by gender
-        if (filterValue === 'boys') {
-            filteredProducts = products.filter(p => p.category === 'kids' && (p.gender === 'boys' || p.gender === 'unisex'));
-            subsectionName = 'Boys Collection';
-            subsectionIcon = 'fa-male';
-        } else if (filterValue === 'girls') {
-            filteredProducts = products.filter(p => p.category === 'kids' && (p.gender === 'girls' || p.gender === 'unisex'));
-            subsectionName = 'Girls Collection';
             subsectionIcon = 'fa-female';
         }
     }
@@ -1930,7 +1848,7 @@ function showCategoryWithFilter(category, filterValue) {
                                     ${'★'.repeat(Math.floor(product.rating))}${'☆'.repeat(5 - Math.floor(product.rating))}
                                     (${product.reviews})
                                 </div>
-                                <div class="product-price">£${product.price.toFixed(2)}</div>
+                                <div class="product-price">$${product.price.toFixed(2)}</div>
                                 <div class="product-buttons">
                                     <button class="add-to-cart-btn" onclick="addToCart(${product.id}); event.stopPropagation();">
                                         Add to Cart
@@ -1964,7 +1882,7 @@ function backToHome() {
     document.getElementById('products').classList.remove('hidden');
     document.getElementById('about').classList.remove('hidden');
     document.getElementById('categorySection').classList.add('hidden');
-    document.getElementById('streetwearSection').classList.remove('hidden');
+    document.getElementById('streetwearSection').classList.add('hidden');
     
     // Reset streetwear subsections display
     const menSection = document.querySelector('#streetwearSection .subsection:nth-child(2)');
