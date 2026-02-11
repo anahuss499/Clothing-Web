@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const sgMail = require('@sendgrid/mail');
 const rateLimit = require('express-rate-limit');
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
@@ -10,6 +11,13 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(cors());
 app.use(express.json());
+// Serve HTML files from the `html` folder at root
+app.use(express.static(path.join(__dirname, 'html')));
+// Serve CSS files from /css
+app.use('/css', express.static(path.join(__dirname, 'css')));
+// Serve JS files from /js
+app.use('/js', express.static(path.join(__dirname, 'js')));
+// Fallback: serve other static assets (images, JS) from project root
 app.use(express.static('.'));
 
 // Rate limiting to prevent spam
